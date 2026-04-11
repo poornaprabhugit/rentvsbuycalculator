@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rent or Buy Calculator 2026 — Should I Rent or Buy a Home?</title>
+  <meta name="description" content="Free US rent or buy calculator. Answer 5 simple questions and instantly see whether renting or buying a home saves you more money. Includes PMI, selling costs, opportunity cost. Updated 2026.">
+  <meta name="keywords" content="rent or buy calculator, should i rent or buy, rent vs buy, rent or buy home calculator US">
+  <meta property="og:title" content="Rent or Buy Calculator — Find Out in 60 Seconds">
+  <meta property="og:description" content="The most complete free rent or buy calculator for US homebuyers. Plain English, no jargon, instant results.">
+  <meta property="og:type" content="website">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://shouldrentorbuy.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Outfit:wght@700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = 'https://rwcdxvkubjiqtcnyinrp.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3Y2N4dmt1YmppcXRjbnlpbnJwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU5MjgyOTAsImV4cCI6MjA5MTUwNDI5MH0.JL6hLPh3rZrRtfHenyvyCgo6TISS9dgCuq1IzQC16Ik';
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7880854311820429"
+     crossorigin="anonymous"></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --navy: #1B3557;
+      --green: #27AE60;
+      --orange: #E67E22;
+      --light-bg: #F7F9FC;
+      --white: #ffffff;
+      --text-dark: #1a1a2a;
+      --text-mid: #4a5568;
+      --text-light: #718096;
+      --border: #e2e8f0;
+      font-family: 'DM Sans', sans-serif;
+      line-height: 1.5;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--light-bg); color: var(--text-dark); }
+    button,input,select { font: inherit; }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+    .sticky-nav { position: sticky; top: 0; z-index: 1000; background: #fff; border-bottom: 1px solid var(--border); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 0; }
+    .brand { font-family: 'Outfit', sans-serif; font-size: 18px; color: var(--navy); font-weight: 700; }
+    .nav-button { border: 1px solid var(--navy); background: var(--navy); color: #fff; padding: 10px 18px; border-radius: 999px; cursor: pointer; transition: opacity .2s ease; }
+    .nav-button:hover { opacity: .85; }
+    .section { padding: 48px 0; }
+    .hero { background: var(--light-bg); }
+    .hero-grid { display: grid; gap: 24px; align-items: center; }
+    .hero-copy { max-width: 640px; }
+    .hero h1 { margin: 0; font-family: 'Outfit', sans-serif; font-size: 28px; line-height: 1.1; color: var(--navy); }
+    .hero p { margin: 20px 0 0; font-size: 18px; color: var(--text-mid); max-width: 620px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+    .hero .cta { background: var(--navy); color: #fff; border: none; padding: 16px 22px; border-radius: 14px; cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 16px; }
+    .badge-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+    .badge { background: #fff; border: 1px solid var(--border); border-radius: 999px; padding: 10px 14px; font-size: 14px; color: var(--text-mid); }
+    .hero-note { margin-top: 20px; font-size: 14px; color: var(--text-light); }
+    .how-grid { display: grid; gap: 20px; }
+    .step-card { background: #fff; border: 1px solid var(--border); border-radius: 18px; padding: 22px; }
+    .step-pill { width: 46px; height: 46px; border-radius: 50%; background: var(--navy); color: #fff; display: grid; place-items: center; font-weight: 700; }
+    .step-card h3 { margin: 16px 0 8px; font-size: 18px; color: var(--navy); }
+    .step-card p { margin: 0; color: var(--text-mid); font-size: 15px; }
+    .calculator-card { background: var(--light-bg); border: 1px solid #dce4ee; border-radius: 16px; box-shadow: 0 20px 60px rgba(27,53,87,.08); padding: 24px; }
+    .section-title { margin: 0 0 12px; font-size: 24px; font-family: 'Outfit', sans-serif; color: var(--navy); }
+    .section-subtitle { margin: 0 0 24px; color: var(--text-mid); font-size: 15px; max-width: 720px; }
+    .label-group { margin-bottom: 28px; border-bottom: 1px solid #E2E8F0; padding-bottom: 24px; }
+    .label-group:last-child { margin-bottom: 0; border-bottom: none; padding-bottom: 0; }
+    .label-group label { display: block; font-size: 17px; font-weight: 600; margin-bottom: 12px; color: var(--text-dark); }
+    .label-group small { color: var(--text-light); display: block; margin-top: 6px; font-size: 14px; }
+    .input-row { display: grid; gap: 12px; }
+    .label-group input[type=number], .label-group input[type=email], .label-group input[type=text], .label-group select { width: 100%; padding: 14px 16px; border: 1.5px solid #CBD5E0; border-radius: 10px; color: var(--text-dark); font-size: 16px; background: #fff; transition: border .15s ease, box-shadow .15s ease; }
+    .label-group input[type=number]:focus, .label-group input[type=email]:focus, .label-group input[type=text]:focus, .label-group select:focus { border: 2px solid var(--navy); box-shadow: 0 0 0 3px rgba(27,53,87,0.1); outline: none; }
+    .currency-input-row { display: flex; align-items: center; gap: 10px; }
+    .currency-input-row .currency-prefix { color: #718096; font-size: 16px; min-width: 16px; }
+    .currency-input-row input { width: 100%; }
+    .formatted-value { color: var(--navy); font-weight: 700; margin-top: 8px; font-size: 15px; }
+    .input-grid { display: grid; gap: 16px; }
+    .pill-group, .radio-pill-group, .city-grid, .detail-grid, .summary-cards, .breakdown-grid, .affiliate-grid, .faq-list, .footer-grid { display: grid; gap: 12px; }
+    .radio-pill-group { display: flex; flex-wrap: wrap; gap: 10px; }
+    .radio-pill-group button { min-height: 44px; border: 1.5px solid var(--navy); border-radius: 999px; padding: 0 18px; background: #fff; color: var(--navy); font-weight: 600; cursor: pointer; transition: border-color .15s ease, transform .15s ease, background .15s ease; }
+    .radio-pill-group button.active { background: var(--navy); color: #fff; }
+    .radio-pill-group button:hover { border-color: #3e5b88; }
+    .pill-button, .mode-pill, .share-button, .result-action, .affiliate-button { border: 1px solid var(--border); background: #fff; color: var(--navy); padding: 10px 14px; border-radius: 999px; cursor: pointer; transition: all .2s ease; }
+    .pill-button.active, .mode-pill.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+    .mode-toggle { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 22px; }
+    .section-divider { height: 1px; background: var(--border); margin: 24px 0; }
+    .range-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .range-wrapper { width: 100%; }
+    .range-wrapper input[type=range] { width: 100%; height: 6px; -webkit-appearance: none; background: #d1d5db; border-radius: 999px; cursor: pointer; }
+    .range-wrapper input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: var(--navy); border: 2px solid #fff; cursor: pointer; transition: transform .1s ease; }
+    .range-wrapper input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: var(--navy); border: 2px solid #fff; cursor: pointer; transition: transform .1s ease; }
+    .range-wrapper input[type=range]::-webkit-slider-thumb:hover, .range-wrapper input[type=range]::-moz-range-thumb:hover { transform: scale(1.09); }
+    .slider-value-badge { min-width: 52px; background: var(--navy); color: #fff; border-radius: 6px; padding: 4px 10px; font-size: 13px; text-align: center; }
+    .help-note { color: #64748B; font-size: 14px; }
+    .mobile-ads-banner { display: none; position: fixed; inset: auto 0 0; width: 100%; height: 60px; background: #fff; z-index: 999; box-shadow: 0 -4px 18px rgba(0,0,0,0.12); align-items: center; justify-content: center; padding: 0 16px; }
+    .mobile-ads-content { flex: 1; color: #64748B; font-size: 13px; text-align: center; }
+    .mobile-ads-close { background: transparent; border: none; color: #718096; font-size: 24px; line-height: 1; cursor: pointer; padding: 0 10px; }
+    .detail-toggle { background: none; border: none; color: var(--navy); font-weight: 700; padding: 0; margin-top: 12px; cursor: pointer; }
+    .adsense-slot { max-width: 728px; margin: 32px auto; padding: 20px 16px; border: 1px dashed #D1D5DB; border-radius: 10px; color: #718096; font-size: 13px; text-align: center; }
+    @media (max-width: 639px) {
+      body { padding-bottom: 60px; }
+      .mobile-ads-banner { display: flex; }
+    }
+    .detail-toggle:hover { text-decoration: underline; }
+    .live-value { color: var(--navy); font-weight: 700; }
+    .warning-note { color: var(--orange); font-size: 14px; margin-top: 8px; }
+    .error-text { color: #d93025; font-size: 13px; margin-top: 8px; }
+    .calculate-button { width: 100%; height: 56px; border: none; background: var(--navy); color: #fff; border-radius: 16px; font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 700; cursor: pointer; transition: transform .15s ease, box-shadow .15s ease; display: inline-flex; align-items: center; justify-content: center; gap: 10px; }
+    .calculate-button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(27,53,87,0.3); }
+    .calculate-button:disabled { opacity: .75; cursor: not-allowed; }
+    .button-spinner { display: inline-block; width: 20px; height: 20px; border: 3px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin .8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.5); display: none; align-items: center; justify-content: center; padding: 18px; z-index: 2000; }
+    .modal-overlay.active { display: flex; }
+    .modal-card { width: 100%; max-width: 420px; background: #fff; border-radius: 16px; padding: 32px; box-shadow: 0 20px 60px rgba(0,0,0,.18); }
+    .modal-card h2 { margin: 0 0 10px; font-family: 'Outfit', sans-serif; font-size: 22px; color: var(--navy); }
+    .modal-card p { margin: 0 0 20px; color: var(--text-mid); font-size: 15px; }
+    .modal-card input { width: 100%; padding: 14px 16px; border: 1px solid var(--border); border-radius: 14px; margin-bottom: 12px; }
+    .modal-card .modal-button { width: 100%; border: none; background: var(--navy); color: #fff; padding: 14px; border-radius: 14px; font-weight: 700; cursor: pointer; }
+    .modal-skip { display: block; margin-top: 12px; text-align: center; color: var(--navy); font-size: 14px; cursor: pointer; }
+    .result-banner { border-radius: 12px; padding: 24px 24px 20px; margin-bottom: 24px; color: #fff; }
+    .result-banner.green { background: var(--green); }
+    .result-banner.orange { background: var(--orange); }
+    .result-banner.grey { background: #4a5568; }
+    .result-banner h2 { margin: 0 0 10px; font-size: 28px; font-family: 'Outfit', sans-serif; }
+    .result-banner p { margin: 6px 0; color: rgba(255,255,255,.9); font-size: 16px; }
+    .summary-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .summary-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
+    .summary-card h3 { margin: 0 0 12px; font-size: 16px; color: var(--text-mid); }
+    .summary-card strong { display: block; font-size: 24px; color: var(--navy); }
+    .break-even-box { background: #eaf3ff; border-radius: 12px; padding: 20px; color: var(--text-dark); margin: 20px 0; }
+    .break-even-box strong { display: block; margin-top: 10px; }
+    .breakdown-grid { grid-template-columns: 1fr 1fr; }
+    .breakdown-column { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
+    .breakdown-column h3 { margin-top: 0; font-size: 18px; color: var(--navy); }
+    .line-item { display: flex; justify-content: space-between; gap: 12px; margin: 12px 0; font-size: 15px; color: var(--text-mid); }
+    .line-item span:last-child { color: var(--text-dark); font-weight: 700; }
+    .line-item.green { color: var(--green); }
+    .line-item.orange { color: var(--orange); }
+    .chart-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
+    .chart-title { margin: 0 0 16px; font-family: 'Outfit', sans-serif; font-size: 20px; color: var(--navy); }
+    .chart-legend { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px; }
+    .legend-item { display: flex; align-items: center; gap: 10px; color: var(--text-mid); font-size: 14px; }
+    .legend-swatch { width: 16px; height: 16px; border-radius: 4px; }
+    .result-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+    .result-action { flex: 1 1 220px; background: #fff; color: var(--navy); border: 1px solid var(--border); border-radius: 14px; padding: 14px; text-align: center; cursor: pointer; }
+    .affiliate-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 18px; }
+    .affiliate-card { background: #fff; border: 1px solid var(--border); border-radius: 18px; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+    .affiliate-card h3 { margin: 0; font-size: 18px; color: var(--navy); }
+    .affiliate-card p { margin: 0; color: var(--text-mid); font-size: 14px; }
+    .affiliate-button { width: fit-content; border-color: var(--navy); color: var(--navy); }
+    .city-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .city-card { background: #fff; border: 1px solid var(--border); border-radius: 18px; padding: 18px; cursor: pointer; transition: border-color .2s ease, transform .2s ease; }
+    .city-card:hover { border-color: var(--navy); transform: translateY(-2px); }
+    .city-card h4 { margin: 0 0 10px; font-size: 16px; color: var(--navy); }
+    .city-card p { margin: 6px 0; color: var(--text-mid); font-size: 14px; }
+    .seo-section { background: var(--light-bg); padding: 48px 0; }
+    .seo-block { background: #fff; border: 1px solid var(--border); border-radius: 18px; padding: 24px; margin-bottom: 18px; }
+    .seo-block h3 { margin-top: 0; font-size: 18px; color: var(--navy); }
+    .seo-block p { margin: 14px 0 0; color: var(--text-mid); font-size: 15px; }
+    .faq-list { margin-top: 24px; }
+    .faq-item { background: #fff; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+    .faq-question { display: flex; justify-content: space-between; align-items: center; padding: 18px 20px; cursor: pointer; font-weight: 700; color: var(--navy); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height .25s ease, padding .25s ease; padding: 0 20px; font-size: 15px; color: var(--text-mid); }
+    .faq-item.open .faq-answer { max-height: 320px; padding: 14px 20px 20px; }
+    .footer { background: var(--navy); color: #fff; }
+    .footer-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); color: #fff; }
+    .footer-column { padding: 18px 0; }
+    .footer-column p { margin: 8px 0 0; color: rgba(255,255,255,.75); font-size: 14px; line-height: 1.7; }
+    .toast-container { position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%); z-index: 3000; display: flex; flex-direction: column; align-items: center; gap: 10px; pointer-events: none; }
+    .toast { min-width: 260px; max-width: 92vw; padding: 14px 18px; border-radius: 999px; color: #fff; font-size: 14px; opacity: 0; transform: translateY(10px); transition: transform .2s ease, opacity .2s ease; pointer-events: auto; }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.success { background: var(--green); }
+    .toast.info { background: var(--navy); }
+    .toast.error { background: #d93025; }
+    .hidden { display: none !important; }
+    .fade-in { animation: fadeIn .35s ease both; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @media (min-width: 720px) {
+      .hero-grid { grid-template-columns: 1.2fr 1fr; }
+      .how-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .input-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .detail-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .breakdown-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .affiliate-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .city-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .footer-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (max-width: 719px) {
+      .section { padding: 32px 0; }
+      .input-grid, .detail-grid, .summary-cards, .breakdown-grid, .city-grid, .affiliate-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 32px; }
+      .modal-card { padding: 24px; }
+      .section-title { font-size: 22px; }
+      .faq-question { font-size: 15px; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .input-grid { grid-template-columns: 1fr; }
+      .detail-grid { grid-template-columns: 1fr; }
+      .radio-pill-group { justify-content: flex-start; }
+    }
+    @media print {
+      body { background: #fff; color: #000; font-size: 12pt; }
+      *, *::before, *::after { box-shadow: none !important; text-shadow: none !important; }
+      .sticky-nav, .hero, .how-it-works, .calculator-card, .modal-overlay, .city-section, .affiliate-section, .adsense-placeholder, .adsense-slot, .seo-section, .faq-section, .footer, .toast-container { display: none !important; }
+      .result-banner, .summary-card, .break-even-box, .breakdown-column, .chart-card { border-color: #000; }
+      .result-banner { background: #eee; color: #000; }
+      .result-action { display: none; }
+      .chart-card canvas { background: #fff !important; }
+      @page { margin: 20mm; }
+      body::before { content: 'Rent or Buy Calculator — shouldrentorbuy.com'; display: block; margin-bottom: 16px; font-size: 12pt; font-weight: 700; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="sticky-nav">
+    <div class="container nav-inner">
+      <div class="brand">Rent or Buy Calculator</div>
+      <button class="nav-button" type="button" data-scroll="#calculator">Calculate Now</button>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="section hero">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <h1>Should You Rent or Buy a Home in 2026?</h1>
+          <p>Answer 5 simple questions and get your instant answer. No confusing finance words. No signup required. 100% free.</p>
+          <div class="hero-actions">
+            <button class="cta" type="button" data-scroll="#calculator">Find Out Now</button>
+          </div>
+          <div class="badge-list">
+            <span class="badge">100% Free</span>
+            <span class="badge">Results in 60 Seconds</span>
+            <span class="badge">Plain English — No Jargon</span>
+          </div>
+          <p class="hero-note">Used by homebuyers across all 50 US states</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section how-it-works">
+      <div class="section-title">How it works</div>
+      <div class="section-subtitle">A quick calculator built for US homebuyers with real home buying and renting costs.</div>
+      <div class="how-grid">
+        <div class="step-card">
+          <div class="step-pill">1</div>
+          <h3>Tell us your numbers</h3>
+          <p>Enter your home price, rent, and how long you plan to stay. Takes about 60 seconds.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-pill">2</div>
+          <h3>We do the math</h3>
+          <p>Our calculator runs the full financial comparison including mortgage, taxes, PMI, and opportunity cost.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-pill">3</div>
+          <h3>Get your answer</h3>
+          <p>See clearly whether renting or buying saves you money, with a plain English explanation of why.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div id="calculator" class="calculator-card">
+        <div class="section-title">Calculator</div>
+        <div class="section-subtitle">Quick start with a US city preset or enter your own numbers below.</div>
+        <div class="label-group">
+          <label for="citySelect">Quick start — pick your city:</label>
+          <select id="citySelect"></select>
+        </div>
+        <div class="input-grid">
+          <div class="label-group">
+            <label for="homePrice">How much does the home cost?</label>
+            <div class="currency-input-row">
+              <span class="currency-prefix">$</span>
+              <input id="homePrice" type="number" min="0" step="1000" placeholder="e.g. 310000" value="450000" aria-describedby="homePriceFormat">
+            </div>
+            <div class="help-note" id="homePriceFormat">Check Zillow or Realtor.com for the listing price</div>
+            <div class="formatted-value" id="homePriceDisplay">= $450,000</div>
+          </div>
+          <div class="label-group">
+            <label for="monthlyRent">What is your monthly rent right now?</label>
+            <input id="monthlyRent" type="number" min="0" step="50" value="2000">
+            <div class="help-note">What you currently pay — or would pay — to rent a similar home nearby</div>
+          </div>
+          <div class="label-group">
+            <label>How long do you plan to stay in this home?</label>
+            <div class="radio-pill-group" id="timeHorizonPills"></div>
+            <div class="help-note">Be honest — moving early is expensive and can wipe out any savings from buying</div>
+          </div>
+          <div class="label-group">
+            <label for="downPayment">How much have you saved for a down payment?</label>
+            <div class="currency-input-row">
+              <span class="currency-prefix">$</span>
+              <input id="downPayment" type="number" min="0" step="500" placeholder="e.g. 310000" value="90000">
+            </div>
+            <div class="help-note">Most US loans need at least 3% to 20% of the home price</div>
+            <div class="formatted-value" id="downPaymentFormatted">= $90,000</div>
+            <div class="live-value" id="downPaymentPct">That is 20% of the home price</div>
+            <div class="warning-note hidden" id="pmiWarning">You will likely pay PMI (an extra monthly fee) until you reach 20% equity.</div>
+          </div>
+          <div class="label-group">
+            <label for="interestRate">What is the current mortgage interest rate?</label>
+            <div class="range-row">
+              <div class="range-wrapper">
+                <input id="interestRate" type="range" min="3" max="12" step="0.1" value="6.8">
+              </div>
+              <div class="slider-value-badge" id="interestRateBadge">6.8%</div>
+            </div>
+            <div class="help-note">Google 'current 30-year mortgage rate' — right now it is around 6.8%</div>
+            <button type="button" class="detail-toggle" id="detailToggle">Want a more accurate result? Add more details ▼</button>
+          </div>
+        </div>
+        <div class="section-divider"></div>
+        <div id="detailedInputs" class="hidden">
+          <div class="section-title" style="font-size:20px;margin-bottom:14px;">Detailed settings</div>
+          <div class="detail-grid">
+            <div class="breakdown-column">
+              <h3>Your Renting Costs</h3>
+              <div class="label-group">
+                <label for="rentIncrease">Annual rent increase (%)</label>
+                <div class="range-row">
+                  <div class="range-wrapper">
+                    <input id="rentIncrease" type="range" min="0" max="10" step="0.1" value="3">
+                  </div>
+                  <div class="slider-value-badge" id="rentIncreaseBadge">3.0%</div>
+                </div>
+                <div class="help-note">Rents in the US go up about 3% each year on average.</div>
+              </div>
+              <div class="label-group">
+                <label for="securityDeposit">Security deposit ($)</label>
+                <input id="securityDeposit" type="number" min="0" step="50" value="2000">
+                <div class="help-note">Usually 1 to 2 months rent paid upfront to your landlord.</div>
+              </div>
+              <div class="label-group">
+                <label for="rentersInsurance">Renter's insurance ($/month)</label>
+                <input id="rentersInsurance" type="number" min="0" step="1" value="20">
+                <div class="help-note">Protects your belongings — usually $15 to $30 per month.</div>
+              </div>
+              <div class="label-group">
+                <label for="brokerFee">Broker/agent fee ($)</label>
+                <input id="brokerFee" type="number" min="0" step="50" value="0">
+                <div class="help-note">Some landlords charge a one-time fee to find you the rental.</div>
+              </div>
+            </div>
+            <div class="breakdown-column">
+              <h3>Your Buying Costs</h3>
+              <div class="label-group">
+                <label>Loan term</label>
+                <div class="radio-pill-group" id="loanTermPills"></div>
+              </div>
+              <div class="label-group">
+                <label for="propertyTax">Property tax rate (%)</label>
+                <input id="propertyTax" type="number" min="0" step="0.01" value="1.2">
+                <div class="help-note">Find your rate at your county assessor website — US average is 1.1%.</div>
+              </div>
+              <div class="label-group">
+                <label for="homeInsurance">Annual home insurance ($/year)</label>
+                <input id="homeInsurance" type="number" min="0" step="50" value="1800">
+                <div class="help-note">Required by lenders — US average about $1,800 per year.</div>
+              </div>
+              <div class="label-group">
+                <label for="hoaFee">HOA fee ($/month)</label>
+                <input id="hoaFee" type="number" min="0" step="10" value="0">
+                <div class="help-note">Some neighborhoods charge a monthly homeowners association fee.</div>
+              </div>
+              <div class="label-group">
+                <label for="maintenancePct">Annual maintenance (% of home value)</label>
+                <input id="maintenancePct" type="number" min="0" max="10" step="0.1" value="1">
+                <div class="help-note">Budget 1 to 2% of home value per year for repairs.</div>
+              </div>
+              <div class="label-group">
+                <label for="appreciationRate">Annual home appreciation (%)</label>
+                <div class="range-row">
+                  <div class="range-wrapper">
+                    <input id="appreciationRate" type="range" min="0" max="8" step="0.1" value="3.5">
+                  </div>
+                  <div class="slider-value-badge" id="appreciationRateBadge">3.5%</div>
+                </div>
+                <div class="help-note">US homes have grown about 3 to 4% per year historically.</div>
+              </div>
+              <div class="label-group">
+                <label for="movingCosts">Moving costs ($)</label>
+                <input id="movingCosts" type="number" min="0" step="50" value="3000">
+                <div class="help-note">The cost of moving your belongings into the new home.</div>
+              </div>
+              <div class="label-group">
+                <label for="sellingCosts">Selling costs (%)</label>
+                <input id="sellingCosts" type="number" min="0" max="20" step="0.1" value="6">
+                <div class="help-note">Real estate agents typically take 5 to 6% when you sell.</div>
+              </div>
+              <div class="label-group">
+                <label for="closingCosts">Closing costs (%)</label>
+                <input id="closingCosts" type="number" min="0" max="10" step="0.1" value="3">
+                <div class="help-note">One-time costs when you buy — typically 2 to 3% of home price.</div>
+              </div>
+            </div>
+          </div>
+          <div class="section-title" style="font-size:20px;margin:30px 0 14px;">Financial Settings</div>
+          <div class="detail-grid">
+            <div class="breakdown-column">
+              <div class="label-group">
+                <label for="investmentReturn">Investment return (%)</label>
+                <input id="investmentReturn" type="number" min="0" max="20" step="0.1" value="7">
+                <div class="help-note">What your down payment could earn invested in the stock market instead. US market has averaged about 7% per year.</div>
+              </div>
+            </div>
+            <div class="breakdown-column">
+              <div class="label-group">
+                <label>Tax filing status</label>
+                <div class="radio-pill-group" id="taxStatusPills"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="error-text hidden" id="calculatorError"></div>
+        <button class="calculate-button" type="button" id="calculateButton">Show Me Whether I Should Rent or Buy</button>
+      </div>
+    </section>
+
+    <div class="modal-overlay" id="emailModal" aria-hidden="true">
+      <div class="modal-card">
+        <h2>Your results are ready!</h2>
+        <p>Enter your email to save your personalised report. We will never send spam.</p>
+        <input id="emailInput" type="email" placeholder="your@email.com" autocomplete="email">
+        <div class="error-text hidden" id="emailError"></div>
+        <button class="modal-button" type="button" id="submitEmailButton">Show My Results</button>
+        <span class="modal-skip" id="skipEmail">Skip — show my results without saving</span>
+      </div>
+    </div>
+
+    <section class="section" id="results" aria-live="polite"></section>
+
+    <div id="adsense-slot-1" class="adsense-slot">
+      Advertisement
+    </div>
+
+    <section class="section affiliate-section">
+      <div class="section-title" id="affiliateHeading">Affiliate recommendations</div>
+      <div class="section-subtitle" id="affiliateSubtitle">Helpful partner options based on your result.</div>
+      <div class="affiliate-grid" id="affiliateCards"></div>
+      <p style="margin-top:12px;font-size:13px;color:var(--text-light);">Advertising disclosure: Rent or Buy Calculator may receive compensation when you click partner links above. This does not influence our calculator results in any way.</p>
+    </section>
+
+    <div class="mobile-ads-banner hidden" id="mobileAdsBanner">
+      <div class="mobile-ads-content">Advertisement — replace this block with your AdSense code</div>
+      <button type="button" class="mobile-ads-close" id="mobileAdsClose" aria-label="Close advertisement">×</button>
+    </div>
+
+    <section class="section city-section">
+      <div class="section-title">Rent or Buy in Your City</div>
+      <div class="section-subtitle">Every US city is different. Click your city to use local property tax rates and typical home prices.</div>
+      <div class="city-grid" id="cityGrid"></div>
+    </section>
+
+    <section class="section seo-section">
+      <div class="section-title">Why Rent vs Buy Is the Most Important Money Decision You Will Make</div>
+      <div class="seo-block">
+        <h3>The old rule — buying is always better — is no longer true</h3>
+        <p>In 2026, high interest rates mean homeownership is not always cheaper than renting. Many US cities still have lower monthly costs for renters, so the best choice depends on your exact numbers instead of an old rule of thumb.</p>
+      </div>
+      <div class="seo-block">
+        <h3>How long you plan to stay matters more than anything else</h3>
+        <p>Buying has upfront costs that take time to recover. If you move after 3 or 5 years, you may leave before those fees and closing costs are paid back. That is why the break-even year is the most important part of the comparison.</p>
+      </div>
+      <div class="seo-block">
+        <h3>Your down payment has a hidden cost most people forget</h3>
+        <p>Money in a down payment is not free — it could grow in the stock market instead. This calculator counts that opportunity cost so your rent versus buy comparison is fair and easier to understand.</p>
+      </div>
+    </section>
+
+    <section class="section faq-section">
+      <div class="section-title">Simple Answers to Common Questions</div>
+      <div class="faq-list" id="faqList"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-column">
+        <div style="font-family:'Outfit',sans-serif;font-size:18px;font-weight:700;">Rent or Buy Calculator</div>
+        <p>Free US home calculator</p>
+      </div>
+      <div class="footer-column">
+        <p>For information only. Not financial advice. Results are estimates. US market only.</p>
+      </div>
+      <div class="footer-column">
+        <div>shouldrentorbuy.com</div>
+        <p>Should I Rent or Buy? Find out free.</p>
+        <p style="margin-top:12px;font-size:14px;color:rgba(255,255,255,.85);">© 2026 shouldrentorbuy.com · <a href="privacy.html" style="color:#fff;text-decoration:underline;">Privacy Policy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script>
+    const CITY_DATA = {
+      "New York": { homePrice: 750000, propertyTax: 1.07, monthlyRent: 3500 },
+      "Los Angeles": { homePrice: 850000, propertyTax: 0.75, monthlyRent: 2800 },
+      "Chicago": { homePrice: 350000, propertyTax: 2.1, monthlyRent: 1800 },
+      "Houston": { homePrice: 310000, propertyTax: 1.85, monthlyRent: 1500 },
+      "Phoenix": { homePrice: 420000, propertyTax: 0.65, monthlyRent: 1800 },
+      "Philadelphia": { homePrice: 280000, propertyTax: 1.35, monthlyRent: 1600 },
+      "San Antonio": { homePrice: 295000, propertyTax: 1.8, monthlyRent: 1400 },
+      "San Diego": { homePrice: 900000, propertyTax: 0.73, monthlyRent: 2900 },
+      "Dallas": { homePrice: 380000, propertyTax: 1.7, monthlyRent: 1700 },
+      "Austin": { homePrice: 550000, propertyTax: 1.6, monthlyRent: 2000 },
+      "Seattle": { homePrice: 750000, propertyTax: 0.9, monthlyRent: 2400 },
+      "Miami": { homePrice: 620000, propertyTax: 0.86, monthlyRent: 2700 }
+    };
+    const DEFAULTS = {
+      propertyTaxPct: 1.2,
+      homeInsurance: 1800,
+      maintenancePct: 1,
+      appreciationPct: 3.5,
+      rentIncreasePct: 3,
+      investmentReturnPct: 7,
+      closingCostsPct: 3,
+      sellingCostsPct: 6,
+      pmiRatePct: 0.7,
+      movingCosts: 3000,
+      securityDeposit: null,
+      rentersInsurance: 20,
+      brokerFee: 0,
+      hoaFee: 0,
+      taxStatus: 'Married Filing Jointly',
+      loanTermYears: 30
+    };
+    const ELEMENTS = {
+      citySelect: document.getElementById('citySelect'),
+      cityGrid: document.getElementById('cityGrid'),
+      timeHorizonPills: document.getElementById('timeHorizonPills'),
+      loanTermPills: document.getElementById('loanTermPills'),
+      taxStatusPills: document.getElementById('taxStatusPills'),
+      detailedInputs: document.getElementById('detailedInputs'),
+      calculatorError: document.getElementById('calculatorError'),
+      emailModal: document.getElementById('emailModal'),
+      emailInput: document.getElementById('emailInput'),
+      emailError: document.getElementById('emailError'),
+      resultsSection: document.getElementById('results'),
+      affiliateCards: document.getElementById('affiliateCards'),
+      affiliateHeading: document.getElementById('affiliateHeading'),
+      affiliateSubtitle: document.getElementById('affiliateSubtitle'),
+      toastContainer: document.getElementById('toastContainer'),
+      pmiWarning: document.getElementById('pmiWarning'),
+      homePriceDisplay: document.getElementById('homePriceDisplay'),
+      downPaymentPct: document.getElementById('downPaymentPct'),
+      interestRateBadge: document.getElementById('interestRateBadge'),
+      rentIncreaseBadge: document.getElementById('rentIncreaseBadge'),
+      appreciationRateBadge: document.getElementById('appreciationRateBadge'),
+      faqList: document.getElementById('faqList')
+    };
+    let selectedCity = null;
+    let currentMode = 'simple';
+    let verdictText = '';
+    let breakevenYear = null;
+    const scrollButtons = document.querySelectorAll('[data-scroll]');
+
+    function formatCurrency(value) {
+      return Number(value).toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+    }
+    function formatPercent(value) {
+      return Number(value).toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + '%';
+    }
+    function parseNumericInput(value) {
+      return Number(String(value).replace(/[^\d]/g, '')) || 0;
+    }
+    function clampNumber(value, min, max) {
+      return Math.min(max, Math.max(min, Number(value) || 0));
+    }
+    function updateRangeBadge(rangeInput, badgeId) {
+      const badge = document.getElementById(badgeId);
+      if (!badge || !rangeInput) return;
+      const val = Number(rangeInput.value);
+      badge.textContent = formatPercent(val);
+    }
+    function showToast(message, type = 'info') {
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.textContent = message;
+      ELEMENTS.toastContainer.appendChild(toast);
+      requestAnimationFrame(() => toast.classList.add('show'));
+      setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 250); }, 3000);
+    }
+    function initMobileAdsBanner() {
+      const banner = document.getElementById('mobileAdsBanner');
+      const close = document.getElementById('mobileAdsClose');
+      if (!banner || !close) return;
+      const dismissed = localStorage.getItem('mobileAdsBannerDismissed') === 'true';
+      if (dismissed) {
+        banner.classList.add('hidden');
+        return;
+      }
+      banner.classList.remove('hidden');
+      close.addEventListener('click', () => {
+        banner.classList.add('hidden');
+        localStorage.setItem('mobileAdsBannerDismissed', 'true');
+      });
+    }
+    function createCitySelect() {
+      const select = ELEMENTS.citySelect;
+      select.innerHTML = '<option value="">Select a city to auto-fill local values</option>';
+      Object.keys(CITY_DATA).forEach(city => {
+        const option = document.createElement('option');
+        option.value = city;
+        option.textContent = city;
+        select.appendChild(option);
+      });
+      select.addEventListener('change', () => {
+        if (select.value) fillCity(select.value);
+      });
+    }
+    function createCityGrid() {
+      Object.entries(CITY_DATA).forEach(([city, data]) => {
+        const card = document.createElement('div');
+        card.className = 'city-card';
+        card.innerHTML = `<h4>${city}</h4><p>Median home price: ${formatCurrency(data.homePrice)}</p><p>Typical rent: ${formatCurrency(data.monthlyRent)}/mo</p><p>Property tax: ${data.propertyTax}%</p>`;
+        card.addEventListener('click', () => fillCity(city));
+        ELEMENTS.cityGrid.appendChild(card);
+      });
+    }
+    function fillCity(city) {
+      const data = CITY_DATA[city];
+      if (!data) return;
+      selectedCity = city;
+      document.getElementById('homePrice').value = data.homePrice;
+      document.getElementById('monthlyRent').value = data.monthlyRent;
+      document.getElementById('propertyTax').value = data.propertyTax;
+      updateLiveFields();
+      updateCitySelection(city);
+      showToast(`Filled with typical ${city} values — adjust to match your exact situation.`, 'success');
+    }
+    function updateCitySelection(city) {
+      if (ELEMENTS.citySelect) {
+        ELEMENTS.citySelect.value = city || '';
+      }
+      const cards = ELEMENTS.cityGrid.querySelectorAll('.city-card');
+      cards.forEach(card => card.classList.toggle('active', card.querySelector('h4').textContent === city));
+    }
+    function createRadioPills(container, options, defaultValue) {
+      options.forEach(option => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'pill-button';
+        button.textContent = option;
+        button.addEventListener('click', () => {
+          const siblings = container.querySelectorAll('button');
+          siblings.forEach(btn => btn.classList.toggle('active', btn === button));
+        });
+        if (option === defaultValue) button.classList.add('active');
+        container.appendChild(button);
+      });
+    }
+    function getSelectedRadio(container) {
+      const active = container.querySelector('button.active');
+      return active ? active.textContent : null;
+    }
+    function updateLiveFields() {
+      const homePrice = parseNumericInput(document.getElementById('homePrice').value);
+      const downPayment = parseNumericInput(document.getElementById('downPayment').value);
+      const interestRate = Number(document.getElementById('interestRate').value) || 0;
+      ELEMENTS.homePriceDisplay.textContent = `= ${formatCurrency(homePrice)}`;
+      document.getElementById('downPaymentFormatted').textContent = `= ${formatCurrency(downPayment)}`;
+      const downPct = homePrice > 0 ? Math.round((downPayment / homePrice) * 100) : 0;
+      ELEMENTS.downPaymentPct.textContent = `That is ${downPct}% of the home price`;
+      ELEMENTS.pmiWarning.classList.toggle('hidden', downPct >= 20 || homePrice <= 0);
+      updateRangeBadge(document.getElementById('interestRate'), 'interestRateBadge');
+      updateRangeBadge(document.getElementById('rentIncrease'), 'rentIncreaseBadge');
+      updateRangeBadge(document.getElementById('appreciationRate'), 'appreciationRateBadge');
+      const rent = Number(document.getElementById('monthlyRent').value) || 0;
+      const securityDeposit = document.getElementById('securityDeposit');
+      if (!securityDeposit.dataset.touched) {
+        securityDeposit.value = rent;
+      }
+    }
+    function toggleDetails() {
+      const isHidden = ELEMENTS.detailedInputs.classList.toggle('hidden');
+      currentMode = isHidden ? 'simple' : 'detailed';
+      const link = document.getElementById('detailToggle');
+      if (link) {
+        link.textContent = isHidden
+          ? 'Want a more accurate result? Add more details ▼'
+          : 'Hide extra details ▲';
+      }
+    }
+    function setCalculateLoading(isLoading) {
+      const button = document.getElementById('calculateButton');
+      if (!button) return;
+      if (isLoading) {
+        button.disabled = true;
+        button.innerHTML = '<span class="button-spinner"></span><span>Loading…</span>';
+      } else {
+        button.disabled = false;
+        button.textContent = 'Show Me Whether I Should Rent or Buy';
+      }
+    }
+    function validateCalculator() {
+      ELEMENTS.calculatorError.classList.add('hidden');
+      const homePrice = parseNumericInput(document.getElementById('homePrice').value);
+      const monthlyRent = Number(document.getElementById('monthlyRent').value);
+      const downPayment = parseNumericInput(document.getElementById('downPayment').value);
+      const errors = [];
+      if (homePrice <= 0) errors.push('Home cost must be greater than zero.');
+      if (monthlyRent <= 0) errors.push('Monthly rent must be greater than zero.');
+      if (downPayment < 0) errors.push('Down payment must be zero or more.');
+      if (errors.length > 0) {
+        ELEMENTS.calculatorError.textContent = errors.join(' ');
+        ELEMENTS.calculatorError.classList.remove('hidden');
+        return false;
+      }
+      return true;
+    }
+    function openModal() {
+      ELEMENTS.emailInput.value = '';
+      ELEMENTS.emailError.classList.add('hidden');
+      ELEMENTS.emailModal.classList.add('active');
+      ELEMENTS.emailModal.setAttribute('aria-hidden', 'false');
+      ELEMENTS.emailInput.focus();
+    }
+    function closeModal() {
+      ELEMENTS.emailModal.classList.remove('active');
+      ELEMENTS.emailModal.setAttribute('aria-hidden', 'true');
+      ELEMENTS.emailError.classList.add('hidden');
+    }
+    function getInputNumbers() {
+      const homePrice = clampNumber(parseNumericInput(document.getElementById('homePrice').value), 0, 999999999);
+      const monthlyRent = clampNumber(document.getElementById('monthlyRent').value, 0, 9999999);
+      const downPayment = clampNumber(parseNumericInput(document.getElementById('downPayment').value), 0, homePrice);
+      const timeHorizon = parseInt(getSelectedRadio(ELEMENTS.timeHorizonPills), 10) || 7;
+      const interestRate = clampNumber(document.getElementById('interestRate').value, 0, 100);
+      if (currentMode === 'detailed') {
+        return {
+          homePrice,
+          monthlyRent,
+          downPayment,
+          timeHorizon,
+          annualInterestRate: interestRate,
+          propertyTaxPct: clampNumber(document.getElementById('propertyTax').value, 0, 20),
+          homeInsurance: clampNumber(document.getElementById('homeInsurance').value, 0, 999999),
+          maintenancePct: clampNumber(document.getElementById('maintenancePct').value, 0, 20),
+          appreciationPct: clampNumber(document.getElementById('appreciationRate').value, 0, 20),
+          rentIncreasePct: clampNumber(document.getElementById('rentIncrease').value, 0, 20),
+          securityDeposit: clampNumber(document.getElementById('securityDeposit').value, 0, 9999999),
+          rentersInsurance: clampNumber(document.getElementById('rentersInsurance').value, 0, 9999),
+          brokerFee: clampNumber(document.getElementById('brokerFee').value, 0, 999999),
+          loanTermYears: getSelectedRadio(ELEMENTS.loanTermPills) === '15 years' ? 15 : 30,
+          hoaFee: clampNumber(document.getElementById('hoaFee').value, 0, 9999),
+          closingCostsPct: clampNumber(document.getElementById('closingCosts').value, 0, 20),
+          sellingCostsPct: clampNumber(document.getElementById('sellingCosts').value, 0, 20),
+          movingCosts: clampNumber(document.getElementById('movingCosts').value, 0, 99999),
+          investmentReturnPct: clampNumber(document.getElementById('investmentReturn').value, 0, 20),
+          taxStatus: getSelectedRadio(ELEMENTS.taxStatusPills) || DEFAULTS.taxStatus
+        };
+      }
+      return {
+        homePrice,
+        monthlyRent,
+        downPayment,
+        timeHorizon,
+        annualInterestRate: interestRate,
+        propertyTaxPct: DEFAULTS.propertyTaxPct,
+        homeInsurance: DEFAULTS.homeInsurance,
+        maintenancePct: DEFAULTS.maintenancePct,
+        appreciationPct: DEFAULTS.appreciationPct,
+        rentIncreasePct: DEFAULTS.rentIncreasePct,
+        securityDeposit: clampNumber(document.getElementById('securityDeposit').value || DEFAULTS.securityDeposit, 0, 9999999) || monthlyRent,
+        rentersInsurance: DEFAULTS.rentersInsurance,
+        brokerFee: DEFAULTS.brokerFee,
+        loanTermYears: DEFAULTS.loanTermYears,
+        hoaFee: DEFAULTS.hoaFee,
+        closingCostsPct: DEFAULTS.closingCostsPct,
+        sellingCostsPct: DEFAULTS.sellingCostsPct,
+        movingCosts: DEFAULTS.movingCosts,
+        investmentReturnPct: DEFAULTS.investmentReturnPct,
+        taxStatus: DEFAULTS.taxStatus
+      };
+    }
+    function remainingBalance(principal, monthlyRate, totalPayments, paymentsMade) {
+      if (monthlyRate === 0) return principal - (principal / totalPayments) * paymentsMade;
+      return principal * (Math.pow(1 + monthlyRate, totalPayments) - Math.pow(1 + monthlyRate, paymentsMade)) / (Math.pow(1 + monthlyRate, totalPayments) - 1);
+    }
+    function calculateResults(data) {
+      const loanAmount = Math.max(0, data.homePrice - data.downPayment);
+      const monthlyRate = data.annualInterestRate / 100 / 12;
+      const nPayments = data.loanTermYears * 12;
+      const monthlyPI = loanAmount > 0 && monthlyRate > 0
+        ? (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, nPayments)) / (Math.pow(1 + monthlyRate, nPayments) - 1)
+        : loanAmount / nPayments || 0;
+      const downPaymentPct = data.homePrice > 0 ? (data.downPayment / data.homePrice) * 100 : 0;
+      const monthlyPMI = downPaymentPct < 20 ? (data.homePrice * (DEFAULTS.pmiRatePct / 100)) / 12 : 0;
+      const monthlyTax = (data.homePrice * data.propertyTaxPct / 100) / 12;
+      const monthlyInsurance = data.homeInsurance / 12;
+      const monthlyMaintenance = (data.homePrice * data.maintenancePct / 100) / 12;
+      const monthlyHOA = data.hoaFee;
+      const pmiCostTotal = monthlyPMI * Math.min(data.timeHorizon, data.loanTermYears) * 12;
+      const rentYearValues = [];
+      let totalRentPaid = 0;
+      for (let year = 1; year <= 25; year += 1) {
+        const yearlyRent = data.monthlyRent * 12 * Math.pow(1 + data.rentIncreasePct / 100, year - 1);
+        totalRentPaid += yearlyRent;
+        const downPaymentInvested = data.downPayment * Math.pow(1 + data.investmentReturnPct / 100, year);
+        const opportunityGain = downPaymentInvested - data.downPayment;
+        const rentingCost = totalRentPaid + data.securityDeposit + data.brokerFee + (data.rentersInsurance * 12 * year) - opportunityGain;
+        const homeValueAtY = data.homePrice * Math.pow(1 + data.appreciationPct / 100, year);
+        const loanBalanceAtY = remainingBalance(loanAmount, monthlyRate, nPayments, Math.min(year * 12, nPayments));
+        const equityAtY = homeValueAtY - loanBalanceAtY;
+        const buyingCost = ((monthlyPI + monthlyTax + monthlyInsurance + monthlyMaintenance + monthlyHOA) * 12 * year)
+          + (monthlyPMI * Math.min(year * 12, nPayments))
+          + (data.homePrice * data.closingCostsPct / 100)
+          + data.movingCosts
+          + data.downPayment
+          + (homeValueAtY * data.sellingCostsPct / 100)
+          - equityAtY;
+        rentYearValues.push({ year, rentingCost, buyingCost, homeValueAtY, equityAtY, downPaymentInvested });
+      }
+      const chosen = rentYearValues.find(item => item.year === data.timeHorizon) || rentYearValues[rentYearValues.length - 1];
+      const totalRentingCost = Math.round(chosen ? chosen.rentingCost : 0);
+      const totalBuyingCost = Math.round(chosen ? chosen.buyingCost : 0);
+      const diff = Math.round(Math.abs(totalBuyingCost - totalRentingCost));
+      let verdict = 'equal';
+      if (totalBuyingCost + 10000 < totalRentingCost) verdict = 'buy';
+      if (totalRentingCost + 10000 < totalBuyingCost) verdict = 'rent';
+      const breakEven = rentYearValues.find(item => item.buyingCost < item.rentingCost);
+      const breakeven = breakEven ? breakEven.year : null;
+      let reason = '';
+      let amountText = '';
+      if (verdict === 'buy') {
+        reason = 'Buying looks smarter because your total buying cost is lower than renting over your plan.';
+        amountText = `You could save around ${formatCurrency(diff)} over ${data.timeHorizon} years by buying`;
+      } else if (verdict === 'rent') {
+        reason = 'Renting looks smarter because renting costs less than buying over your plan.';
+        amountText = `You could save around ${formatCurrency(diff)} over ${data.timeHorizon} years by renting`;
+      } else {
+        reason = 'The difference is small, so either option is close and your personal preference matters most.';
+        amountText = `The difference is about ${formatCurrency(diff)} over ${data.timeHorizon} years`; 
+      }
+      const monthsSaved = Math.round(diff / (data.monthlyRent || 1));
+      return {
+        loanAmount,
+        monthlyPI,
+        monthlyPMI,
+        monthlyTax,
+        monthlyInsurance,
+        monthlyMaintenance,
+        monthlyHOA,
+        totalRentingCost,
+        totalBuyingCost,
+        diff,
+        verdict,
+        verdictText: verdict,
+        reason,
+        amountText,
+        monthsSaved,
+        rentYearValues,
+        breakeven,
+        chosen,
+        data
+      };
+    }
+    function buildResults(result) {
+      verdictText = result.verdict;
+      breakevenYear = result.breakeven;
+      const colorClass = result.verdict === 'buy' ? 'green' : result.verdict === 'rent' ? 'orange' : 'grey';
+      const emoji = result.verdict === 'buy' ? '🏠' : result.verdict === 'rent' ? '🗝️' : '⚖️';
+      const verdictHead = result.verdict === 'buy' ? 'Buying looks like the smarter choice for you'
+        : result.verdict === 'rent' ? 'Renting looks like the smarter choice for you'
+        : 'It is too close to call — the difference is small';
+      const savingsDirection = result.verdict === 'buy' ? 'buying' : 'renting';
+      const breakEvenText = result.breakeven ? `At these numbers, buying breaks even after ${result.breakeven} years.` : 'Buying does not break even within 25 years — renting is almost certainly the better choice.';
+      const breakEvenDetail = result.breakeven ? (result.data.timeHorizon >= result.breakeven
+        ? `Since you plan to stay ${result.data.timeHorizon} years, you pass break-even — buying makes financial sense.`
+        : `Since you plan to stay ${result.data.timeHorizon} years, you leave before break-even — renting is likely smarter.`)
+        : 'This plan does not reach break-even within 25 years.';
+      const homeValueAtHorizon = result.chosen.homeValueAtY;
+      const equityAtHorizon = result.chosen.equityAtY;
+      const downPaymentInvested = result.chosen.downPaymentInvested;
+      const monthlyMortgage = Math.round(result.monthlyPI);
+      const totalMortgagePayments = Math.round(result.monthlyPI * result.data.timeHorizon * 12);
+      const totalInterest = Math.round(totalMortgagePayments - result.loanAmount);
+      const totalTax = Math.round(result.monthlyTax * 12 * result.data.timeHorizon);
+      const totalInsurance = Math.round(result.monthlyInsurance * 12 * result.data.timeHorizon);
+      const totalMaintenance = Math.round(result.monthlyMaintenance * 12 * result.data.timeHorizon);
+      const totalHOA = Math.round(result.monthlyHOA * 12 * result.data.timeHorizon);
+      const totalPMI = Math.round(result.monthlyPMI * Math.min(result.data.timeHorizon * 12, result.data.loanTermYears * 12));
+      const totalSellingCosts = Math.round(homeValueAtHorizon * result.data.sellingCostsPct / 100);
+      const totalRentInsurance = Math.round(result.data.rentersInsurance * 12 * result.data.timeHorizon);
+      const totalRentPaid = Math.round(result.rentYearValues.find(item => item.year === result.data.timeHorizon).rentingCost + (result.data.downPayment * Math.pow(1 + result.data.investmentReturnPct / 100, result.data.timeHorizon) - result.data.downPayment) - result.data.securityDeposit - result.data.brokerFee - totalRentInsurance);
+      const content = `
+        <div class="result-banner ${colorClass} fade-in">
+          <div style="font-size:32px;">${emoji}</div>
+          <h2>${verdictHead}</h2>
+          <p>${result.amountText}</p>
+          <p>${result.reason}</p>
+          <p>That is about ${result.monthsSaved} months of rent — yours to keep</p>
+        </div>
+        <div class="summary-cards fade-in">
+          <div class="summary-card"><h3>Total cost if you rent</h3><strong>${formatCurrency(result.totalRentingCost)}</strong></div>
+          <div class="summary-card"><h3>Total cost if you buy</h3><strong>${formatCurrency(result.totalBuyingCost)}</strong></div>
+          <div class="summary-card"><h3>You save</h3><strong>${formatCurrency(result.diff)}</strong></div>
+        </div>
+        <div class="break-even-box fade-in">
+          <div>${breakEvenText}</div>
+          <strong>${breakEvenDetail}</strong>
+        </div>
+        <div class="breakdown-grid fade-in">
+          <div class="breakdown-column">
+            <h3 style="color:var(--orange);">Renting breakdown</h3>
+            <div class="line-item"><span>Monthly rent year 1</span><span>${formatCurrency(result.data.monthlyRent)}</span></div>
+            <div class="line-item"><span>Total rent over ${result.data.timeHorizon} years</span><span>${formatCurrency(Math.round(result.rentYearValues.find(item => item.year === result.data.timeHorizon).rentingCost + result.data.securityDeposit + result.data.brokerFee + totalRentInsurance - (downPaymentInvested - result.data.downPayment)))}</span></div>
+            <div class="line-item"><span>Security deposit</span><span>${formatCurrency(result.data.securityDeposit)}</span></div>
+            <div class="line-item"><span>Renter's insurance total</span><span>${formatCurrency(totalRentInsurance)}</span></div>
+            <div class="line-item"><span>Broker fee</span><span>${formatCurrency(result.data.brokerFee)}</span></div>
+            <div class="line-item green"><span>Down payment invested grows to</span><span>${formatCurrency(Math.round(downPaymentInvested))}</span></div>
+            <div class="line-item"><span>Net cost of renting</span><span>${formatCurrency(result.totalRentingCost)}</span></div>
+          </div>
+          <div class="breakdown-column">
+            <h3 style="color:var(--green);">Buying breakdown</h3>
+            <div class="line-item"><span>Monthly mortgage payment</span><span>${formatCurrency(monthlyMortgage)}</span></div>
+            <div class="line-item"><span>Total mortgage payments</span><span>${formatCurrency(totalMortgagePayments)}</span></div>
+            <div class="line-item"><span>Total interest paid</span><span>${formatCurrency(totalInterest)}</span></div>
+            <div class="line-item"><span>Property taxes total</span><span>${formatCurrency(totalTax)}</span></div>
+            <div class="line-item"><span>Home insurance total</span><span>${formatCurrency(totalInsurance)}</span></div>
+            <div class="line-item"><span>Maintenance total</span><span>${formatCurrency(totalMaintenance)}</span></div>
+            <div class="line-item"><span>HOA total</span><span>${formatCurrency(totalHOA)}</span></div>
+            <div class="line-item"><span>PMI total</span><span>${formatCurrency(totalPMI)}</span></div>
+            <div class="line-item"><span>Closing costs</span><span>${formatCurrency(Math.round(result.data.homePrice * result.data.closingCostsPct / 100))}</span></div>
+            <div class="line-item"><span>Moving costs</span><span>${formatCurrency(result.data.movingCosts)}</span></div>
+            <div class="line-item"><span>Selling costs</span><span>${formatCurrency(totalSellingCosts)}</span></div>
+            <div class="line-item green"><span>Home value when you sell</span><span>${formatCurrency(Math.round(homeValueAtHorizon))}</span></div>
+            <div class="line-item green"><span>Equity you keep</span><span>${formatCurrency(Math.round(equityAtHorizon))}</span></div>
+            <div class="line-item"><span>Net cost of buying</span><span>${formatCurrency(result.totalBuyingCost)}</span></div>
+          </div>
+        </div>
+        <div class="chart-card fade-in">
+          <div class="chart-title">How costs compare year by year</div>
+          <canvas id="costChart" width="800" height="280"></canvas>
+          <div class="chart-legend">
+            <div class="legend-item"><span class="legend-swatch" style="background: var(--orange)"></span>Cost of renting</div>
+            <div class="legend-item"><span class="legend-swatch" style="background: var(--green)"></span>Cost of buying</div>
+          </div>
+        </div>
+        <div class="result-actions fade-in">
+          <button type="button" class="result-action" id="shareButton">Share these results</button>
+          <button type="button" class="result-action" id="printButton">Print report</button>
+          <button type="button" class="result-action" id="changeButton">Change my numbers</button>
+        </div>
+      `;
+      ELEMENTS.resultsSection.innerHTML = content;
+      drawChart(result.rentYearValues, result.breakeven, result.data.timeHorizon);
+      document.getElementById('shareButton').addEventListener('click', handleShare);
+      document.getElementById('printButton').addEventListener('click', () => window.print());
+      document.getElementById('changeButton').addEventListener('click', () => document.querySelector('#calculator').scrollIntoView({ behavior: 'smooth' }));
+      renderAffiliate(result.verdict);
+    }
+    function drawChart(values, breakEven, horizon) {
+      const canvas = document.getElementById('costChart');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const width = canvas.width;
+      const height = canvas.height;
+      ctx.clearRect(0,0,width,height);
+      const padding = 40;
+      const maxCost = Math.max(...values.map(v => Math.max(v.rentingCost, v.buyingCost)), 100000);
+      const step = Math.ceil(maxCost / 30000) * 30000;
+      const yMax = step * 4;
+      const xCount = 20;
+      ctx.strokeStyle = '#d9e2ef';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([4,4]);
+      for (let i = 0; i <= 4; i++) {
+        const y = padding + ((height - padding * 2) / 4) * i;
+        ctx.beginPath(); ctx.moveTo(padding, y); ctx.lineTo(width - padding, y); ctx.stroke();
+      }
+      ctx.setLineDash([]);
+      ctx.strokeStyle = '#bbb';
+      ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(padding, padding); ctx.lineTo(padding, height - padding); ctx.lineTo(width - padding, height - padding); ctx.stroke();
+      ctx.fillStyle = '#4a5568';
+      ctx.font = '12px DM Sans';
+      for (let i = 0; i <= 4; i++) {
+        const y = padding + ((height - padding * 2) / 4) * i;
+        const label = formatCurrency(Math.round(yMax - (yMax / 4) * i));
+        ctx.fillText(label, 6, y + 4);
+      }
+      for (const mark of [1,5,10,15,20]) {
+        const x = padding + ((width - padding * 2) / (xCount - 1)) * (mark - 1);
+        ctx.fillText(`Year ${mark}`, x - 16, height - 10);
+      }
+      const getX = year => padding + ((width - padding * 2) / (xCount - 1)) * (year - 1);
+      const getY = cost => padding + (1 - Math.min(cost / yMax, 1)) * (height - padding * 2);
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = 'rgb(230,126,34)';
+      ctx.beginPath();
+      values.forEach((point, idx) => {
+        const x = getX(point.year);
+        const y = getY(point.rentingCost);
+        if (idx === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+      ctx.strokeStyle = 'rgb(39,174,96)';
+      ctx.beginPath();
+      values.forEach((point, idx) => {
+        const x = getX(point.year);
+        const y = getY(point.buyingCost);
+        if (idx === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+      if (breakEven && breakEven <= 20) {
+        const x = getX(breakEven);
+        ctx.strokeStyle = '#1B3557';
+        ctx.lineWidth = 1;
+        ctx.setLineDash([6,4]);
+        ctx.beginPath(); ctx.moveTo(x, padding); ctx.lineTo(x, height - padding); ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = '#1B3557';
+        ctx.fillText(`Break-even: Year ${breakEven}`, x + 6, padding + 14);
+      }
+      const xHorizon = getX(Math.min(horizon, 20));
+      ctx.strokeStyle = '#1B3557';
+      ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(xHorizon, padding); ctx.lineTo(xHorizon, height - padding); ctx.stroke();
+      ctx.fillText(`Your plan: Year ${horizon}`, xHorizon + 6, height - padding - 10);
+    }
+    async function saveToSupabase(email, data) {
+      try {
+        const lastSubmit = localStorage.getItem('rob_last_submit');
+        if (lastSubmit && Date.now() - parseInt(lastSubmit, 10) < 30000) return;
+        const cleanEmail = email.trim().toLowerCase().slice(0, 254);
+        const { error } = await supabaseClient.from('leads').insert({
+          email: cleanEmail,
+          city: selectedCity || null,
+          home_price: parseFloat(data.homePrice) || null,
+          monthly_rent: parseFloat(data.monthlyRent) || null,
+          down_payment_pct: parseFloat(data.downPayment / data.homePrice * 100) || null,
+          time_horizon_years: parseInt(data.timeHorizon, 10) || null,
+          verdict: verdictText || null,
+          breakeven_year: breakevenYear || null,
+          mode: currentMode
+        });
+        if (!error) localStorage.setItem('rob_last_submit', Date.now().toString());
+      } catch (e) {
+        // Fail silently
+      }
+    }
+    function handleShare() {
+      const text = 'I used the Rent or Buy Calculator and found my result. Check your numbers too!';
+      const url = window.location.href;
+      if (navigator.share) {
+        navigator.share({ title: 'Rent or Buy Calculator', text, url }).catch(() => {});
+      } else if (navigator.clipboard) {
+        navigator.clipboard.writeText(`${text} ${url}`).then(() => showToast('Link copied to clipboard', 'success')).catch(() => showToast('Unable to copy link', 'error'));
+      } else {
+        showToast('Sharing is not supported in this browser', 'error');
+      }
+    }
+    function renderAffiliate(verdict) {
+      ELEMENTS.affiliateCards.innerHTML = '';
+      if (verdict === 'buy') {
+        ELEMENTS.affiliateHeading.textContent = 'Ready to Get Pre-Approved for a Mortgage?';
+        ELEMENTS.affiliateSubtitle.textContent = "Compare today's rates from top US lenders — takes 2 minutes, no impact on your credit score";
+        const items = [
+          { title: 'LendingTree', description: 'Compare rates from 5+ lenders at once', label: 'Compare Rates' },
+          { title: 'Rocket Mortgage', description: 'Get pre-approved online in minutes', label: 'Get Pre-Approved' },
+          { title: 'Better.com', description: 'No commissions, potentially lower rates', label: 'Check My Rate' }
+        ];
+        items.forEach(item => {
+          const card = document.createElement('div');
+          card.className = 'affiliate-card';
+          card.innerHTML = `<h3>${item.title}</h3><p>${item.description}</p><button class="affiliate-button" type="button">${item.label}</button>`;
+          ELEMENTS.affiliateCards.appendChild(card);
+        });
+      } else {
+        ELEMENTS.affiliateHeading.textContent = 'Building Your Down Payment? Make It Work Harder';
+        ELEMENTS.affiliateSubtitle.textContent = 'High-yield savings accounts earn 4-5x more than a standard bank account';
+        const items = [
+          { title: 'Marcus by Goldman Sachs', description: 'Competitive APY, no fees', label: 'See Rate' },
+          { title: 'Ally Bank', description: 'Online savings with no hidden fees', label: 'Open Account' },
+          { title: 'Betterment', description: 'Invest your down payment for higher growth', label: 'Start Investing' }
+        ];
+        items.forEach(item => {
+          const card = document.createElement('div');
+          card.className = 'affiliate-card';
+          card.innerHTML = `<h3>${item.title}</h3><p>${item.description}</p><button class="affiliate-button" type="button">${item.label}</button>`;
+          ELEMENTS.affiliateCards.appendChild(card);
+        });
+      }
+    }
+    function setupFaq() {
+      const faqs = [
+        { q: 'Is buying always better than renting?', a: 'No. It depends mostly on how long you plan to stay. If you stay less than 3 to 5 years, renting usually saves money because upfront costs of buying take time to recover.' },
+        { q: 'What is the break-even point?', a: 'The year when buying finally becomes cheaper than renting. Before that year renting saves money. After that year buying saves money. Our calculator finds this for you.' },
+        { q: 'What is PMI and do I have to pay it?', a: 'PMI stands for Private Mortgage Insurance. If you put less than 20% down, your lender requires this extra monthly fee — about 0.5 to 1% of the loan per year. It goes away once you own 20% of the home.' },
+        { q: 'What happens to my down payment if I keep renting?', a: 'That money stays in your pocket. If you invest it in an index fund it could grow at around 7% per year. Our calculator counts this as a benefit of renting so the comparison is fair.' },
+        { q: 'Does this include the mortgage interest tax deduction?', a: 'This version keeps it simple and does not include it. Since the 2017 tax law raised the standard deduction, most Americans no longer benefit from itemising. If you do itemise, your real cost of buying could be slightly lower than we show.' },
+        { q: 'How accurate is this calculator?', a: 'It is a good estimate based on the numbers you enter and standard financial formulas. Real results depend on future home prices, rates, and your personal tax situation. Use it for a clear general picture, then speak with a mortgage lender for exact numbers.' }
+      ];
+      faqs.forEach(item => {
+        const faqItem = document.createElement('div');
+        faqItem.className = 'faq-item';
+        faqItem.innerHTML = `<div class="faq-question"><span>${item.q}</span><span>+</span></div><div class="faq-answer"><p>${item.a}</p></div>`;
+        faqItem.querySelector('.faq-question').addEventListener('click', () => {
+          faqItem.classList.toggle('open');
+        });
+        ELEMENTS.faqList.appendChild(faqItem);
+      });
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      createCitySelect();
+      createCityGrid();
+      createRadioPills(ELEMENTS.timeHorizonPills, ['3 years','5 years','7 years','10 years','20 years'], '7 years');
+      createRadioPills(ELEMENTS.loanTermPills, ['15 years','30 years'], '30 years');
+      createRadioPills(ELEMENTS.taxStatusPills, ['Single','Married Filing Jointly'], 'Married Filing Jointly');
+      setupFaq();
+      updateLiveFields();
+      initMobileAdsBanner();
+      const detailToggle = document.getElementById('detailToggle');
+      if (detailToggle) detailToggle.addEventListener('click', toggleDetails);
+      document.getElementById('homePrice').addEventListener('input', updateLiveFields);
+      document.getElementById('monthlyRent').addEventListener('input', updateLiveFields);
+      document.getElementById('downPayment').addEventListener('input', updateLiveFields);
+      document.getElementById('interestRate').addEventListener('input', updateLiveFields);
+      document.getElementById('rentIncrease').addEventListener('input', updateLiveFields);
+      document.getElementById('appreciationRate').addEventListener('input', updateLiveFields);
+      document.getElementById('securityDeposit').addEventListener('input', function () { this.dataset.touched = 'true'; });
+      document.getElementById('calculateButton').addEventListener('click', () => {
+        if (!validateCalculator()) return;
+        setCalculateLoading(true);
+        setTimeout(() => {
+          setCalculateLoading(false);
+          openModal();
+        }, 1000);
+      });
+      document.getElementById('skipEmail').addEventListener('click', () => {
+        closeModal();
+        const data = getInputNumbers();
+        const result = calculateResults(data);
+        buildResults(result);
+        document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+      });
+      document.getElementById('submitEmailButton').addEventListener('click', async () => {
+        const email = ELEMENTS.emailInput.value.trim();
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+          ELEMENTS.emailError.textContent = 'Please enter a valid email address';
+          ELEMENTS.emailError.classList.remove('hidden');
+          return;
+        }
+        ELEMENTS.emailError.classList.add('hidden');
+        closeModal();
+        const data = getInputNumbers();
+        const result = calculateResults(data);
+        buildResults(result);
+        document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        await saveToSupabase(email, data);
+        showToast('Email saved successfully', 'success');
+      });
+      scrollButtons.forEach(button => button.addEventListener('click', () => {
+        const target = document.querySelector(button.dataset.scroll);
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      }));
+    });
+  </script>
+</body>
+</html>
