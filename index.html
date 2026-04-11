@@ -96,14 +96,17 @@
     .range-wrapper input[type=range]::-webkit-slider-thumb:hover, .range-wrapper input[type=range]::-moz-range-thumb:hover { transform: scale(1.09); }
     .slider-value-badge { min-width: 52px; background: var(--navy); color: #fff; border-radius: 6px; padding: 4px 10px; font-size: 13px; text-align: center; }
     .help-note { color: #64748B; font-size: 14px; }
+    .formatted-value { color: var(--navy); font-weight: 700; font-size: 15px; display: block; margin-top: 8px; }
+    .percentage-note { color: #64748B; font-size: 13px; display: block; margin-top: 4px; }
+    .formatted-value-row { margin-top: 8px; }
     .mobile-ads-banner { display: none; position: fixed; inset: auto 0 0; width: 100%; height: 60px; background: #fff; z-index: 999; box-shadow: 0 -4px 18px rgba(0,0,0,0.12); align-items: center; justify-content: center; padding: 0 16px; }
     .mobile-ads-content { flex: 1; color: #64748B; font-size: 13px; text-align: center; }
     .mobile-ads-close { background: transparent; border: none; color: #718096; font-size: 24px; line-height: 1; cursor: pointer; padding: 0 10px; }
     .detail-toggle { background: none; border: none; color: var(--navy); font-weight: 700; padding: 0; margin-top: 12px; cursor: pointer; }
-    .adsense-slot { max-width: 728px; margin: 32px auto; padding: 20px 16px; border: 1px dashed #D1D5DB; border-radius: 10px; color: #718096; font-size: 13px; text-align: center; }
+    .adsense-slot { display: none; max-width: 728px; margin: 32px auto; padding: 20px 16px; border: 1px dashed #D1D5DB; border-radius: 10px; color: #718096; font-size: 13px; text-align: center; }
     @media (max-width: 639px) {
       body { padding-bottom: 60px; }
-      .mobile-ads-banner { display: flex; }
+      .mobile-ads-banner { display: none; }
     }
     .detail-toggle:hover { text-decoration: underline; }
     .live-value { color: var(--navy); font-weight: 700; }
@@ -279,10 +282,10 @@
             <label for="homePrice">How much does the home cost?</label>
             <div class="currency-input-row">
               <span class="currency-prefix">$</span>
-              <input id="homePrice" type="number" min="0" step="1000" placeholder="e.g. 310000" value="450000" aria-describedby="homePriceFormat">
+              <input id="homePrice" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="e.g. 310000" value="450000" aria-describedby="homePriceFormat">
             </div>
             <div class="help-note" id="homePriceFormat">Check Zillow or Realtor.com for the listing price</div>
-            <div class="formatted-value" id="homePriceDisplay">= $450,000</div>
+            <div class="formatted-value-row"><span class="formatted-value" id="homePriceDisplay">$450,000</span></div>
           </div>
           <div class="label-group">
             <label for="monthlyRent">What is your monthly rent right now?</label>
@@ -298,11 +301,10 @@
             <label for="downPayment">How much have you saved for a down payment?</label>
             <div class="currency-input-row">
               <span class="currency-prefix">$</span>
-              <input id="downPayment" type="number" min="0" step="500" placeholder="e.g. 310000" value="90000">
+              <input id="downPayment" type="text" inputmode="numeric" pattern="[0-9]*" min="0" placeholder="e.g. 310000" value="90000">
             </div>
             <div class="help-note">Most US loans need at least 3% to 20% of the home price</div>
-            <div class="formatted-value" id="downPaymentFormatted">= $90,000</div>
-            <div class="live-value" id="downPaymentPct">That is 20% of the home price</div>
+            <div class="formatted-value-row"><span class="formatted-value" id="downPaymentFormatted">$90,000</span><span class="percentage-note" id="downPaymentPct">That is 20% of the home price</span></div>
             <div class="warning-note hidden" id="pmiWarning">You will likely pay PMI (an extra monthly fee) until you reach 20% equity.</div>
           </div>
           <div class="label-group">
@@ -437,8 +439,8 @@
 
     <section class="section" id="results" aria-live="polite"></section>
 
-    <div id="adsense-slot-1" class="adsense-slot">
-      Advertisement
+    <div id="adsense-slot-1" class="adsense-slot" style="display: none;">
+      <!-- Paste your AdSense code here when ready. -->
     </div>
 
     <section class="section affiliate-section">
@@ -448,7 +450,8 @@
       <p style="margin-top:12px;font-size:13px;color:var(--text-light);">Advertising disclosure: Rent or Buy Calculator may receive compensation when you click partner links above. This does not influence our calculator results in any way.</p>
     </section>
 
-    <div class="mobile-ads-banner hidden" id="mobileAdsBanner">
+    <div class="mobile-ads-banner hidden" id="mobileAdsBanner" style="display: none;">
+      <!-- Paste your AdSense code here when ready. -->
       <div class="mobile-ads-content">Advertisement — replace this block with your AdSense code</div>
       <button type="button" class="mobile-ads-close" id="mobileAdsClose" aria-label="Close advertisement">×</button>
     </div>
@@ -572,6 +575,20 @@
     function parseNumericInput(value) {
       return Number(String(value).replace(/[^\d]/g, '')) || 0;
     }
+    function stripNumberFormatting(input) {
+      if (!input) return;
+      const raw = String(input.value).replace(/[^\d]/g, '');
+      input.value = raw;
+    }
+    function formatNumberInput(input) {
+      if (!input) return;
+      const raw = String(input.value).replace(/[^\d]/g, '');
+      if (raw === '') {
+        input.value = '';
+        return;
+      }
+      input.value = Number(raw).toLocaleString('en-US');
+    }
     function clampNumber(value, min, max) {
       return Math.min(max, Math.max(min, Number(value) || 0));
     }
@@ -630,10 +647,24 @@
       const data = CITY_DATA[city];
       if (!data) return;
       selectedCity = city;
-      document.getElementById('homePrice').value = data.homePrice;
-      document.getElementById('monthlyRent').value = data.monthlyRent;
-      document.getElementById('propertyTax').value = data.propertyTax;
-      updateLiveFields();
+      const homePriceInput = document.getElementById('homePrice');
+      const monthlyRentInput = document.getElementById('monthlyRent');
+      const propertyTaxInput = document.getElementById('propertyTax');
+
+      if (homePriceInput) {
+        homePriceInput.value = data.homePrice;
+        formatNumberInput(homePriceInput);
+        updateLiveFields();
+      }
+      if (monthlyRentInput) {
+        monthlyRentInput.value = data.monthlyRent;
+        updateLiveFields();
+      }
+      if (propertyTaxInput) {
+        propertyTaxInput.value = data.propertyTax;
+        updateLiveFields();
+      }
+
       updateCitySelection(city);
       showToast(`Filled with typical ${city} values — adjust to match your exact situation.`, 'success');
     }
@@ -666,11 +697,12 @@
       const homePrice = parseNumericInput(document.getElementById('homePrice').value);
       const downPayment = parseNumericInput(document.getElementById('downPayment').value);
       const interestRate = Number(document.getElementById('interestRate').value) || 0;
-      ELEMENTS.homePriceDisplay.textContent = `= ${formatCurrency(homePrice)}`;
-      document.getElementById('downPaymentFormatted').textContent = `= ${formatCurrency(downPayment)}`;
-      const downPct = homePrice > 0 ? Math.round((downPayment / homePrice) * 100) : 0;
+      ELEMENTS.homePriceDisplay.textContent = formatCurrency(homePrice);
+      document.getElementById('downPaymentFormatted').textContent = formatCurrency(downPayment);
+      const downPaymentPct = homePrice > 0 ? (downPayment / homePrice) * 100 : 0;
+      const downPct = Math.round(downPaymentPct);
       ELEMENTS.downPaymentPct.textContent = `That is ${downPct}% of the home price`;
-      ELEMENTS.pmiWarning.classList.toggle('hidden', downPct >= 20 || homePrice <= 0);
+      ELEMENTS.pmiWarning.classList.toggle('hidden', downPaymentPct >= 20 || homePrice <= 0);
       updateRangeBadge(document.getElementById('interestRate'), 'interestRateBadge');
       updateRangeBadge(document.getElementById('rentIncrease'), 'rentIncreaseBadge');
       updateRangeBadge(document.getElementById('appreciationRate'), 'appreciationRateBadge');
@@ -1076,7 +1108,7 @@
           card.innerHTML = `<h3>${item.title}</h3><p>${item.description}</p><button class="affiliate-button" type="button">${item.label}</button>`;
           ELEMENTS.affiliateCards.appendChild(card);
         });
-      } else {
+      } else if (verdict === 'rent') {
         ELEMENTS.affiliateHeading.textContent = 'Building Your Down Payment? Make It Work Harder';
         ELEMENTS.affiliateSubtitle.textContent = 'High-yield savings accounts earn 4-5x more than a standard bank account';
         const items = [
@@ -1090,6 +1122,9 @@
           card.innerHTML = `<h3>${item.title}</h3><p>${item.description}</p><button class="affiliate-button" type="button">${item.label}</button>`;
           ELEMENTS.affiliateCards.appendChild(card);
         });
+      } else {
+        ELEMENTS.affiliateHeading.textContent = 'Affiliate recommendations';
+        ELEMENTS.affiliateSubtitle.textContent = 'Helpful partner options based on your result.';
       }
     }
     function setupFaq() {
@@ -1122,6 +1157,8 @@
       initMobileAdsBanner();
       const detailToggle = document.getElementById('detailToggle');
       if (detailToggle) detailToggle.addEventListener('click', toggleDetails);
+      const homePriceInput = document.getElementById('homePrice');
+      const downPaymentInput = document.getElementById('downPayment');
       document.getElementById('homePrice').addEventListener('input', updateLiveFields);
       document.getElementById('monthlyRent').addEventListener('input', updateLiveFields);
       document.getElementById('downPayment').addEventListener('input', updateLiveFields);
@@ -1129,6 +1166,22 @@
       document.getElementById('rentIncrease').addEventListener('input', updateLiveFields);
       document.getElementById('appreciationRate').addEventListener('input', updateLiveFields);
       document.getElementById('securityDeposit').addEventListener('input', function () { this.dataset.touched = 'true'; });
+      if (homePriceInput) {
+        homePriceInput.addEventListener('focus', () => stripNumberFormatting(homePriceInput));
+        homePriceInput.addEventListener('blur', () => {
+          formatNumberInput(homePriceInput);
+          updateLiveFields();
+        });
+      }
+      if (downPaymentInput) {
+        downPaymentInput.addEventListener('focus', () => stripNumberFormatting(downPaymentInput));
+        downPaymentInput.addEventListener('blur', () => {
+          formatNumberInput(downPaymentInput);
+          updateLiveFields();
+        });
+      }
+      formatNumberInput(homePriceInput);
+      formatNumberInput(downPaymentInput);
       document.getElementById('calculateButton').addEventListener('click', () => {
         if (!validateCalculator()) return;
         setCalculateLoading(true);
