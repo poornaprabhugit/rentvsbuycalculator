@@ -443,7 +443,7 @@
       <!-- Paste your AdSense code here when ready. -->
     </div>
 
-    <section class="section affiliate-section">
+    <section class="section affiliate-section hidden" id="affiliateSection">
       <div class="section-title" id="affiliateHeading">Affiliate recommendations</div>
       <div class="section-subtitle" id="affiliateSubtitle">Helpful partner options based on your result.</div>
       <div class="affiliate-grid" id="affiliateCards"></div>
@@ -548,6 +548,7 @@
       emailInput: document.getElementById('emailInput'),
       emailError: document.getElementById('emailError'),
       resultsSection: document.getElementById('results'),
+      affiliateSection: document.getElementById('affiliateSection'),
       affiliateCards: document.getElementById('affiliateCards'),
       affiliateHeading: document.getElementById('affiliateHeading'),
       affiliateSubtitle: document.getElementById('affiliateSubtitle'),
@@ -1093,8 +1094,10 @@
       }
     }
     function renderAffiliate(verdict) {
+      const section = ELEMENTS.affiliateSection;
       ELEMENTS.affiliateCards.innerHTML = '';
       if (verdict === 'buy') {
+        section.classList.remove('hidden');
         ELEMENTS.affiliateHeading.textContent = 'Ready to Get Pre-Approved for a Mortgage?';
         ELEMENTS.affiliateSubtitle.textContent = "Compare today's rates from top US lenders — takes 2 minutes, no impact on your credit score";
         const items = [
@@ -1105,10 +1108,11 @@
         items.forEach(item => {
           const card = document.createElement('div');
           card.className = 'affiliate-card';
-          card.innerHTML = `<h3>${item.title}</h3><p>${item.description}</p><button class="affiliate-button" type="button">${item.label}</button>`;
+          card.innerHTML = `<h3>${item.title}</h3><p>${item.description}</p><a class="affiliate-button" href="#">${item.label}</a>`;
           ELEMENTS.affiliateCards.appendChild(card);
         });
       } else if (verdict === 'rent') {
+        section.classList.remove('hidden');
         ELEMENTS.affiliateHeading.textContent = 'Building Your Down Payment? Make It Work Harder';
         ELEMENTS.affiliateSubtitle.textContent = 'High-yield savings accounts earn 4-5x more than a standard bank account';
         const items = [
@@ -1119,10 +1123,11 @@
         items.forEach(item => {
           const card = document.createElement('div');
           card.className = 'affiliate-card';
-          card.innerHTML = `<h3>${item.title}</h3><p>${item.description}</p><button class="affiliate-button" type="button">${item.label}</button>`;
+          card.innerHTML = `<h3>${item.title}</h3><p>${item.description}</p><a class="affiliate-button" href="#">${item.label}</a>`;
           ELEMENTS.affiliateCards.appendChild(card);
         });
       } else {
+        section.classList.add('hidden');
         ELEMENTS.affiliateHeading.textContent = 'Affiliate recommendations';
         ELEMENTS.affiliateSubtitle.textContent = 'Helpful partner options based on your result.';
       }
