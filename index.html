@@ -23,6 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Outfit:wght@700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
   <script>
     const SUPABASE_URL = 'https://rwcdxvkubjiqtcnyinrp.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3Y2R4dmt1YmppcXRjbnlpbnJwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU5MjgyOTAsImV4cCI6MjA5MTUwNDI5MH0.JL6hLPh3rZrRtfHenyvyCgo6TISS9dgCuq1IzQC16Ik';
@@ -192,7 +193,42 @@
     .calculate-button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(27,53,87,0.3); }
     .calculate-button:disabled { opacity: .75; cursor: not-allowed; }
     .button-spinner { display: inline-block; width: 20px; height: 20px; border: 3px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin .8s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin .7s linear infinite; margin-right: 8px; vertical-align: middle; }
+    .important-input-card { background: #EBF5FB; border: 1.5px solid #1B3557; border-radius: 12px; padding: 20px; margin-bottom: 24px; grid-column: 1 / -1; }
+    .important-input-card-label { font-size: 11px; font-weight: 600; color: var(--navy); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
+    .important-input-card-content { display: grid; gap: 16px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    @media (max-width: 719px) {
+      .important-input-card-content { grid-template-columns: 1fr; }
+    }
+    .market-snapshot-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 20px; display: inline-flex; gap: 24px; margin: 16px auto; max-width: 620px; box-shadow: 0 8px 20px rgba(0,0,0,0.04); }
+    .market-snapshot-card .market-data { display: flex; flex-direction: column; gap: 4px; }
+    .market-snapshot-card .market-label { color: #718096; font-size: 12px; text-transform: uppercase; letter-spacing: 0.02em; }
+    .market-snapshot-card .market-value { font-size: 16px; font-weight: 700; color: var(--text-dark); }
+    .market-snapshot-card .market-caption { color: #718096; font-size: 13px; }
+    .market-snapshot-card.hidden { display: none; }
+    .market-shimmer { display: inline-block; width: 44px; height: 16px; border-radius: 8px; background: linear-gradient(90deg, #edf2f7 25%, #e2e8f0 50%, #edf2f7 75%); background-size: 200% 100%; animation: shimmer 1.4s linear infinite; }
+    @keyframes shimmer { to { background-position: -200% 0; } }
+    .floating-result-bar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 999; background: #1B3557; color: #fff; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 -4px 12px rgba(0,0,0,0.15); gap: 12px; }
+    .floating-result-bar.hidden { display: none; }
+    .floating-result-left { font-size: 14px; font-weight: 700; }
+    .floating-result-actions { display: flex; align-items: center; gap: 10px; }
+    .floating-result-button { border: 1px solid #fff; background: transparent; color: #fff; border-radius: 999px; padding: 8px 14px; font-size: 14px; cursor: pointer; }
+    .floating-result-dismiss { border: none; background: transparent; color: #fff; font-size: 18px; cursor: pointer; line-height: 1; }
+    .desktop-detail-grid { display: grid; gap: 20px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .desktop-detail-grid .panel-financials { grid-column: 1 / -1; }
+    .mobile-detail-tabs { display: none; gap: 0; margin-bottom: 16px; border-bottom: 1px solid #e2e8f0; }
+    .mobile-detail-tabs button { flex: 1; border: none; background: transparent; color: #718096; padding: 10px; font-size: 14px; cursor: pointer; }
+    .mobile-detail-tabs button.active { color: var(--navy); border-bottom: 3px solid var(--navy); font-weight: 700; }
+    .detail-tab-panel { display: block; }
+    @media (max-width: 639px) {
+      .market-snapshot-card { width: calc(100% - 32px); }
+      .comparison-bar-section { display: block; }
+      .floating-result-bar { display: none !important; }
+      .detail-tab-panel { display: none; }
+      .detail-tab-panel.active { display: block; }
+      .desktop-detail-grid { display: none; }
+      .mobile-detail-tabs { display: flex; }
+    }
     .result-banner { border-radius: 12px; padding: 24px 24px 20px; margin-bottom: 24px; color: #fff; }
     .result-banner.green { background: var(--green); }
     .result-banner.orange { background: var(--orange); }
@@ -319,23 +355,36 @@
       <div class="hero-grid">
         <div class="hero-copy">
           <h1>Should You Rent or Buy a Home in 2026?</h1>
-          <p>Answer 5 simple questions and get your instant answer. No confusing finance words. No signup required. 100% free.</p>
+          <p>Answer 5 simple questions and see which option costs less over your planned stay — with a plain-English explanation, no signup, and no finance jargon.</p>
           <div class="badge-list">
-            <span class="badge">100% Free</span>
-            <span class="badge">No Signup Required</span>
-            <span class="badge">Plain English Results</span>
+            <span class="badge">Fast 60-second flow</span>
+            <span class="badge">Built for US homebuyers</span>
+            <span class="badge">Transparent assumptions</span>
+            <span class="badge">No signup required</span>
           </div>
           <p class="hero-note">Transparent assumptions · Updated weekly with live mortgage rates</p>
+          <div id="marketSnapshotCard" class="market-snapshot-card">
+            <div class="market-data">
+              <div class="market-label">Today</div>
+              <div class="market-value"><span id="marketRateValue" class="market-shimmer"></span></div>
+              <div class="market-caption">30-yr rate</div>
+            </div>
+            <div class="market-data">
+              <div class="market-label">2026 avg</div>
+              <div class="market-value">$420,000</div>
+              <div class="market-caption">US median home</div>
+            </div>
+          </div>
           <div class="hero-actions">
-            <button class="cta" type="button" data-scroll="#calculator">Find Out Now <span class="cta-arrow">→</span></button>
+            <button class="cta" type="button" data-scroll="#calculator">See My Result <span class="cta-arrow">→</span></button>
           </div>
         </div>
       </div>
     </section>
 
     <section class="section how-it-works">
-      <div class="section-title">How it works</div>
-      <div class="section-subtitle">A quick calculator built for US homebuyers with real home buying and renting costs.</div>
+      <div class="section-title">The Rent vs Buy Calculator Built for Real Decisions</div>
+      <div class="section-subtitle">We compare the true cost of renting and buying using your numbers, then explain the result in plain English so you can make a faster, more confident decision.</div>
       <div class="how-grid">
         <div class="step-card">
           <div class="step-pill">1</div>
@@ -360,35 +409,40 @@
         <div class="section-title">Calculator</div>
         <div class="section-subtitle">Quick start with a US city preset or enter your own numbers below.</div>
         <div class="label-group">
-          <label for="citySelect">Quick start — pick your city:</label>
+          <label for="citySelect">Start with a city preset, then adjust the numbers that matter most.</label>
           <select id="citySelect"></select>
         </div>
         <div class="input-grid">
-          <div class="label-group">
-            <div class="field-label-row">
-              <label for="homePrice">How much does the home cost?</label>
-              <span class="tooltip-wrapper">
-                <span class="tooltip-icon">?</span>
-                <span class="tooltip-box">Use the listing price from Zillow or Realtor.com. If you are still browsing, use the median price for your target neighbourhood.</span>
-              </span>
+          <div class="important-input-card">
+            <div class="important-input-card-label">The two numbers that matter most</div>
+            <div class="important-input-card-content">
+              <div class="label-group">
+                <div class="field-label-row">
+                  <label for="homePrice">How much does the home cost?</label>
+                  <span class="tooltip-wrapper">
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-box">Use the listing price from Zillow or Realtor.com. If you are still browsing, use the median price for your target neighbourhood.</span>
+                  </span>
+                </div>
+                <div class="currency-input-row">
+                  <span class="currency-prefix">$</span>
+                  <input id="homePrice" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="e.g. 310000" value="450000" aria-describedby="homePriceFormat">
+                </div>
+                <div class="help-note" id="homePriceFormat">Check Zillow or Realtor.com for the listing price</div>
+                <div class="formatted-value-row"><span class="formatted-value" id="homePriceDisplay">$450,000</span></div>
+              </div>
+              <div class="label-group">
+                <div class="field-label-row">
+                  <label for="monthlyRent">What is your monthly rent right now?</label>
+                  <span class="tooltip-wrapper">
+                    <span class="tooltip-icon">?</span>
+                    <span class="tooltip-box">Enter what you currently pay in rent. If you do not rent yet, search Zillow or Apartments.com for similar homes in your target area.</span>
+                  </span>
+                </div>
+                <input id="monthlyRent" type="number" min="0" step="50" value="2000">
+                <div class="help-note">What you currently pay — or would pay — to rent a similar home nearby</div>
+              </div>
             </div>
-            <div class="currency-input-row">
-              <span class="currency-prefix">$</span>
-              <input id="homePrice" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="e.g. 310000" value="450000" aria-describedby="homePriceFormat">
-            </div>
-            <div class="help-note" id="homePriceFormat">Check Zillow or Realtor.com for the listing price</div>
-            <div class="formatted-value-row"><span class="formatted-value" id="homePriceDisplay">$450,000</span></div>
-          </div>
-          <div class="label-group">
-            <div class="field-label-row">
-              <label for="monthlyRent">What is your monthly rent right now?</label>
-              <span class="tooltip-wrapper">
-                <span class="tooltip-icon">?</span>
-                <span class="tooltip-box">Enter what you currently pay in rent. If you do not rent yet, search Zillow or Apartments.com for similar homes in your target area.</span>
-              </span>
-            </div>
-            <input id="monthlyRent" type="number" min="0" step="50" value="2000">
-            <div class="help-note">What you currently pay — or would pay — to rent a similar home nearby</div>
           </div>
           <div class="label-group">
             <div class="field-label-row">
@@ -432,203 +486,214 @@
               </div>
               <div class="slider-value-badge" id="interestRateBadge">6.8%</div>
             </div>
-            <div class="help-note">Google 'current 30-year mortgage rate' — right now it is around 6.8%</div>
+            <div class="help-note">Google 'current 30-year mortgage rate' for your personalised rate — we update this weekly.</div>
             <button type="button" class="detail-toggle" id="detailToggle">Want a more accurate result? Add more details ▼</button>
           </div>
         </div>
         <div id="detailedInputs" class="hidden">
           <div class="section-title" style="font-size:20px;margin-bottom:14px;">Detailed settings</div>
-          <div class="detail-grid">
-            <div class="breakdown-column">
-              <h3>Your Renting Costs</h3>
-              <div class="label-group">
-                <div class="field-label-row">
-                  <label for="rentIncrease">Annual rent increase (%)</label>
-                  <span class="tooltip-wrapper">
-                    <span class="tooltip-icon">?</span>
-                    <span class="tooltip-box">US rents have increased an average of 3% per year historically. In high-demand cities like New York or San Francisco it can be 5% or more. Check your lease for any caps.</span>
-                  </span>
-                </div>
-                <div class="range-row">
-                  <div class="range-wrapper">
-                    <input id="rentIncrease" type="range" min="0" max="10" step="0.1" value="3">
-                  </div>
-                  <div class="slider-value-badge" id="rentIncreaseBadge">3.0%</div>
-                </div>
-                <div class="help-note">Rents in the US go up about 3% each year on average.</div>
-              </div>
-              <div class="label-group">
-                <div class="field-label-row">
-                  <label for="securityDeposit">Security deposit ($)</label>
-                  <span class="tooltip-wrapper">
-                    <span class="tooltip-icon">?</span>
-                    <span class="tooltip-box">Most landlords require 1 to 2 months of rent upfront as a deposit. You get it back when you leave if you leave the property in good condition.</span>
-                  </span>
-                </div>
-                <input id="securityDeposit" type="number" min="0" step="50" value="2000">
-                <div class="help-note">Usually 1 to 2 months rent paid upfront to your landlord.</div>
-              </div>
-              <div class="label-group">
-                <div class="field-label-row">
-                  <label for="rentersInsurance">Renter's insurance ($/month)</label>
-                  <span class="tooltip-wrapper">
-                    <span class="tooltip-icon">?</span>
-                    <span class="tooltip-box">Renter's insurance protects your belongings if there is a theft, fire, or flood. It typically costs $15 to $30 per month and some landlords require it.</span>
-                  </span>
-                </div>
-                <input id="rentersInsurance" type="number" min="0" step="1" value="20">
-                <div class="help-note">Protects your belongings — usually $15 to $30 per month.</div>
-              </div>
-              <div class="label-group">
-                <div class="field-label-row">
-                  <label for="brokerFee">Broker/agent fee ($)</label>
-                  <span class="tooltip-wrapper">
-                    <span class="tooltip-icon">?</span>
-                    <span class="tooltip-box">In some cities like New York, landlords charge a one-time broker fee to help you find the rental. This is typically one month of rent. In most other US cities this is zero.</span>
-                  </span>
-                </div>
-                <input id="brokerFee" type="number" min="0" step="50" value="0">
-                <div class="help-note">Some landlords charge a one-time fee to find you the rental.</div>
-              </div>
-            </div>
-            <div class="breakdown-column">
-              <h3>Your Buying Costs</h3>
-              <div class="label-group">
-                <div class="field-label-row">
-                  <label>Loan term</label>
-                  <span class="tooltip-wrapper">
-                    <span class="tooltip-icon">?</span>
-                    <span class="tooltip-box">A 30-year loan has lower monthly payments but you pay more interest overall. A 15-year loan costs more per month but you pay it off faster and pay far less interest. Most US buyers choose 30 years.</span>
-                  </span>
-                </div>
-                <div class="radio-pill-group" id="loanTermPills"></div>
-              </div>
-              <div class="label-group">
-                <div class="field-label-row">
-                  <label for="propertyTax">Property tax rate (%)</label>
-                  <span class="tooltip-wrapper">
-                    <span class="tooltip-icon">?</span>
-                    <span class="tooltip-box tooltip-left">Find this at your county assessor website — search your county name followed by property tax rate</span>
-                  </span>
-                </div>
-                <input id="propertyTax" type="number" min="0" step="0.01" value="1.2">
-                <div class="help-note">Find your rate at your county assessor website — US average is 1.1%.</div>
-              </div>
-              <div class="label-group">
-                <div class="field-label-row">
-                  <label for="homeInsurance">Annual home insurance ($/year)</label>
-                  <span class="tooltip-wrapper">
-                    <span class="tooltip-icon">?</span>
-                    <span class="tooltip-box tooltip-left">Homeowner's insurance is required by your lender. The US average is about $1,800 per year but it varies by location, home value, and coverage level. Get a quote from your insurer for accuracy.</span>
-                  </span>
-                </div>
-                <input id="homeInsurance" type="number" min="0" step="50" value="1800">
-                <div class="help-note">Required by lenders — US average about $1,800 per year.</div>
-              </div>
-              <div class="label-group">
-                <div class="field-label-row">
-                  <label for="hoaFee">HOA fee ($/month)</label>
-                  <span class="tooltip-wrapper">
-                    <span class="tooltip-icon">?</span>
-                    <span class="tooltip-box tooltip-left">Homeowners Association fees are charged in some neighbourhoods and condo buildings to cover shared maintenance costs like landscaping, pools, and building upkeep. Check the listing — many homes have no HOA.</span>
-                  </span>
-                </div>
-                <input id="hoaFee" type="number" min="0" step="10" value="0">
-                <div class="help-note">Some neighborhoods charge a monthly homeowners association fee.</div>
-              </div>
-              <div class="label-group">
-                <div class="field-label-row">
-                  <label for="maintenancePct">Annual maintenance (% of home value)</label>
-                  <span class="tooltip-wrapper">
-                    <span class="tooltip-icon">?</span>
-                    <span class="tooltip-box tooltip-left">Budget 1 to 2% of the home value each year for repairs and upkeep — things like a new roof, heating system, appliances, and general wear. New homes tend to be lower, older homes higher.</span>
-                  </span>
-                </div>
-                <input id="maintenancePct" type="number" min="0" max="10" step="0.1" value="1">
-                <div class="help-note">Budget 1 to 2% of home value per year for repairs.</div>
-              </div>
-              <div class="label-group">
-                <div class="field-label-row">
-                  <label for="appreciationRate">Annual home appreciation (%)</label>
-                  <span class="tooltip-wrapper">
-                    <span class="tooltip-icon">?</span>
-                    <span class="tooltip-box tooltip-left">US homes have averaged 3-4% per year since 1990. Use 2-3% for a conservative estimate.</span>
-                  </span>
-                </div>
-                <div class="range-row">
-                  <div class="range-wrapper">
-                    <input id="appreciationRate" type="range" min="0" max="8" step="0.1" value="3.5">
-                  </div>
-                  <div class="slider-value-badge" id="appreciationRateBadge">3.5%</div>
-                </div>
-                <div class="help-note">US homes have grown about 3 to 4% per year historically.</div>
-              </div>
-              <div class="label-group">
-                <div class="field-label-row">
-                  <label for="movingCosts">Moving costs ($)</label>
-                  <span class="tooltip-wrapper">
-                    <span class="tooltip-icon">?</span>
-                    <span class="tooltip-box tooltip-left">The actual cost of physically moving your belongings into the new home. A local move typically costs $1,000 to $3,000. A long-distance move can cost $5,000 or more.</span>
-                  </span>
-                </div>
-                <input id="movingCosts" type="number" min="0" step="50" value="3000">
-                <div class="help-note">The cost of moving your belongings into the new home.</div>
-              </div>
-              <div class="label-group">
-                <div class="field-label-row">
-                  <label for="sellingCosts">Selling costs (%)</label>
-                  <span class="tooltip-wrapper">
-                    <span class="tooltip-icon">?</span>
-                    <span class="tooltip-box tooltip-left">When you sell, agent commissions and fees typically cost 5-6% of the sale price — this is often forgotten.</span>
-                  </span>
-                </div>
-                <input id="sellingCosts" type="number" min="0" max="20" step="0.1" value="6">
-                <div class="help-note">Real estate agents typically take 5 to 6% when you sell.</div>
-              </div>
-              <div class="label-group">
-                <div class="field-label-row">
-                  <label for="closingCosts">Closing costs (%)</label>
-                  <span class="tooltip-wrapper">
-                    <span class="tooltip-icon">?</span>
-                    <span class="tooltip-box tooltip-left">One-time fees when you buy the home — lender fees, title insurance, appraisal, and other charges. These typically add up to 2 to 3% of the home price and are paid on the day of purchase.</span>
-                  </span>
-                </div>
-                <input id="closingCosts" type="number" min="0" max="10" step="0.1" value="3">
-                <div class="help-note">One-time costs when you buy — typically 2 to 3% of home price.</div>
-              </div>
-            </div>
+          <div class="mobile-detail-tabs">
+            <button type="button" class="detail-tab-button active" data-tab="renting">Renting</button>
+            <button type="button" class="detail-tab-button" data-tab="buying">Buying</button>
+            <button type="button" class="detail-tab-button" data-tab="financials">Financials</button>
           </div>
-          <div class="section-title" style="font-size:20px;margin:30px 0 14px;">Financial Settings</div>
-          <div class="detail-grid">
-            <div class="breakdown-column">
-              <div class="label-group">
-                <div class="field-label-row">
-                  <label for="investmentReturn">Investment return (%)</label>
-                  <span class="tooltip-wrapper">
-                    <span class="tooltip-icon">?</span>
-                    <span class="tooltip-box">If you rent instead of buy, your down payment stays invested. This is the annual return you could earn on that money in the stock market. The US S&P 500 has averaged about 7% per year after inflation historically. This is called opportunity cost.</span>
-                  </span>
+          <div class="desktop-detail-grid">
+            <div class="detail-tab-panel panel-renting active">
+              <div class="breakdown-column">
+                <h3>Your Renting Costs</h3>
+                <div class="label-group">
+                  <div class="field-label-row">
+                    <label for="rentIncrease">Rent growth (%)</label>
+                    <span class="tooltip-wrapper">
+                      <span class="tooltip-icon">?</span>
+                      <span class="tooltip-box">US rents have increased an average of 3% per year historically. In high-demand cities like New York or San Francisco it can be 5% or more. Check your lease for any caps.</span>
+                    </span>
+                  </div>
+                  <div class="range-row">
+                    <div class="range-wrapper">
+                      <input id="rentIncrease" type="range" min="0" max="10" step="0.1" value="3">
+                    </div>
+                    <div class="slider-value-badge" id="rentIncreaseBadge">3.0%</div>
+                  </div>
+                  <div class="help-note">Rents in the US go up about 3% each year on average.</div>
                 </div>
-                <input id="investmentReturn" type="number" min="0" max="20" step="0.1" value="7">
-                <div class="help-note">What your down payment could earn invested in the stock market instead. US market has averaged about 7% per year.</div>
+                <div class="label-group">
+                  <div class="field-label-row">
+                    <label for="securityDeposit">Security deposit ($)</label>
+                    <span class="tooltip-wrapper">
+                      <span class="tooltip-icon">?</span>
+                      <span class="tooltip-box">Most landlords require 1 to 2 months of rent upfront as a deposit. You get it back when you leave if you leave the property in good condition.</span>
+                    </span>
+                  </div>
+                  <input id="securityDeposit" type="number" min="0" step="50" value="2000">
+                  <div class="help-note">Usually 1 to 2 months rent paid upfront to your landlord.</div>
+                </div>
+                <div class="label-group">
+                  <div class="field-label-row">
+                    <label for="rentersInsurance">Renter's insurance ($/month)</label>
+                    <span class="tooltip-wrapper">
+                      <span class="tooltip-icon">?</span>
+                      <span class="tooltip-box">Renter's insurance protects your belongings if there is a theft, fire, or flood. It typically costs $15 to $30 per month and some landlords require it.</span>
+                    </span>
+                  </div>
+                  <input id="rentersInsurance" type="number" min="0" step="1" value="20">
+                  <div class="help-note">Protects your belongings — usually $15 to $30 per month.</div>
+                </div>
+                <div class="label-group">
+                  <div class="field-label-row">
+                    <label for="brokerFee">Tenant moving cost ($)</label>
+                    <span class="tooltip-wrapper">
+                      <span class="tooltip-icon">?</span>
+                      <span class="tooltip-box">In some cities like New York, landlords charge a one-time broker fee to help you find the rental. This is typically one month of rent. In most other US cities this is zero.</span>
+                    </span>
+                  </div>
+                  <input id="brokerFee" type="number" min="0" step="50" value="0">
+                  <div class="help-note">Some landlords charge a one-time fee to find you the rental.</div>
+                </div>
               </div>
             </div>
-            <div class="breakdown-column">
-              <div class="label-group">
-                <div class="field-label-row">
-                  <label>Tax filing status</label>
-                  <span class="tooltip-wrapper">
-                    <span class="tooltip-icon">?</span>
-                    <span class="tooltip-box">Married couples filing jointly have a higher standard deduction ($32,200 in 2026) which means the mortgage interest deduction is less likely to benefit you. Single filers have a $16,100 standard deduction and are more likely to benefit from itemising.</span>
-                  </span>
+            <div class="detail-tab-panel panel-buying">
+              <div class="breakdown-column">
+                <h3>Your Buying Costs</h3>
+                <div class="label-group">
+                  <div class="field-label-row">
+                    <label>Loan term</label>
+                    <span class="tooltip-wrapper">
+                      <span class="tooltip-icon">?</span>
+                      <span class="tooltip-box">A 30-year loan has lower monthly payments but you pay more interest overall. A 15-year loan costs more per month but you pay it off faster and pay far less interest. Most US buyers choose 30 years.</span>
+                    </span>
+                  </div>
+                  <div class="radio-pill-group" id="loanTermPills"></div>
                 </div>
-                <div class="radio-pill-group" id="taxStatusPills"></div>
+                <div class="label-group">
+                  <div class="field-label-row">
+                    <label for="propertyTax">Property tax rate (%)</label>
+                    <span class="tooltip-wrapper">
+                      <span class="tooltip-icon">?</span>
+                      <span class="tooltip-box tooltip-left">Find this at your county assessor website — search your county name followed by property tax rate</span>
+                    </span>
+                  </div>
+                  <input id="propertyTax" type="number" min="0" step="0.01" value="1.2">
+                  <div class="help-note">Find your rate at your county assessor website — US average is 1.1%.</div>
+                </div>
+                <div class="label-group">
+                  <div class="field-label-row">
+                    <label for="homeInsurance">Annual home insurance ($/year)</label>
+                    <span class="tooltip-wrapper">
+                      <span class="tooltip-icon">?</span>
+                      <span class="tooltip-box tooltip-left">Homeowner's insurance is required by your lender. The US average is about $1,800 per year but it varies by location, home value, and coverage level. Get a quote from your insurer for accuracy.</span>
+                    </span>
+                  </div>
+                  <input id="homeInsurance" type="number" min="0" step="50" value="1800">
+                  <div class="help-note">Required by lenders — US average about $1,800 per year.</div>
+                </div>
+                <div class="label-group">
+                  <div class="field-label-row">
+                    <label for="hoaFee">HOA fee ($/month)</label>
+                    <span class="tooltip-wrapper">
+                      <span class="tooltip-icon">?</span>
+                      <span class="tooltip-box tooltip-left">Homeowners Association fees are charged in some neighbourhoods and condo buildings to cover shared maintenance costs like landscaping, pools, and building upkeep. Check the listing — many homes have no HOA.</span>
+                    </span>
+                  </div>
+                  <input id="hoaFee" type="number" min="0" step="10" value="0">
+                  <div class="help-note">Some neighborhoods charge a monthly homeowners association fee.</div>
+                </div>
+                <div class="label-group">
+                  <div class="field-label-row">
+                    <label for="maintenancePct">Annual maintenance (% of home value)</label>
+                    <span class="tooltip-wrapper">
+                      <span class="tooltip-icon">?</span>
+                      <span class="tooltip-box tooltip-left">Budget 1 to 2% of the home value each year for repairs and upkeep — things like a new roof, heating system, appliances, and general wear. New homes tend to be lower, older homes higher.</span>
+                    </span>
+                  </div>
+                  <input id="maintenancePct" type="number" min="0" max="10" step="0.1" value="1">
+                  <div class="help-note">Budget 1 to 2% of home value per year for repairs.</div>
+                </div>
+                <div class="label-group">
+                  <div class="field-label-row">
+                    <label for="appreciationRate">Home price growth (%)</label>
+                    <span class="tooltip-wrapper">
+                      <span class="tooltip-icon">?</span>
+                      <span class="tooltip-box tooltip-left">US homes have averaged 3-4% per year since 1990. Use 2-3% for a conservative estimate.</span>
+                    </span>
+                  </div>
+                  <div class="range-row">
+                    <div class="range-wrapper">
+                      <input id="appreciationRate" type="range" min="0" max="8" step="0.1" value="3.5">
+                    </div>
+                    <div class="slider-value-badge" id="appreciationRateBadge">3.5%</div>
+                  </div>
+                  <div class="help-note">US homes have grown about 3 to 4% per year historically.</div>
+                </div>
+                <div class="label-group">
+                  <div class="field-label-row">
+                    <label for="movingCosts">Moving costs ($)</label>
+                    <span class="tooltip-wrapper">
+                      <span class="tooltip-icon">?</span>
+                      <span class="tooltip-box tooltip-left">The actual cost of physically moving your belongings into the new home. A local move typically costs $1,000 to $3,000. A long-distance move can cost $5,000 or more.</span>
+                    </span>
+                  </div>
+                  <input id="movingCosts" type="number" min="0" step="50" value="3000">
+                  <div class="help-note">The cost of moving your belongings into the new home.</div>
+                </div>
+                <div class="label-group">
+                  <div class="field-label-row">
+                    <label for="sellingCosts">Selling costs (%)</label>
+                    <span class="tooltip-wrapper">
+                      <span class="tooltip-icon">?</span>
+                      <span class="tooltip-box tooltip-left">When you sell, agent commissions and fees typically cost 5-6% of the sale price — this is often forgotten.</span>
+                    </span>
+                  </div>
+                  <input id="sellingCosts" type="number" min="0" max="20" step="0.1" value="6">
+                  <div class="help-note">Real estate agents typically take 5 to 6% when you sell.</div>
+                </div>
+                <div class="label-group">
+                  <div class="field-label-row">
+                    <label for="closingCosts">Upfront buying costs (%)</label>
+                    <span class="tooltip-wrapper">
+                      <span class="tooltip-icon">?</span>
+                      <span class="tooltip-box tooltip-left">One-time fees when you buy the home — lender fees, title insurance, appraisal, and other charges. These typically add up to 2 to 3% of the home price and are paid on the day of purchase.</span>
+                    </span>
+                  </div>
+                  <input id="closingCosts" type="number" min="0" max="10" step="0.1" value="3">
+                  <div class="help-note">One-time costs when you buy — typically 2 to 3% of home price.</div>
+                </div>
+              </div>
+            </div>
+            <div class="detail-tab-panel panel-financials">
+              <div class="section-title" style="font-size:20px;margin:30px 0 14px;">Financial Settings</div>
+              <div class="detail-grid">
+                <div class="breakdown-column">
+                  <div class="label-group">
+                    <div class="field-label-row">
+                      <label for="investmentReturn">Investment return (%)</label>
+                      <span class="tooltip-wrapper">
+                        <span class="tooltip-icon">?</span>
+                        <span class="tooltip-box">If you rent instead of buy, your down payment stays invested. This is the annual return you could earn on that money in the stock market. The US S&P 500 has averaged about 7% per year after inflation historically. This is called opportunity cost.</span>
+                      </span>
+                    </div>
+                    <input id="investmentReturn" type="number" min="0" max="20" step="0.1" value="7">
+                    <div class="help-note">What your down payment could earn invested in the stock market instead. US market has averaged about 7% per year.</div>
+                  </div>
+                </div>
+                <div class="breakdown-column">
+                  <div class="label-group">
+                    <div class="field-label-row">
+                      <label>Tax filing status</label>
+                      <span class="tooltip-wrapper">
+                        <span class="tooltip-icon">?</span>
+                        <span class="tooltip-box">Married couples filing jointly have a higher standard deduction ($32,200 in 2026) which means the mortgage interest deduction is less likely to benefit you. Single filers have a $16,100 standard deduction and are more likely to benefit from itemising.</span>
+                      </span>
+                    </div>
+                    <div class="radio-pill-group" id="taxStatusPills"></div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div class="error-text hidden" id="calculatorError"></div>
-        <button class="calculate-button" type="button" id="calculateButton">Show Me Whether I Should Rent or Buy</button>
+        <button class="calculate-button" type="button" id="calculateButton">See My Result</button>
       </div>
     </section>
 
@@ -655,6 +720,13 @@
       </div>
     </section>
 
+    <div id="floatingResultBar" class="floating-result-bar hidden" aria-live="polite">
+      <div class="floating-result-left" id="floatingResultText">Your result is ready.</div>
+      <div class="floating-result-actions">
+        <button type="button" class="floating-result-button" id="floatingResultView">View result</button>
+        <button type="button" class="floating-result-dismiss" id="floatingResultDismiss" aria-label="Dismiss result summary">×</button>
+      </div>
+    </div>
     <div id="adsense-slot-1" class="adsense-slot" style="display: none;">
       <!-- Paste your AdSense code here when ready. -->
     </div>
@@ -673,13 +745,19 @@
     </div>
 
     <section class="section city-section">
-      <div class="section-title">Rent or Buy in Your City</div>
-      <div class="section-subtitle">Every US city is different. Click your city to use local property tax rates and typical home prices.</div>
+      <div class="section-title">Rent or Buy Calculator for Your US City</div>
+      <div class="section-subtitle">Choose a city preset to load local home prices and property tax assumptions, then fine-tune from there. Every US market is different — your result should reflect that.</div>
       <div class="city-grid" id="cityGrid"></div>
     </section>
 
     <section class="section seo-section">
-      <div class="section-title">Why the Rent vs Buy Decision Is the Most Important Money Choice You Will Make</div>
+      <div class="section-title">How the Rent vs Buy Calculator Works</div>
+      <p>We compare the true cost of renting versus buying over your planned stay using transparent financial formulas. Here is exactly what goes into the result:</p>
+      <ul>
+        <li>We add up total costs over your planned stay — mortgage payments, taxes, maintenance, and selling costs for buying; rent growth and opportunity cost of your down payment for renting.</li>
+        <li>We include all the costs most calculators miss — PMI, insurance, HOA, moving costs, closing costs, and the investment return your down payment could earn in the stock market instead.</li>
+        <li>We show why one option wins, not just which one does — with a plain-English explanation of the main driver behind your specific result.</li>
+      </ul>
       <div class="seo-block">
         <h3>The old rule — buying is always better — is no longer true</h3>
         <p>In 2026, high interest rates mean homeownership is not always cheaper than renting. Many US cities still have lower monthly costs for renters, so the best choice depends on your exact numbers instead of an old rule of thumb.</p>
@@ -723,6 +801,7 @@
       <div class="footer-column">
         <div>shouldrentorbuy.com</div>
         <p>Should I Rent or Buy? Find out free.</p>
+        <p style="margin-top:12px;font-size:12px;color:rgba(255,255,255,.75);">Mortgage rate data sourced from Freddie Mac via FRED. Property tax and home price data based on publicly available US market averages. For informational purposes only — not financial advice.</p>
         <p style="margin-top:12px;font-size:14px;color:rgba(255,255,255,.85);">© 2026 shouldrentorbuy.com · <a href="privacy.html" style="color:#fff;text-decoration:underline;">Privacy Policy</a></p>
       </div>
     </div>
@@ -792,6 +871,12 @@
     let currentMode = 'simple';
     let verdictText = '';
     let breakevenYear = null;
+    let hasCalculated = false;
+    let autoRecalcTimer = null;
+    const CALCULATE_BUTTON_TEXT = 'See My Result';
+    const CALCULATE_BUTTON_LOADING_TEXT = 'Calculating your result...';
+    const AUTO_RECALC_DEBOUNCE = 800;
+    const SIMPLE_MODE_INPUT_IDS = ['homePrice', 'monthlyRent', 'downPayment', 'interestRate'];
     const scrollButtons = document.querySelectorAll('[data-scroll]');
 
     function formatCurrency(value) {
@@ -843,10 +928,16 @@
         if (!data || typeof data.rate !== 'number') throw new Error('No data');
 
         const badge = document.getElementById('liveRateBadge');
+        const fallbackRate = 6.8;
         if (data.fallback) {
           if (badge) {
             badge.classList.add('hidden');
             badge.style.display = 'none';
+          }
+          const marketRateValue = document.getElementById('marketRateValue');
+          if (marketRateValue) {
+            marketRateValue.textContent = formatPercent(fallbackRate);
+            marketRateValue.classList.remove('market-shimmer');
           }
           return;
         }
@@ -861,6 +952,11 @@
           rateSlider.value = rate.toFixed(1);
           rateSlider.dispatchEvent(new Event('input'));
         }
+        const marketRateValue = document.getElementById('marketRateValue');
+        if (marketRateValue) {
+          marketRateValue.textContent = formatPercent(rate);
+          marketRateValue.classList.remove('market-shimmer');
+        }
 
         if (badge) {
           badge.textContent = 'Live rate as of ' + date;
@@ -872,6 +968,11 @@
         if (badge) {
           badge.classList.add('hidden');
           badge.style.display = 'none';
+        }
+        const marketRateValue = document.getElementById('marketRateValue');
+        if (marketRateValue) {
+          marketRateValue.textContent = formatPercent(6.8);
+          marketRateValue.classList.remove('market-shimmer');
         }
       }
     }
@@ -991,15 +1092,77 @@
           : 'Hide extra details ▲';
       }
     }
+    function switchDetailTab(tabName) {
+      document.querySelectorAll('.detail-tab-button').forEach(button => {
+        button.classList.toggle('active', button.dataset.tab === tabName);
+      });
+      document.querySelectorAll('.detail-tab-panel').forEach(panel => {
+        panel.classList.toggle('active', panel.classList.contains(`panel-${tabName}`));
+      });
+    }
+    function renderFloatingResultBar(result) {
+      const bar = document.getElementById('floatingResultBar');
+      const text = document.getElementById('floatingResultText');
+      const viewButton = document.getElementById('floatingResultView');
+      const dismissButton = document.getElementById('floatingResultDismiss');
+      if (!bar || !text || !viewButton || !dismissButton) return;
+      const summary = result.verdict === 'buy'
+        ? `Buying appears cheaper by ${formatCurrency(result.diff)} over ${result.data.timeHorizon} years.`
+        : result.verdict === 'rent'
+          ? `Renting appears cheaper by ${formatCurrency(result.diff)} over ${result.data.timeHorizon} years.`
+          : `Both options are close at ${formatCurrency(result.diff)} difference.`;
+      text.textContent = summary;
+      bar.classList.remove('hidden');
+      viewButton.onclick = () => document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+      dismissButton.onclick = () => bar.classList.add('hidden');
+    }
+    function hideFloatingResultBar() {
+      const bar = document.getElementById('floatingResultBar');
+      if (bar) bar.classList.add('hidden');
+    }
+    function queueCalculation(delay = 1000) {
+      setCalculateLoading(true);
+      if (autoRecalcTimer) clearTimeout(autoRecalcTimer);
+      autoRecalcTimer = setTimeout(() => {
+        if (!validateCalculator()) {
+          setCalculateLoading(false);
+          return;
+        }
+        const data = getInputNumbers();
+        const result = calculateResults(data);
+        verdictText = result.verdict;
+        breakevenYear = result.breakeven;
+        buildResults(result);
+        setCalculateLoading(false);
+        document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+      }, delay);
+    }
+    function scheduleAutoRecalc() {
+      if (!hasCalculated) return;
+      if (!validateCalculator()) return;
+      if (autoRecalcTimer) clearTimeout(autoRecalcTimer);
+      autoRecalcTimer = setTimeout(() => queueCalculation(1000), AUTO_RECALC_DEBOUNCE);
+    }
+    function setupAutoRecalc() {
+      document.querySelectorAll('#calculator input').forEach(input => {
+        input.addEventListener('input', scheduleAutoRecalc);
+      });
+      document.querySelectorAll('.radio-pill-group').forEach(group => {
+        group.addEventListener('click', scheduleAutoRecalc);
+      });
+      document.querySelectorAll('.detail-tab-button').forEach(button => {
+        button.addEventListener('click', scheduleAutoRecalc);
+      });
+    }
     function setCalculateLoading(isLoading) {
       const button = document.getElementById('calculateButton');
       if (!button) return;
       if (isLoading) {
         button.disabled = true;
-        button.innerHTML = '<span class="button-spinner"></span><span>Loading…</span>';
+        button.innerHTML = `<span class="button-spinner"></span><span>${CALCULATE_BUTTON_LOADING_TEXT}</span>`;
       } else {
         button.disabled = false;
-        button.textContent = 'Show Me Whether I Should Rent or Buy';
+        button.textContent = CALCULATE_BUTTON_TEXT;
       }
     }
     function validateCalculator() {
@@ -1255,7 +1418,6 @@
       const totalPMI = Math.round(result.monthlyPMI * Math.min(result.data.timeHorizon * 12, result.data.loanTermYears * 12));
       const totalSellingCosts = Math.round(homeValueAtHorizon * result.data.sellingCostsPct / 100);
       const totalRentInsurance = Math.round(result.data.rentersInsurance * 12 * result.data.timeHorizon);
-      const totalRentPaid = Math.round(result.rentYearValues.find(item => item.year === result.data.timeHorizon).rentingCost + (result.data.downPayment * Math.pow(1 + result.data.investmentReturnPct / 100, result.data.timeHorizon) - result.data.downPayment) - result.data.securityDeposit - result.data.brokerFee - totalRentInsurance);
       const content = `
         <div class="result-banner ${colorClass} fade-in">
           <div style="font-size:32px;">${emoji}</div>
@@ -1266,13 +1428,21 @@
         </div>
         <div class="chart-card fade-in">
           <div class="chart-title">How costs compare year by year</div>
-          <canvas id="costChart" width="800" height="320"></canvas>
-          <div class="chart-legend">
-            <div class="legend-item"><span class="legend-swatch" style="background: var(--orange)"></span>Cost of renting</div>
-            <div class="legend-item"><span class="legend-swatch" style="background: var(--green)"></span>Cost of buying</div>
+          <div style="position: relative; height: 300px; width: 100%; margin-bottom:24px;">
+            <canvas id="costChart"></canvas>
+          </div>
+          <div style="display:flex; justify-content:center; gap:24px; margin-top:12px;">
+            <div style="display:flex; align-items:center; gap:6px; font-size:13px; color:#4a5568;">
+              <div style="width:16px; height:4px; background:#E67E22; border-radius:2px;"></div>
+              Cost of renting
+            </div>
+            <div style="display:flex; align-items:center; gap:6px; font-size:13px; color:#4a5568;">
+              <div style="width:16px; height:4px; background:#27AE60; border-radius:2px;"></div>
+              Cost of buying
+            </div>
           </div>
         </div>
-        <div class="summary-cards fade-in">
+        <div class="summary-cards fade-in" style="margin-top:32px;">
           <div class="summary-card"><h3>Total cost if you rent</h3><strong>${formatCurrency(result.totalRentingCost)}</strong></div>
           <div class="summary-card"><h3>Total cost if you buy</h3><strong>${formatCurrency(result.totalBuyingCost)}</strong></div>
           <div class="summary-card"><h3>You save</h3><strong>${formatCurrency(result.diff)}</strong></div>
@@ -1335,133 +1505,202 @@
           methodologyToggle.textContent = isHidden ? 'See our methodology ▼' : 'Hide our methodology ▲';
         });
       }
-      drawChart(result.rentYearValues, result.breakeven, result.data.timeHorizon);
+      renderChart(result.rentYearValues.map(item => Math.round(item.rentingCost)), result.rentYearValues.map(item => Math.round(item.buyingCost)), result.breakeven, result.data.timeHorizon);
       renderAffiliate(result.verdict);
+      renderFloatingResultBar(result);
+      hasCalculated = true;
     }
-    function drawChart(values, breakEven, horizon) {
-      const canvas = document.getElementById('costChart');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      const width = canvas.width;
-      const height = canvas.height;
-      ctx.clearRect(0,0,width,height);
-      const padding = 40;
-      const maxCost = Math.max(...values.map(v => Math.max(v.rentingCost, v.buyingCost)), 100000);
-      const step = Math.ceil(maxCost / 30000) * 30000;
-      const yMax = step * 4;
-      const xCount = 20;
-      ctx.strokeStyle = '#d9e2ef';
-      ctx.lineWidth = 1;
-      ctx.setLineDash([4,4]);
-      for (let i = 0; i <= 4; i++) {
-        const y = padding + ((height - padding * 2) / 4) * i;
-        ctx.beginPath(); ctx.moveTo(padding, y); ctx.lineTo(width - padding, y); ctx.stroke();
+    let costChart = null;
+    function renderChart(rentData, buyData, breakevenYear, planYear) {
+      const ctx = document.getElementById('costChart').getContext('2d');
+      if (!ctx) return;
+      if (costChart) {
+        costChart.destroy();
+        costChart = null;
       }
-      ctx.setLineDash([]);
-      ctx.strokeStyle = '#bbb';
-      ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.moveTo(padding, padding); ctx.lineTo(padding, height - padding); ctx.lineTo(width - padding, height - padding); ctx.stroke();
-      ctx.fillStyle = '#4a5568';
-      ctx.font = '12px DM Sans';
-      for (let i = 0; i <= 4; i++) {
-        const y = padding + ((height - padding * 2) / 4) * i;
-        const label = formatCurrency(Math.round(yMax - (yMax / 4) * i));
-        ctx.fillText(label, 6, y + 4);
-      }
-      for (const mark of [1,5,10,15,20]) {
-        const x = padding + ((width - padding * 2) / (xCount - 1)) * (mark - 1);
-        ctx.fillText(`Year ${mark}`, x - 16, height - 10);
-      }
-      const getX = year => padding + ((width - padding * 2) / (xCount - 1)) * (year - 1);
-      const getY = cost => padding + (1 - Math.min(cost / yMax, 1)) * (height - padding * 2);
-      const lineWidth = 3;
-      const rentColor = 'rgb(230,126,34)';
-      const buyColor = 'rgb(39,174,96)';
-      const rentFill = 'rgba(230,126,34,0.15)';
-      const buyFill = 'rgba(39,174,96,0.15)';
-      const rentPath = new Path2D();
-      const buyPath = new Path2D();
-      values.forEach((point, idx) => {
-        const x = getX(point.year);
-        const yRent = getY(point.rentingCost);
-        const yBuy = getY(point.buyingCost);
-        if (idx === 0) {
-          rentPath.moveTo(x, yRent);
-          buyPath.moveTo(x, yBuy);
-        } else {
-          rentPath.lineTo(x, yRent);
-          buyPath.lineTo(x, yBuy);
+
+      const labels = Array.from({ length: 20 }, (_, i) => 'Year ' + (i + 1));
+      const allValues = [...rentData, ...buyData];
+      const dataMax = Math.max(...allValues, 1);
+      const yMax = Math.ceil(dataMax * 1.15 / 100000) * 100000;
+
+      const drawAnnotations = (chart) => {
+        const ctx = chart.ctx;
+        const chartArea = chart.chartArea;
+        const xScale = chart.scales.x;
+        if (!chartArea || !xScale) return;
+
+        if (planYear >= 1 && planYear <= 20) {
+          const x = xScale.getPixelForValue(planYear - 1);
+          ctx.save();
+          ctx.beginPath();
+          ctx.moveTo(x, chartArea.top);
+          ctx.lineTo(x, chartArea.bottom);
+          ctx.strokeStyle = '#1B3557';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+          ctx.fillStyle = '#1B3557';
+          ctx.font = '11px DM Sans';
+          ctx.fillText('Your plan: Year ' + planYear, x + 6, chartArea.top + 16);
+          ctx.restore();
         }
-      });
-      const firstX = getX(values[0].year);
-      const lastX = getX(values[values.length - 1].year);
-      ctx.save();
-      ctx.beginPath();
-      ctx.moveTo(firstX, height - padding);
-      ctx.lineTo(firstX, getY(values[0].rentingCost));
-      values.forEach(point => {
-        ctx.lineTo(getX(point.year), getY(point.rentingCost));
-      });
-      ctx.lineTo(lastX, height - padding);
-      ctx.closePath();
-      ctx.fillStyle = rentFill;
-      ctx.fill();
-      ctx.restore();
-      ctx.save();
-      ctx.beginPath();
-      ctx.moveTo(firstX, height - padding);
-      ctx.lineTo(firstX, getY(values[0].buyingCost));
-      values.forEach(point => {
-        ctx.lineTo(getX(point.year), getY(point.buyingCost));
-      });
-      ctx.lineTo(lastX, height - padding);
-      ctx.closePath();
-      ctx.fillStyle = buyFill;
-      ctx.fill();
-      ctx.restore();
-      ctx.lineWidth = lineWidth;
-      ctx.strokeStyle = rentColor;
-      ctx.stroke(rentPath);
-      ctx.strokeStyle = buyColor;
-      ctx.stroke(buyPath);
-      if (breakEven && breakEven <= 20) {
-        const x = getX(breakEven);
-        const rentPoint = values.find(point => point.year === breakEven);
-        const yRent = rentPoint ? getY(rentPoint.rentingCost) : null;
-        const yBuy = rentPoint ? getY(rentPoint.buyingCost) : null;
-        ctx.strokeStyle = '#1B3557';
-        ctx.lineWidth = 2;
-        ctx.setLineDash([8,6]);
-        ctx.beginPath(); ctx.moveTo(x, padding); ctx.lineTo(x, height - padding); ctx.stroke();
-        ctx.setLineDash([]);
-        const label = `Break-even: Year ${breakEven}`;
-        ctx.font = '12px DM Sans';
-        const textWidth = ctx.measureText(label).width;
-        const badgeWidth = textWidth + 14;
-        const badgeHeight = 20;
-        const badgeX = Math.min(x + 10, width - padding - badgeWidth);
-        const badgeY = padding + 8;
-        ctx.fillStyle = '#1B3557';
-        ctx.fillRect(badgeX, badgeY, badgeWidth, badgeHeight);
-        ctx.fillStyle = '#fff';
-        ctx.fillText(label, badgeX + 7, badgeY + 14);
-        if (yRent !== null) {
-          ctx.fillStyle = rentColor;
-          ctx.beginPath(); ctx.arc(x, yRent, 5, 0, Math.PI * 2); ctx.fill();
-          ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.stroke();
+
+        if (breakevenYear && breakevenYear >= 1 && breakevenYear <= 20) {
+          const x = xScale.getPixelForValue(breakevenYear - 1);
+          ctx.save();
+          ctx.beginPath();
+          ctx.setLineDash([5, 4]);
+          ctx.moveTo(x, chartArea.top);
+          ctx.lineTo(x, chartArea.bottom);
+          ctx.strokeStyle = '#718096';
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+          ctx.setLineDash([]);
+          const label = 'Break-even: Year ' + breakevenYear;
+          ctx.font = 'bold 11px DM Sans';
+          const tw = ctx.measureText(label).width;
+          ctx.fillStyle = '#1B3557';
+          ctx.beginPath();
+          ctx.roundRect(x - tw / 2 - 8, chartArea.top + 4, tw + 16, 22, 4);
+          ctx.fill();
+          ctx.fillStyle = '#fff';
+          ctx.fillText(label, x - tw / 2, chartArea.top + 19);
+          ctx.restore();
         }
-        if (yBuy !== null) {
-          ctx.fillStyle = buyColor;
-          ctx.beginPath(); ctx.arc(x, yBuy, 5, 0, Math.PI * 2); ctx.fill();
-          ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.stroke();
-        }
-      }
-      const xHorizon = getX(Math.min(horizon, 20));
-      ctx.strokeStyle = '#1B3557';
-      ctx.lineWidth = 2;
-      ctx.beginPath(); ctx.moveTo(xHorizon, padding); ctx.lineTo(xHorizon, height - padding); ctx.stroke();
-      ctx.fillStyle = '#1B3557';
-      ctx.fillText(`Your plan: Year ${horizon}`, xHorizon + 6, height - padding - 10);
+      };
+
+      costChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Cost of renting',
+              data: rentData,
+              borderColor: '#E67E22',
+              backgroundColor: 'rgba(230, 126, 34, 0.08)',
+              borderWidth: 3,
+              pointRadius: 0,
+              pointHoverRadius: 6,
+              pointHoverBackgroundColor: '#E67E22',
+              pointHoverBorderColor: '#fff',
+              pointHoverBorderWidth: 2,
+              fill: false,
+              tension: 0.3
+            },
+            {
+              label: 'Cost of buying',
+              data: buyData,
+              borderColor: '#27AE60',
+              backgroundColor: 'rgba(39, 174, 96, 0.08)',
+              borderWidth: 3,
+              pointRadius: 0,
+              pointHoverRadius: 6,
+              pointHoverBackgroundColor: '#27AE60',
+              pointHoverBorderColor: '#fff',
+              pointHoverBorderWidth: 2,
+              fill: false,
+              tension: 0.3
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: {
+            mode: 'index',
+            intersect: false
+          },
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              backgroundColor: '#1B3557',
+              titleColor: '#fff',
+              bodyColor: '#fff',
+              padding: 12,
+              cornerRadius: 8,
+              titleFont: { size: 13, family: 'DM Sans', weight: '600' },
+              bodyFont: { size: 13, family: 'DM Sans' },
+              callbacks: {
+                title: function(items) {
+                  return items[0].label;
+                },
+                label: function(item) {
+                  const value = item.raw.toLocaleString('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                    maximumFractionDigits: 0
+                  });
+                  return ' ' + item.dataset.label + ': ' + value;
+                },
+                afterBody: function(items) {
+                  if (!items || items.length < 2) return '';
+                  const rentVal = items[0].raw;
+                  const buyVal = items[1].raw;
+                  const diff = Math.abs(rentVal - buyVal).toLocaleString('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                    maximumFractionDigits: 0
+                  });
+                  const winner = rentVal < buyVal ? 'Renting' : 'Buying';
+                  return ['', winner + ' saves ' + diff + ' at this point'];
+                }
+              }
+            },
+            annotation: {}
+          },
+          scales: {
+            x: {
+              grid: {
+                color: 'rgba(0,0,0,0.04)',
+                drawBorder: false
+              },
+              ticks: {
+                font: { size: 12, family: 'DM Sans' },
+                color: '#718096',
+                maxTicksLimit: 6,
+                callback: function(val, index) {
+                  const year = index + 1;
+                  if ([1, 5, 10, 15, 20].includes(year)) return 'Year ' + year;
+                  return '';
+                }
+              },
+              border: { display: false }
+            },
+            y: {
+              min: 0,
+              max: yMax,
+              grid: {
+                color: 'rgba(0,0,0,0.04)',
+                drawBorder: false
+              },
+              ticks: {
+                font: { size: 12, family: 'DM Sans' },
+                color: '#718096',
+                maxTicksLimit: 6,
+                callback: function(value) {
+                  if (value >= 1000000) return '$' + (value / 1000000).toFixed(1) + 'M';
+                  if (value >= 1000) return '$' + (value / 1000).toFixed(0) + 'K';
+                  return '$' + value;
+                }
+              },
+              border: { display: false }
+            }
+          },
+          animation: {
+            duration: 800,
+            easing: 'easeInOutQuart'
+          }
+        },
+        plugins: [{
+          id: 'customAnnotations',
+          afterDraw: function(chart) {
+            drawAnnotations(chart);
+          }
+        }]
+      });
     }
     // Manual Supabase SQL Editor: run the following policy to allow anon inserts only.
     // create policy "Anon can insert leads" on public.leads for insert using (true) with check (true);
@@ -1532,12 +1771,12 @@
     }
     function setupFaq() {
       const faqs = [
-        { q: 'Is buying always better than renting — rent vs buy explained', a: 'No. It depends mostly on how long you plan to stay. If you stay less than 3 to 5 years, renting usually saves money because upfront costs of buying take time to recover.' },
-        { q: 'What is the break-even point?', a: 'The year when buying finally becomes cheaper than renting. Before that year renting saves money. After that year buying saves money. Our calculator finds this for you.' },
-        { q: 'What is PMI and do I have to pay it?', a: 'PMI stands for Private Mortgage Insurance. If you put less than 20% down, your lender requires this extra monthly fee — about 0.5 to 1% of the loan per year. It goes away once you own 20% of the home.' },
-        { q: 'What happens to my down payment if I keep renting?', a: 'That money stays in your pocket. If you invest it in an index fund it could grow at around 7% per year. Our calculator counts this as a benefit of renting so the comparison is fair.' },
-        { q: 'Does this include the mortgage interest tax deduction?', a: 'This version keeps it simple and does not include it. Since the 2017 tax law raised the standard deduction, most Americans no longer benefit from itemising. If you do itemise, your real cost of buying could be slightly lower than we show.' },
-        { q: 'How accurate is this calculator?', a: 'It is a good estimate based on the numbers you enter and standard financial formulas. Real results depend on future home prices, rates, and your personal tax situation. Use it for a clear general picture, then speak with a mortgage lender for exact numbers.' }
+        { q: 'Is buying always better than renting — rent vs buy explained', a: 'No — it depends almost entirely on how long you plan to stay. If you move before the break-even point, the upfront costs of buying mean renting would have saved you money. Our calculator finds your exact break-even year based on your numbers. In most US markets in 2026, the break-even point falls between 5 and 8 years.' },
+        { q: 'What is the break-even point?', a: 'The break-even point is the year when buying finally becomes cheaper than renting in total cost. Before that year, renting saves you money. After it, buying saves you money. Our rent vs buy calculator finds this year automatically so you can compare it against how long you plan to stay.' },
+        { q: 'What is PMI and do I have to pay it?', a: 'PMI stands for Private Mortgage Insurance. It is a monthly fee required by lenders when your down payment is below 20% of the home price. It typically costs 0.5 to 1% of the loan amount per year. The good news is it disappears once you reach 20% equity in the home. Our calculator includes PMI in the buying cost so your rent vs buy comparison is accurate.' },
+        { q: 'What happens to my down payment if I keep renting?', a: 'If you rent instead of buy, your down payment stays available to invest. Our calculator assumes you invest it at a 7% annual return — the US stock market historical average after inflation. This opportunity cost is counted as a financial benefit of renting, making the rent vs buy comparison fair and complete.' },
+        { q: 'Does this include the mortgage interest tax deduction?', a: 'The simple version does not include it, to keep things straightforward. Since the 2017 tax law raised the standard deduction, most US homebuyers no longer benefit from itemising deductions. If you do itemise, your real cost of buying would be slightly lower than our calculator shows. We recommend speaking with a tax advisor for your specific situation.' },
+        { q: 'How accurate is this calculator?', a: 'It is a strong estimate based on your inputs and standard financial formulas used by mortgage professionals. Real results depend on future interest rates, home price appreciation, and your personal tax situation — none of which can be predicted exactly. Use this rent vs buy calculator to get a clear directional answer, then verify the details with a licensed mortgage lender.' }
       ];
       faqs.forEach(item => {
         const faqItem = document.createElement('div');
@@ -1561,6 +1800,9 @@
       fetchLiveRate();
       const detailToggle = document.getElementById('detailToggle');
       if (detailToggle) detailToggle.addEventListener('click', toggleDetails);
+      document.querySelectorAll('.detail-tab-button').forEach(button => {
+        button.addEventListener('click', () => switchDetailTab(button.dataset.tab));
+      });
       const homePriceInput = document.getElementById('homePrice');
       const downPaymentInput = document.getElementById('downPayment');
       document.getElementById('homePrice').addEventListener('input', updateLiveFields);
@@ -1588,17 +1830,9 @@
       formatNumberInput(downPaymentInput);
       document.getElementById('calculateButton').addEventListener('click', () => {
         if (!validateCalculator()) return;
-        setCalculateLoading(true);
-        setTimeout(() => {
-          setCalculateLoading(false);
-          const data = getInputNumbers();
-          const result = calculateResults(data);
-          verdictText = result.verdict;
-          breakevenYear = result.breakeven;
-          buildResults(result);
-          document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
-        }, 1000);
+        queueCalculation(1000);
       });
+      setupAutoRecalc();
       const downloadReportButton = document.getElementById('downloadReportButton');
       if (downloadReportButton) {
         downloadReportButton.addEventListener('click', async () => {
