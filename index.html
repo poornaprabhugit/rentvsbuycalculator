@@ -63,6 +63,7 @@
     .hero-copy { max-width: 640px; }
     .hero h1 { margin: 0; font-family: 'Outfit', sans-serif; font-size: 28px; line-height: 1.1; color: var(--navy); }
     .hero p { margin: 20px 0 0; font-size: 18px; color: var(--text-mid); max-width: 620px; }
+    .hero-copy > p { word-wrap: break-word; overflow-wrap: break-word; white-space: normal; padding: 0 16px; width: 100%; box-sizing: border-box; }
     .hero-subtitle { margin: 16px 0 0; font-size: 16px; color: var(--text-mid); font-weight: 400; text-align: center; max-width: 640px; }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
     .hero .cta { background: var(--navy); color: #fff; border: none; padding: 16px 48px; border-radius: 14px; cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 18px; transition: transform .2s ease, box-shadow .2s ease, background .2s ease; display: inline-flex; align-items: center; gap: 8px; margin-top: 24px; }
@@ -70,21 +71,21 @@
     .hero .cta .cta-arrow { display: inline-block; }
     .hero-note { font-size: 13px; color: #718096; text-align: center; margin-top: 8px; margin-bottom: 8px; }
     .badge-list { display: flex; justify-content: center; gap: 10px; margin-top: 22px; flex-wrap: nowrap; }
-    .badge { background: #fff; border: 1px solid #CBD5E0; border-radius: 20px; padding: 6px 16px; font-size: 13px; color: #4a5568; }
+    .badge { background: #fff; border: 1px solid #CBD5E0; border-radius: 20px; padding: 6px 16px; font-size: 13px; color: #4a5568; white-space: nowrap; }
 
     .how-grid { display: grid; gap: 20px; }
     .step-card { background: #fff; border: 1px solid var(--border); border-radius: 18px; padding: 22px; }
     .step-pill { width: 46px; height: 46px; border-radius: 50%; background: var(--navy); color: #fff; display: grid; place-items: center; font-weight: 700; }
     .step-card h3 { margin: 16px 0 8px; font-size: 18px; color: var(--navy); }
     .step-card p { margin: 0; color: var(--text-mid); font-size: 15px; }
-    .calculator-card { background: var(--light-bg); border: 1px solid #dce4ee; border-radius: 16px; box-shadow: 0 20px 60px rgba(27,53,87,.08); padding: 24px; }
+    .calculator-card { position: relative; z-index: 1; background: var(--light-bg); border: 1px solid #dce4ee; border-radius: 16px; box-shadow: 0 20px 60px rgba(27,53,87,.08); padding: 24px; }
     .section-title { margin: 0 0 12px; font-size: 24px; font-family: 'Outfit', sans-serif; color: var(--navy); }
     .section-subtitle { margin: 0 0 24px; color: var(--text-mid); font-size: 15px; max-width: 720px; }
     .label-group { margin-bottom: 28px; border-bottom: 1px solid #E2E8F0; padding-bottom: 24px; }
     .label-group:last-child { margin-bottom: 0; border-bottom: none; padding-bottom: 0; }
     .label-group label { display: block; font-size: 17px; font-weight: 600; margin-bottom: 12px; color: var(--text-dark); }
-    .field-label-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-    .field-label-row label { display: inline-block; margin-bottom: 0; }
+    .field-label-row { display: flex; align-items: center; gap: 6px; flex-wrap: nowrap; margin-bottom: 6px; }
+    .field-label-row label { font-size: 16px; font-weight: 600; color: #1a1a2a; flex-shrink: 1; min-width: 0; margin-bottom: 0; }
     .tooltip-wrapper { position: relative; display: inline-flex; align-items: center; }
     .tooltip-icon { display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px; border-radius: 50%; background: #94A3B8; color: white; font-size: 9px; font-weight: 700; cursor: help; flex-shrink: 0; vertical-align: middle; margin-left: 4px; line-height: 1; border: none; }
     .tooltip-icon:hover { background: #1B3557; }
@@ -98,9 +99,9 @@
     .input-row { display: grid; gap: 12px; }
     .label-group input[type=number], .label-group input[type=email], .label-group input[type=text], .label-group select { width: 100%; padding: 14px 16px; border: 1.5px solid #CBD5E0; border-radius: 10px; color: var(--text-dark); font-size: 16px; background: #fff; transition: border .15s ease, box-shadow .15s ease; }
     .label-group input[type=number]:focus, .label-group input[type=email]:focus, .label-group input[type=text]:focus, .label-group select:focus { border: 2px solid var(--navy); box-shadow: 0 0 0 3px rgba(27,53,87,0.1); outline: none; }
-    .currency-input-row { display: flex; align-items: center; gap: 10px; }
-    .currency-input-row .currency-prefix { color: #718096; font-size: 16px; min-width: 16px; }
-    .currency-input-row input { width: 100%; }
+    .currency-input-row { display: flex; align-items: center; gap: 8px; width: 100%; }
+    .currency-input-row .currency-prefix { color: #718096; font-size: 16px; min-width: 16px; white-space: nowrap; }
+    .currency-input-row input { flex: 1; min-width: 0; width: auto; }
     .formatted-value { color: var(--navy); font-weight: 700; margin-top: 8px; font-size: 15px; }
     .input-grid { display: grid; gap: 16px; }
     .pill-group, .radio-pill-group, .city-grid, .detail-grid, .summary-cards, .breakdown-grid, .affiliate-grid, .faq-list, .footer-grid { display: grid; gap: 12px; }
@@ -179,6 +180,13 @@
     @media (max-width: 639px) {
       body { padding-bottom: 60px; }
       .mobile-ads-banner { display: none; }
+      .calculator-card { padding: 16px; }
+      .field-label-row { gap: 6px; }
+      .currency-input-row { gap: 8px; }
+      .currency-input-row input { width: auto; }
+      .calculator-card input, .calculator-card select, .calculator-card button, .currency-input-row input, .radio-pill-group button { max-width: 100%; }
+      #results, .affiliate-section { overflow: hidden; }
+      .floating-result-bar { padding-bottom: env(safe-area-inset-bottom, 12px); }
     }
     .detail-toggle:hover { text-decoration: underline; }
     .live-value { color: var(--navy); font-weight: 700; }
@@ -219,14 +227,14 @@
     .mobile-detail-tabs { display: none; gap: 0; margin-bottom: 16px; border-bottom: 1px solid #e2e8f0; }
     .mobile-detail-tabs button { flex: 1; border: none; background: transparent; color: #718096; padding: 10px; font-size: 14px; cursor: pointer; }
     .mobile-detail-tabs button.active { color: var(--navy); border-bottom: 3px solid var(--navy); font-weight: 700; }
-    .detail-tab-panel { display: block; }
+    .detail-tab-panel { display: block; padding-top: 16px; }
     @media (max-width: 639px) {
       .market-snapshot-card { width: calc(100% - 32px); }
       .comparison-bar-section { display: block; }
       .floating-result-bar { display: none !important; }
       .detail-tab-panel { display: none; }
       .detail-tab-panel.active { display: block; }
-      .desktop-detail-grid { display: none; }
+      .desktop-detail-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
       .mobile-detail-tabs { display: flex; }
     }
     .result-banner { border-radius: 12px; padding: 24px 24px 20px; margin-bottom: 24px; color: #fff; }
@@ -323,9 +331,28 @@
       .footer-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 640px) {
+      * { max-width: 100%; box-sizing: border-box; }
+      body { overflow-x: hidden; }
+      .hero-copy > p { word-wrap: break-word; overflow-wrap: break-word; white-space: normal; padding: 0 16px; width: 100%; box-sizing: border-box; }
+      .badge-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 16px; margin-top: 16px; margin-bottom: 8px; }
+      .badge { white-space: normal; line-height: 1.3; text-align: center; font-size: 12px; padding: 8px 10px; }
+      .hero-note { font-size: 12px; padding: 0 16px; text-align: center; word-wrap: break-word; white-space: normal; }
+      .market-snapshot-card { display: flex; justify-content: center; margin: 16px auto; width: fit-content; max-width: calc(100% - 32px); }
+      .hero .cta { width: calc(100% - 32px); margin: 16px auto; display: flex; justify-content: center; text-align: center; }
       .input-grid { grid-template-columns: 1fr; }
       .detail-grid { grid-template-columns: 1fr; }
       .radio-pill-group { justify-content: flex-start; }
+    }
+    @media (max-width: 375px) {
+      .field-label-row { gap: 6px; }
+      .field-label-row label { font-size: 15px; }
+      .currency-input-row { gap: 8px; }
+      .currency-input-row input { width: 100%; }
+      .currency-input-row .currency-prefix { flex-shrink: 0; }
+      .range-row { flex-wrap: wrap; gap: 8px; }
+      .range-row .slider-value-badge { width: 100%; max-width: 100%; }
+      .calculator-card { padding: 16px; }
+      .calculator-card input, .calculator-card select, .calculator-card button, .currency-input-row input, .radio-pill-group button { max-width: 100%; }
     }
     @media print {
       body { background: #fff; color: #000; font-size: 12pt; line-height: 1.6; }
