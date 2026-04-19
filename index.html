@@ -863,6 +863,35 @@
       </div>
     </section>
 
+    <section class="section seo-section">
+  <div class="section-title">Key Assumptions in Our 2026 Rent vs Buy Calculator</div>
+  <p style="color:var(--text-mid);font-size:15px;max-width:720px;margin-bottom:24px;">Every rent vs buy calculator makes assumptions. Ours are transparent — here is exactly what we use and why, so you can trust the result or adjust the inputs to match your situation.</p>
+  <div class="seo-block">
+    <h3>Mortgage rate: live from Freddie Mac via FRED</h3>
+    <p>We pull the current 30-year fixed mortgage rate automatically each week from the Federal Reserve Economic Data (FRED) API. As of 2026 this sits around 6.5–7%. Your actual rate depends on your credit score and lender — use the slider to adjust it to your personal rate quote.</p>
+  </div>
+  <div class="seo-block">
+    <h3>Home price appreciation: 3.5% per year default</h3>
+    <p>US homes have appreciated an average of 3–4% per year since 1990. We default to 3.5% as a conservative middle estimate. High-demand cities like Austin or Miami have seen higher; slower markets like Cleveland or Detroit have seen lower. Adjust this in the detailed settings to match your target city.</p>
+  </div>
+  <div class="seo-block">
+    <h3>Opportunity cost of the down payment: 7% investment return</h3>
+    <p>This is the assumption most calculators skip entirely. Money used as a down payment cannot be invested elsewhere. We assume a 7% annual return — the historical S&P 500 average after inflation — on the down payment if you rented instead of bought. This makes the rent vs buy comparison genuinely fair rather than artificially favouring buying.</p>
+  </div>
+  <div class="seo-block">
+    <h3>Rent growth: 3% per year default</h3>
+    <p>US rents have increased an average of 3% per year historically. In high-demand cities this can reach 5–6%. We apply this growth rate year over year to your starting rent figure, so the comparison accounts for the fact that renting gets more expensive over time too.</p>
+  </div>
+  <div class="seo-block">
+    <h3>Selling costs: 6% of home value</h3>
+    <p>When you sell a home, real estate agent commissions and closing fees typically total 5–6% of the sale price. This is one of the most commonly forgotten costs in rent vs buy comparisons. We include it by default because ignoring it makes buying look artificially cheaper than it is.</p>
+  </div>
+  <div class="seo-block">
+    <h3>Property tax: 1.2% national average default</h3>
+    <p>The US national average effective property tax rate is approximately 1.1–1.2% of home value per year. This varies significantly by state — New Jersey averages over 2%, Hawaii under 0.3%. Use your county assessor website to find your exact rate and enter it in the detailed settings for a more accurate result.</p>
+  </div>
+</section>
+
     <section class="section faq-section">
       <div class="section-title">Simple Answers to Common Questions</div>
       <div class="faq-list" id="faqList"></div>
