@@ -368,6 +368,70 @@
       @page { margin: 20mm; }
     }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is it better to rent or buy a home in 2026?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It depends on three things: how long you plan to stay, current mortgage rates around 6.5-7%, and your local rent-to-price ratio. With higher 2026 rates, buying typically only beats renting financially if you stay 7 or more years. The break-even point varies significantly by city — use a calculator with your actual numbers rather than relying on general rules."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long do I need to stay in a home to make buying worth it?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The break-even point is usually 5 to 10 years. Upfront buying costs of 2-3% (closing) and selling costs of 5-6% take years to recover through equity buildup and home appreciation. Cities with higher property taxes or slower appreciation push the break-even later; cities with strong appreciation pull it earlier."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the opportunity cost of a down payment?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Money used as a down payment is money that cannot be invested elsewhere. At a 7% historical S&P 500 return after inflation, a $90,000 down payment could grow to roughly $177,000 over 10 years if invested instead. A fair rent vs buy comparison must subtract this opportunity cost from the financial benefit of buying."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Should I include PMI in a rent vs buy calculation?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. If your down payment is below 20% of the home price, you will pay Private Mortgage Insurance (PMI) until you reach 20% equity. PMI typically costs 0.5-1.5% of the loan amount per year. Excluding PMI from a calculation makes buying look artificially cheaper than it actually is."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this calculator accurate for my city?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Calculator accuracy depends on the inputs you provide. We include US median assumptions for property tax rates, insurance, and appreciation, but local conditions vary widely. For best accuracy, replace defaults with figures specific to your city — your county assessor website for property tax, recent comparable sales for home prices, and Apartment List or Zillow for current rents."
+        }
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Rent vs Buy Calculator",
+    "url": "https://shouldrentorbuy.com",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "description": "Free rent vs buy calculator with plain-English answer and break-even year. Includes opportunity cost of down payment, PMI, property tax, HOA, and selling costs. Live mortgage rates updated weekly from FRED."
+  }
+  </script>
 </head>
 <body>
   <nav class="sticky-nav">
@@ -829,7 +893,7 @@
         <div>shouldrentorbuy.com</div>
         <p>Should I Rent or Buy? Find out free.</p>
         <p style="margin-top:12px;font-size:12px;color:rgba(255,255,255,.75);">Mortgage rate data sourced from Freddie Mac via FRED. Property tax and home price data based on publicly available US market averages. For informational purposes only — not financial advice.</p>
-        <p style="margin-top:12px;font-size:14px;color:rgba(255,255,255,.85);">© 2026 shouldrentorbuy.com · <a href="privacy.html" style="color:#fff;text-decoration:underline;">Privacy Policy</a></p>
+        <p style="margin-top:12px;font-size:14px;color:rgba(255,255,255,.85);">© 2026 shouldrentorbuy.com · <a href="about.html" style="color:#fff;text-decoration:underline;">About</a> · <a href="contact.html" style="color:#fff;text-decoration:underline;">Contact</a> · <a href="terms.html" style="color:#fff;text-decoration:underline;">Terms</a> · <a href="privacy.html" style="color:#fff;text-decoration:underline;">Privacy</a></p>
       </div>
     </div>
   </footer>
@@ -1798,12 +1862,26 @@
     }
     function setupFaq() {
       const faqs = [
-        { q: 'Is buying always better than renting — rent vs buy explained', a: 'No — it depends almost entirely on how long you plan to stay. If you move before the break-even point, the upfront costs of buying mean renting would have saved you money. Our calculator finds your exact break-even year based on your numbers. In most US markets in 2026, the break-even point falls between 5 and 8 years.' },
-        { q: 'What is the break-even point?', a: 'The break-even point is the year when buying finally becomes cheaper than renting in total cost. Before that year, renting saves you money. After it, buying saves you money. Our rent vs buy calculator finds this year automatically so you can compare it against how long you plan to stay.' },
-        { q: 'What is PMI and do I have to pay it?', a: 'PMI stands for Private Mortgage Insurance. It is a monthly fee required by lenders when your down payment is below 20% of the home price. It typically costs 0.5 to 1% of the loan amount per year. The good news is it disappears once you reach 20% equity in the home. Our calculator includes PMI in the buying cost so your rent vs buy comparison is accurate.' },
-        { q: 'What happens to my down payment if I keep renting?', a: 'If you rent instead of buy, your down payment stays available to invest. Our calculator assumes you invest it at a 7% annual return — the US stock market historical average after inflation. This opportunity cost is counted as a financial benefit of renting, making the rent vs buy comparison fair and complete.' },
-        { q: 'Does this include the mortgage interest tax deduction?', a: 'The simple version does not include it, to keep things straightforward. Since the 2017 tax law raised the standard deduction, most US homebuyers no longer benefit from itemising deductions. If you do itemise, your real cost of buying would be slightly lower than our calculator shows. We recommend speaking with a tax advisor for your specific situation.' },
-        { q: 'How accurate is this calculator?', a: 'It is a strong estimate based on your inputs and standard financial formulas used by mortgage professionals. Real results depend on future interest rates, home price appreciation, and your personal tax situation — none of which can be predicted exactly. Use this rent vs buy calculator to get a clear directional answer, then verify the details with a licensed mortgage lender.' }
+        {
+          q: "Is it better to rent or buy a home in 2026?",
+          a: "It depends on three things: how long you plan to stay, current mortgage rates around 6.5-7%, and your local rent-to-price ratio. With higher 2026 rates, buying typically only beats renting financially if you stay 7 or more years. The break-even point varies significantly by city — use a calculator with your actual numbers rather than relying on general rules."
+        },
+        {
+          q: "How long do I need to stay in a home to make buying worth it?",
+          a: "The break-even point is usually 5 to 10 years. Upfront buying costs of 2-3% (closing) and selling costs of 5-6% take years to recover through equity buildup and home appreciation. Cities with higher property taxes or slower appreciation push the break-even later; cities with strong appreciation pull it earlier."
+        },
+        {
+          q: "What is the opportunity cost of a down payment?",
+          a: "Money used as a down payment is money that cannot be invested elsewhere. At a 7% historical S&P 500 return after inflation, a $90,000 down payment could grow to roughly $177,000 over 10 years if invested instead. A fair rent vs buy comparison must subtract this opportunity cost from the financial benefit of buying."
+        },
+        {
+          q: "Should I include PMI in a rent vs buy calculation?",
+          a: "Yes. If your down payment is below 20% of the home price, you will pay Private Mortgage Insurance (PMI) until you reach 20% equity. PMI typically costs 0.5-1.5% of the loan amount per year. Excluding PMI from a calculation makes buying look artificially cheaper than it actually is."
+        },
+        {
+          q: "Is this calculator accurate for my city?",
+          a: "Calculator accuracy depends on the inputs you provide. We include US median assumptions for property tax rates, insurance, and appreciation, but local conditions vary widely. For best accuracy, replace defaults with figures specific to your city — your county assessor website for property tax, recent comparable sales for home prices, and Apartment List or Zillow for current rents."
+        }
       ];
       faqs.forEach(item => {
         const faqItem = document.createElement('div');
