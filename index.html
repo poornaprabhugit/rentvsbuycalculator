@@ -1597,7 +1597,17 @@
         });
       }
       renderChart(result.rentYearValues.map(item => Math.round(item.rentingCost)), result.rentYearValues.map(item => Math.round(item.buyingCost)), result.breakeven, result.data.timeHorizon);
-      renderAffiliate(result.verdict);
+      const userInputs = {
+        yearsStaying: result.data.timeHorizon,
+        downPaymentPct: (result.data.downPayment / result.data.homePrice * 100)
+      };
+      loadAffiliateCards(result.verdict, userInputs).then(cards => {
+        renderAffiliateCards(cards, result.verdict);
+      }).catch(error => {
+        console.error('Failed to load affiliate cards:', error);
+        showToast('Could not load partner recommendations', 'error');
+        ELEMENTS.affiliateSection.classList.add('hidden');
+      });
       renderFloatingResultBar(result);
       hasCalculated = true;
     }
@@ -1859,6 +1869,106 @@
         ELEMENTS.affiliateHeading.textContent = 'Affiliate recommendations';
         ELEMENTS.affiliateSubtitle.textContent = 'Helpful partner options based on your result.';
       }
+    }
+    async function loadAffiliateCards(resultType, userInputs) {
+      try {
+        let allCards = [];
+        
+        // Query main result type cards
+        const { data: mainCards, error: mainError } = await supabaseClient
+          .from('affiliate_links')
+          .select('*')
+          .eq('result_type', resultType)
+          .eq('is_active', true)
+          .order('display_order', { ascending: true });
+        
+        if (mainError) {
+          console.warn(`Failed to load main affiliate cards: ${mainError.message}`);
+        } else if (mainCards) {
+          allCards = allCards.concat(mainCards);
+        }
+        
+        // Query conditional cards based on user inputs
+        let conditionalTypes = [];
+        if (userInputs.yearsStaying < 4) {
+          conditionalTypes.push('short_stay');
+        }
+        if (userInputs.downPaymentPct < 10) {
+          conditionalTypes.push('low_down_payment');
+        }
+        
+        // Fetch each conditional type
+        for (const condType of conditionalTypes) {
+          const { data: condCards, error: condError } = await supabaseClient
+            .from('affiliate_links')
+            .select('*')
+            .eq('result_type', condType)
+            .eq('is_active', true)
+            .order('display_order', { ascending: true });
+          
+          if (condError) {
+            console.warn(`Failed to load ${condType} affiliate cards: ${condError.message}`);
+          } else if (condCards) {
+            allCards = allCards.concat(condCards);
+          }
+        }
+        
+        return allCards;
+      } catch (error) {
+        console.error(`loadAffiliateCards failed: ${error.message || error}`);
+        return [];
+      }
+    }
+    function renderAffiliateCards(cards, resultType) {
+      const section = ELEMENTS.affiliateSection;
+      ELEMENTS.affiliateCards.innerHTML = '';
+      
+      // Set heading and subtitle based on result type
+      if (resultType === 'buy') {
+        ELEMENTS.affiliateHeading.textContent = 'Ready to make this happen?';
+        ELEMENTS.affiliateSubtitle.textContent = 'Compare lenders and protect your new home with these vetted partners.';
+      } else if (resultType === 'rent') {
+        ELEMENTS.affiliateHeading.textContent = 'Smart choice. Here\'s how to maximize it.';
+        ELEMENTS.affiliateSubtitle.textContent = 'Get more from renting with these recommended partners.';
+      } else {
+        // If equal or other verdict, don't show affiliates
+        section.classList.add('hidden');
+        return;
+      }
+      
+      // If no cards returned, hide the section
+      if (!cards || cards.length === 0) {
+        section.classList.add('hidden');
+        return;
+      }
+      
+      // Render cards
+      cards.forEach(card => {
+        const cardDiv = document.createElement('div');
+        cardDiv.className = 'affiliate-card';
+        
+        const link = document.createElement('a');
+        link.href = card.affiliate_url;
+        link.target = '_blank';
+        link.rel = 'sponsored noopener';
+        link.className = 'affiliate-button';
+        link.setAttribute('data-partner', card.partner_name);
+        link.textContent = card.cta_text;
+        
+        // Don't allow clicking if link is pending
+        if (card.affiliate_url.startsWith('#PENDING_')) {
+          link.addEventListener('click', (e) => e.preventDefault());
+          link.style.opacity = '0.6';
+          link.style.cursor = 'not-allowed';
+        }
+        
+        cardDiv.innerHTML = `<h3>${card.headline}</h3><p>${card.description}</p>`;
+        cardDiv.appendChild(link);
+        ELEMENTS.affiliateCards.appendChild(cardDiv);
+      });
+      
+      // Show the section
+      section.classList.remove('hidden');
     }
     function setupFaq() {
       const faqs = [
