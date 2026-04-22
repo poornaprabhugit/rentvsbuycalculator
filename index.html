@@ -2422,7 +2422,23 @@
     </section>
 
   </main>
-
+  <section style="background:#fff;padding:32px 0;border-top:1px solid #e2e8f0;">
+    <div class="container">
+      <div style="font-family:'Outfit',sans-serif;font-size:18px;font-weight:700;color:#1B3557;margin-bottom:16px;">Rent
+        vs Buy Guides by City</div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;">
+        <a href="rent-vs-buy-nyc.html"
+          style="background:#F7F9FC;border:1px solid #e2e8f0;border-radius:999px;padding:8px 18px;font-size:14px;color:#1B3557;font-weight:600;">New
+          York City →</a>
+        <a href="rent-vs-buy-seattle.html"
+          style="background:#F7F9FC;border:1px solid #e2e8f0;border-radius:999px;padding:8px 18px;font-size:14px;color:#1B3557;font-weight:600;">Seattle
+          →</a>
+        <a href="rent-vs-buy-bay-area.html"
+          style="background:#F7F9FC;border:1px solid #e2e8f0;border-radius:999px;padding:8px 18px;font-size:14px;color:#1B3557;font-weight:600;">San
+          Francisco Bay Area →</a>
+      </div>
+    </div>
+  </section>
   <section class="about-section">
     <div class="about-content">
       <h2 class="about-title">Why we built this</h2>
@@ -2479,7 +2495,8 @@
       "Dallas": { homePrice: 380000, propertyTax: 1.7, monthlyRent: 1700 },
       "Austin": { homePrice: 550000, propertyTax: 1.6, monthlyRent: 2000 },
       "Seattle": { homePrice: 750000, propertyTax: 0.9, monthlyRent: 2400 },
-      "Miami": { homePrice: 620000, propertyTax: 0.86, monthlyRent: 2700 }
+      "Miami": { homePrice: 620000, propertyTax: 0.86, monthlyRent: 2700 },
+      "San Francisco": { homePrice: 900000, propertyTax: 0.75, monthlyRent: 2800 },
     };
     const DEFAULTS = {
       propertyTaxPct: 1.2,
@@ -2673,7 +2690,7 @@
     const CITY_PAGES = {
       "New York": "rent-vs-buy-nyc.html",
       "Seattle": "rent-vs-buy-seattle.html",
-      "San Diego": "rent-vs-buy-bay-area.html"
+      "San Francisco": "rent-vs-buy-bay-area.html"
     };
 
     function createCityGrid() {
