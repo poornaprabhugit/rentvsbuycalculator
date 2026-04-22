@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rent vs Buy Calculator — New York City (2026)</title>
+  <meta name="description" content="Should you rent or buy in New York City? Run the numbers with NYC-specific home prices, property tax rates, and mortgage costs. Free calculator, no signup.">
+  <meta property="og:title" content="Rent vs Buy Calculator — New York City (2026)">
+  <meta property="og:description" content="Should you rent or buy in New York City? Run the numbers with NYC-specific home prices, property tax rates, and mortgage costs. Free calculator, no signup.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://shouldrentorbuy.com/og-image.png">
+  <meta property="og:url" content="https://shouldrentorbuy.com/rent-vs-buy-nyc.html">
+  <meta property="og:site_name" content="Rent or Buy Calculator">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Rent vs Buy Calculator — New York City (2026)">
+  <meta name="twitter:description" content="Should you rent or buy in New York City? Run the numbers free in 60 seconds.">
+  <meta name="twitter:image" content="https://shouldrentorbuy.com/og-image.png">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://shouldrentorbuy.com/rent-vs-buy-nyc.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Outfit:wght@700&display=swap" rel="stylesheet">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7880854311820429" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --navy: #1B3557;
+      --green: #27AE60;
+      --orange: #E67E22;
+      --light-bg: #F7F9FC;
+      --white: #ffffff;
+      --text-dark: #1a1a2a;
+      --text-mid: #4a5568;
+      --text-light: #718096;
+      --border: #e2e8f0;
+      font-family: 'DM Sans', sans-serif;
+      line-height: 1.6;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--light-bg); color: var(--text-dark); }
+    a { color: var(--navy); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+
+    /* Nav */
+    .sticky-nav { position: sticky; top: 0; z-index: 1000; background: #fff; border-bottom: 1px solid var(--border); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 0; }
+    .brand { font-family: 'Outfit', sans-serif; font-size: 18px; color: var(--navy); font-weight: 700; }
+    .nav-button { border: 1px solid var(--navy); background: var(--navy); color: #fff; padding: 10px 18px; border-radius: 999px; cursor: pointer; transition: opacity .2s ease; font-family: inherit; font-size: 14px; }
+    .nav-button:hover { opacity: .85; text-decoration: none; }
+
+    /* Hero */
+    .hero { background: var(--white); border-bottom: 1px solid var(--border); padding: 48px 0 40px; }
+    .breadcrumb { font-size: 13px; color: var(--text-light); margin-bottom: 16px; }
+    .breadcrumb a { color: var(--text-light); }
+    .breadcrumb a:hover { color: var(--navy); }
+    .hero h1 { font-family: 'Outfit', sans-serif; font-size: 36px; line-height: 1.15; color: var(--navy); margin-bottom: 16px; max-width: 720px; }
+    .hero-sub { font-size: 18px; color: var(--text-mid); max-width: 640px; margin-bottom: 24px; }
+    .stat-row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 28px; }
+    .stat-pill { background: var(--light-bg); border: 1px solid var(--border); border-radius: 999px; padding: 8px 18px; font-size: 14px; color: var(--text-mid); }
+    .stat-pill strong { color: var(--navy); }
+    .cta-button { display: inline-flex; align-items: center; gap: 8px; background: var(--navy); color: #fff; border: none; padding: 16px 36px; border-radius: 14px; font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 700; cursor: pointer; transition: transform .2s ease, box-shadow .2s ease; text-decoration: none; }
+    .cta-button:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(27,53,87,.3); text-decoration: none; color: #fff; }
+
+    /* Calculator embed */
+    .calc-section { padding: 48px 0; }
+    .calc-frame { background: #fff; border: 1px solid var(--border); border-radius: 18px; padding: 32px; text-align: center; }
+    .calc-frame h2 { font-family: 'Outfit', sans-serif; font-size: 24px; color: var(--navy); margin-bottom: 8px; }
+    .calc-frame p { color: var(--text-mid); margin-bottom: 24px; font-size: 15px; }
+    .calc-link { display: inline-flex; align-items: center; gap: 10px; background: var(--navy); color: #fff; padding: 18px 48px; border-radius: 14px; font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 700; transition: transform .2s, box-shadow .2s; }
+    .calc-link:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(27,53,87,.3); text-decoration: none; color: #fff; }
+    .calc-note { margin-top: 12px; font-size: 13px; color: var(--text-light); }
+
+    /* Content sections */
+    .content-section { padding: 0 0 48px; }
+    .content-grid { display: grid; gap: 20px; }
+    .content-card { background: #fff; border: 1px solid var(--border); border-radius: 18px; padding: 28px; }
+    .content-card h2 { font-family: 'Outfit', sans-serif; font-size: 22px; color: var(--navy); margin-bottom: 14px; }
+    .content-card h3 { font-size: 17px; color: var(--navy); margin: 20px 0 8px; }
+    .content-card p { color: var(--text-mid); font-size: 15px; line-height: 1.7; margin-bottom: 12px; }
+    .content-card p:last-child { margin-bottom: 0; }
+    .data-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+    .data-table th { text-align: left; padding: 10px 14px; background: var(--light-bg); color: var(--navy); font-weight: 600; border-bottom: 2px solid var(--border); }
+    .data-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text-mid); }
+    .data-table tr:last-child td { border-bottom: none; }
+    .highlight-box { background: #EBF5FB; border-left: 4px solid var(--navy); border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .highlight-box p { color: var(--text-dark); font-size: 15px; margin: 0; }
+
+    /* FAQ */
+    .faq-item { background: #fff; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-bottom: 10px; }
+    .faq-question { display: flex; justify-content: space-between; align-items: center; padding: 18px 20px; cursor: pointer; font-weight: 700; color: var(--navy); font-size: 15px; }
+    .faq-icon { font-size: 20px; line-height: 1; transition: transform .2s; }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height .25s ease, padding .25s ease; padding: 0 20px; font-size: 15px; color: var(--text-mid); line-height: 1.7; }
+    .faq-item.open .faq-answer { max-height: 400px; padding: 0 20px 20px; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+    /* Footer */
+    .footer { background: var(--navy); color: #fff; margin-top: 48px; }
+    .footer-grid { display: grid; gap: 12px; grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 32px 0; }
+    .footer-col p { margin: 8px 0 0; color: rgba(255,255,255,.75); font-size: 14px; line-height: 1.7; }
+    .footer-brand { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 700; }
+
+    @media (max-width: 719px) {
+      .hero h1 { font-size: 26px; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .stat-row { gap: 8px; }
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is it better to rent or buy in New York City in 2026?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For most New Yorkers in 2026, renting is financially smarter unless you plan to stay 10+ years. NYC has some of the highest home prices in the US (median ~$750,000), high property taxes, and significant closing costs. The break-even point for buying in NYC is typically 8-12 years depending on the borough."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the average home price in New York City?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The median home price in NYC is approximately $750,000 in 2026, though this varies significantly by borough — Manhattan averages over $1.2M, while the Bronx averages around $450,000. Brooklyn and Queens sit in between at $700,000-$800,000."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the property tax rate in New York City?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "NYC's effective property tax rate is approximately 1.07%, though the actual amount varies based on the assessed value, which is often lower than market value for residential properties. Condos and co-ops are taxed differently than single-family homes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much do I need to earn to buy in NYC?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "At a $750,000 home price with 20% down and a 6.8% mortgage rate, your monthly payment including taxes and insurance is roughly $4,800-$5,200. Most lenders require your housing costs to be under 28-31% of gross income, meaning you'd need a household income of around $185,000-$220,000 to qualify comfortably."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <nav class="sticky-nav">
+    <div class="container nav-inner">
+      <a href="/" class="brand" style="text-decoration:none;">Rent or Buy Calculator</a>
+      <a href="/" class="nav-button">Back to Calculator</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">Rent or Buy Calculator</a> › New York City
+      </div>
+      <h1>Should You Rent or Buy in New York City in 2026?</h1>
+      <p class="hero-sub">NYC is one of the hardest housing markets in the US. Run the numbers with real NYC home prices, property tax rates, and your planned timeline — and get a plain-English answer in 60 seconds.</p>
+      <div class="stat-row">
+        <div class="stat-pill">Median home price: <strong>~$750,000</strong></div>
+        <div class="stat-pill">Typical rent: <strong>~$3,500/mo</strong></div>
+        <div class="stat-pill">Property tax rate: <strong>~1.07%</strong></div>
+        <div class="stat-pill">Typical break-even: <strong>8–12 years</strong></div>
+      </div>
+      <a href="/?home=750000&rent=3500&down=150000&years=7&rate=6.8&city=New+York" class="cta-button">Run My NYC Calculation →</a>
+    </div>
+  </section>
+
+  <div class="container">
+
+    <section class="calc-section">
+      <div class="calc-frame">
+        <h2>NYC Rent vs Buy Calculator</h2>
+        <p>Pre-filled with New York City median values. Adjust the numbers to match your exact situation — your income, your neighborhood, your down payment.</p>
+        <a href="/?home=750000&rent=3500&down=150000&years=7&rate=6.8&city=New+York" class="calc-link">Open Calculator with NYC Values →</a>
+        <p class="calc-note">Free · No signup · Takes 60 seconds</p>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="content-grid">
+
+        <div class="content-card">
+          <h2>The NYC Housing Market in 2026</h2>
+          <p>New York City remains one of the most expensive housing markets in the United States. With median home prices around $750,000 and mortgage rates still elevated above 6.5%, the monthly cost of owning a comparable home typically far exceeds renting in most NYC neighborhoods.</p>
+          <p>That said, buying in NYC can still make financial sense — particularly for buyers who plan to stay long-term, have a substantial down payment, and are purchasing in appreciating outer-borough neighborhoods where the rent-to-price ratio is more favorable.</p>
+
+          <div class="highlight-box">
+            <p>The NYC price-to-rent ratio is roughly 18-20x in most boroughs — meaning home prices are 18-20 times the annual rent for a comparable unit. A ratio above 20 generally favors renting; below 15 generally favors buying.</p>
+          </div>
+
+          <h3>Prices by borough (approximate 2026 medians)</h3>
+          <table class="data-table">
+            <thead>
+              <tr><th>Borough</th><th>Median Home Price</th><th>Typical Monthly Rent</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Manhattan</td><td>$1,200,000+</td><td>$4,500+</td></tr>
+              <tr><td>Brooklyn</td><td>$800,000</td><td>$3,200</td></tr>
+              <tr><td>Queens</td><td>$700,000</td><td>$2,800</td></tr>
+              <tr><td>Bronx</td><td>$450,000</td><td>$2,200</td></tr>
+              <tr><td>Staten Island</td><td>$550,000</td><td>$2,400</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="content-card">
+          <h2>What Makes NYC Different from Other US Cities</h2>
+
+          <h3>Mansion tax</h3>
+          <p>New York State charges a "mansion tax" on purchases over $1 million — starting at 1% and rising to 3.9% for properties over $25 million. If you're buying in Manhattan, this is a significant additional upfront cost that most calculators don't include.</p>
+
+          <h3>NYC transfer tax</h3>
+          <p>Buyers and sellers both pay transfer taxes in New York. For residential properties under $500,000, the seller pays 1% and for properties over $500,000, it's 1.425%. Combined with the buyer's mortgage recording tax, total transaction costs in NYC typically run 3-5% on top of the purchase price.</p>
+
+          <h3>Co-ops vs condos</h3>
+          <p>Much of NYC's housing stock is co-ops, not condos. Co-ops require board approval, restrict subletting, and often require 20-25% down and strong financials. They're typically cheaper than condos but harder to buy and sell — a factor that affects your break-even calculation significantly.</p>
+
+          <h3>Broker fees</h3>
+          <p>Historically NYC renters paid a broker fee of 1 month's rent to find an apartment. While regulations have shifted, some rental situations still involve upfront fees — factor this into your renting cost.</p>
+        </div>
+
+        <div class="content-card">
+          <h2>When Buying Makes Sense in NYC</h2>
+          <p>Despite the high prices, buying in NYC can make financial sense in specific situations:</p>
+          <h3>You're staying 10+ years</h3>
+          <p>NYC's high transaction costs mean the break-even point is typically 8-12 years. If you're confident you'll stay that long — a career anchor, family roots, or strong community ties — buying starts to make financial sense.</p>
+          <h3>You're buying in the outer boroughs</h3>
+          <p>The Bronx, parts of Queens, and Staten Island have more favorable rent-to-price ratios than Manhattan or prime Brooklyn. A $450,000 home in the Bronx with $2,200/month comparable rent has a very different calculation than a $1.5M Manhattan condo.</p>
+          <h3>You have 20%+ down</h3>
+          <p>At NYC prices, PMI on a 10% down payment adds $500-700/month. A 20% down payment on a $750,000 home ($150,000) eliminates PMI and significantly improves the buying math.</p>
+        </div>
+
+        <div class="content-card">
+          <h2>NYC Rent vs Buy: Frequently Asked Questions</h2>
+          <div id="faqContainer"></div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <div class="footer-brand">Rent or Buy Calculator</div>
+        <p>Free US home calculator</p>
+      </div>
+      <div class="footer-col">
+        <p>For information only. Not financial advice. Results are estimates. US market only.</p>
+      </div>
+      <div class="footer-col">
+        <div>shouldrentorbuy.com</div>
+        <p>Should I Rent or Buy? Find out free.</p>
+        <p style="margin-top:12px;font-size:14px;color:rgba(255,255,255,.85);">© 2026 shouldrentorbuy.com · <a href="about.html" style="color:#fff;text-decoration:underline;">About</a> · <a href="contact.html" style="color:#fff;text-decoration:underline;">Contact</a> · <a href="terms.html" style="color:#fff;text-decoration:underline;">Terms</a> · <a href="privacy.html" style="color:#fff;text-decoration:underline;">Privacy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const faqs = [
+      {
+        q: "Is it better to rent or buy in New York City in 2026?",
+        a: "For most New Yorkers in 2026, renting is financially smarter unless you plan to stay 10+ years. NYC has some of the highest home prices in the US (median ~$750,000), high transaction costs, and a price-to-rent ratio that favors renting in most neighborhoods. Run the calculator with your specific numbers to get a personalized answer."
+      },
+      {
+        q: "What is the average home price in New York City?",
+        a: "The median home price in NYC is approximately $750,000 in 2026, though this varies significantly by borough — Manhattan averages over $1.2M while the Bronx averages around $450,000. Brooklyn and Queens sit between $700,000 and $800,000."
+      },
+      {
+        q: "What is the property tax rate in New York City?",
+        a: "NYC's effective property tax rate is approximately 1.07%, though the actual bill varies based on assessed value, which is often below market value for residential properties. Co-ops and condos are assessed differently than single-family homes."
+      },
+      {
+        q: "How much do I need to earn to buy in NYC?",
+        a: "At a $750,000 home with 20% down and a 6.8% mortgage rate, your monthly payment including taxes and insurance is roughly $4,800–$5,200. Most lenders want housing costs below 28–31% of gross income, meaning you'd need a household income of around $185,000–$220,000 to qualify comfortably."
+      }
+    ];
+
+    const container = document.getElementById('faqContainer');
+    faqs.forEach(item => {
+      const el = document.createElement('div');
+      el.className = 'faq-item';
+      el.innerHTML = `<div class="faq-question"><span>${item.q}</span><span class="faq-icon">+</span></div><div class="faq-answer"><p>${item.a}</p></div>`;
+      el.querySelector('.faq-question').addEventListener('click', () => el.classList.toggle('open'));
+      container.appendChild(el);
+    });
+  </script>
+
+</body>
+</html>

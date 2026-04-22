@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rent vs Buy Calculator — San Francisco Bay Area (2026)</title>
+  <meta name="description" content="Should you rent or buy in the Bay Area? Run the numbers with SF-specific home prices, property taxes, and your timeline. Free calculator, plain English, no signup.">
+  <meta property="og:title" content="Rent vs Buy Calculator — San Francisco Bay Area (2026)">
+  <meta property="og:description" content="Should you rent or buy in the Bay Area? Run the numbers with SF-specific home prices, property taxes, and your timeline. Free, no signup.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://shouldrentorbuy.com/og-image.png">
+  <meta property="og:url" content="https://shouldrentorbuy.com/rent-vs-buy-bay-area.html">
+  <meta property="og:site_name" content="Rent or Buy Calculator">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Rent vs Buy Calculator — Bay Area (2026)">
+  <meta name="twitter:description" content="Should you rent or buy in the Bay Area? Free calculator, plain English, 60 seconds.">
+  <meta name="twitter:image" content="https://shouldrentorbuy.com/og-image.png">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://shouldrentorbuy.com/rent-vs-buy-bay-area.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Outfit:wght@700&display=swap" rel="stylesheet">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7880854311820429" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --navy: #1B3557;
+      --green: #27AE60;
+      --orange: #E67E22;
+      --light-bg: #F7F9FC;
+      --white: #ffffff;
+      --text-dark: #1a1a2a;
+      --text-mid: #4a5568;
+      --text-light: #718096;
+      --border: #e2e8f0;
+      font-family: 'DM Sans', sans-serif;
+      line-height: 1.6;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--light-bg); color: var(--text-dark); }
+    a { color: var(--navy); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+    .sticky-nav { position: sticky; top: 0; z-index: 1000; background: #fff; border-bottom: 1px solid var(--border); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 0; }
+    .brand { font-family: 'Outfit', sans-serif; font-size: 18px; color: var(--navy); font-weight: 700; }
+    .nav-button { border: 1px solid var(--navy); background: var(--navy); color: #fff; padding: 10px 18px; border-radius: 999px; cursor: pointer; transition: opacity .2s ease; font-family: inherit; font-size: 14px; }
+    .nav-button:hover { opacity: .85; text-decoration: none; }
+    .hero { background: var(--white); border-bottom: 1px solid var(--border); padding: 48px 0 40px; }
+    .breadcrumb { font-size: 13px; color: var(--text-light); margin-bottom: 16px; }
+    .breadcrumb a { color: var(--text-light); }
+    .breadcrumb a:hover { color: var(--navy); }
+    .hero h1 { font-family: 'Outfit', sans-serif; font-size: 36px; line-height: 1.15; color: var(--navy); margin-bottom: 16px; max-width: 720px; }
+    .hero-sub { font-size: 18px; color: var(--text-mid); max-width: 640px; margin-bottom: 24px; }
+    .stat-row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 28px; }
+    .stat-pill { background: var(--light-bg); border: 1px solid var(--border); border-radius: 999px; padding: 8px 18px; font-size: 14px; color: var(--text-mid); }
+    .stat-pill strong { color: var(--navy); }
+    .cta-button { display: inline-flex; align-items: center; gap: 8px; background: var(--navy); color: #fff; border: none; padding: 16px 36px; border-radius: 14px; font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 700; cursor: pointer; transition: transform .2s ease, box-shadow .2s ease; text-decoration: none; }
+    .cta-button:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(27,53,87,.3); text-decoration: none; color: #fff; }
+    .calc-section { padding: 48px 0; }
+    .calc-frame { background: #fff; border: 1px solid var(--border); border-radius: 18px; padding: 32px; text-align: center; }
+    .calc-frame h2 { font-family: 'Outfit', sans-serif; font-size: 24px; color: var(--navy); margin-bottom: 8px; }
+    .calc-frame p { color: var(--text-mid); margin-bottom: 24px; font-size: 15px; }
+    .calc-link { display: inline-flex; align-items: center; gap: 10px; background: var(--navy); color: #fff; padding: 18px 48px; border-radius: 14px; font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 700; transition: transform .2s, box-shadow .2s; }
+    .calc-link:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(27,53,87,.3); text-decoration: none; color: #fff; }
+    .calc-note { margin-top: 12px; font-size: 13px; color: var(--text-light); }
+    .content-section { padding: 0 0 48px; }
+    .content-grid { display: grid; gap: 20px; }
+    .content-card { background: #fff; border: 1px solid var(--border); border-radius: 18px; padding: 28px; }
+    .content-card h2 { font-family: 'Outfit', sans-serif; font-size: 22px; color: var(--navy); margin-bottom: 14px; }
+    .content-card h3 { font-size: 17px; color: var(--navy); margin: 20px 0 8px; }
+    .content-card p { color: var(--text-mid); font-size: 15px; line-height: 1.7; margin-bottom: 12px; }
+    .content-card p:last-child { margin-bottom: 0; }
+    .data-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+    .data-table th { text-align: left; padding: 10px 14px; background: var(--light-bg); color: var(--navy); font-weight: 600; border-bottom: 2px solid var(--border); }
+    .data-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text-mid); }
+    .data-table tr:last-child td { border-bottom: none; }
+    .highlight-box { background: #EBF5FB; border-left: 4px solid var(--navy); border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .highlight-box p { color: var(--text-dark); font-size: 15px; margin: 0; }
+    .warning-box { background: #FEF3E2; border-left: 4px solid var(--orange); border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .warning-box p { color: var(--text-dark); font-size: 15px; margin: 0; }
+    .faq-item { background: #fff; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-bottom: 10px; }
+    .faq-question { display: flex; justify-content: space-between; align-items: center; padding: 18px 20px; cursor: pointer; font-weight: 700; color: var(--navy); font-size: 15px; }
+    .faq-icon { font-size: 20px; line-height: 1; transition: transform .2s; }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height .25s ease, padding .25s ease; padding: 0 20px; font-size: 15px; color: var(--text-mid); line-height: 1.7; }
+    .faq-item.open .faq-answer { max-height: 400px; padding: 0 20px 20px; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .footer { background: var(--navy); color: #fff; margin-top: 48px; }
+    .footer-grid { display: grid; gap: 12px; grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 32px 0; }
+    .footer-col p { margin: 8px 0 0; color: rgba(255,255,255,.75); font-size: 14px; line-height: 1.7; }
+    .footer-brand { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 700; }
+    @media (max-width: 719px) {
+      .hero h1 { font-size: 26px; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .stat-row { gap: 8px; }
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is it better to rent or buy in the Bay Area in 2026?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For most Bay Area residents in 2026, renting is the financially safer choice unless you have a very large down payment, a very long time horizon (10+ years), and strong conviction about staying. The Bay Area's median home price of $900,000-$1.2M combined with California's high income tax creates one of the most challenging buy vs rent calculations in the US."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the average home price in the San Francisco Bay Area?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Bay Area home prices vary enormously by location. San Francisco proper averages $1.2M, the Peninsula (Palo Alto, Menlo Park) averages $2M+, the East Bay (Oakland, Berkeley) averages $800,000-$900,000, and the South Bay (San Jose) averages $1.1M. The broader metro median is approximately $900,000-$1.0M in 2026."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does California's income tax affect the rent vs buy decision?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "California has the highest state income tax in the US (up to 13.3%). This actually helps homebuyers who itemize deductions — mortgage interest is deductible on both federal and California state returns, which meaningfully reduces the after-tax cost of ownership for high earners. However, the 2017 federal SALT cap limits this benefit for many buyers."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is Proposition 13 and how does it affect buying in California?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Proposition 13 caps California property tax increases at 2% per year regardless of how much home values rise. This is a major long-term benefit for buyers — someone who bought in 2010 pays property taxes on their 2010 assessed value, not today's market value. It's one of the strongest arguments for buying in California if you plan to stay long-term."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <nav class="sticky-nav">
+    <div class="container nav-inner">
+      <a href="/" class="brand" style="text-decoration:none;">Rent or Buy Calculator</a>
+      <a href="/" class="nav-button">Back to Calculator</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">Rent or Buy Calculator</a> › San Francisco Bay Area
+      </div>
+      <h1>Should You Rent or Buy in the Bay Area in 2026?</h1>
+      <p class="hero-sub">The Bay Area is the most expensive housing market in the continental US. The rent vs buy decision here involves factors most calculators ignore — Prop 13, California income tax, RSU vesting cycles, and extreme neighborhood price variation. Get your numbers in 60 seconds.</p>
+      <div class="stat-row">
+        <div class="stat-pill">Median home price: <strong>~$900,000–$1.2M</strong></div>
+        <div class="stat-pill">Typical rent: <strong>~$2,800/mo</strong></div>
+        <div class="stat-pill">Property tax rate: <strong>~0.75%</strong></div>
+        <div class="stat-pill">Prop 13 protection: <strong>2% cap/year</strong></div>
+        <div class="stat-pill">Typical break-even: <strong>10–15 years</strong></div>
+      </div>
+      <a href="/?home=900000&rent=2800&down=180000&years=10&rate=6.8&city=San+Diego" class="cta-button">Run My Bay Area Calculation →</a>
+    </div>
+  </section>
+
+  <div class="container">
+
+    <section class="calc-section">
+      <div class="calc-frame">
+        <h2>Bay Area Rent vs Buy Calculator</h2>
+        <p>Pre-filled with Bay Area median values. Adjust the home price to your specific neighborhood — prices vary from $800K in Oakland to $2M+ on the Peninsula.</p>
+        <a href="/?home=900000&rent=2800&down=180000&years=10&rate=6.8&city=San+Diego" class="calc-link">Open Calculator with Bay Area Values →</a>
+        <p class="calc-note">Free · No signup · Takes 60 seconds</p>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="content-grid">
+
+        <div class="content-card">
+          <h2>The Bay Area Housing Market in 2026</h2>
+          <p>The Bay Area remains the most expensive major housing market in the continental US. After significant price corrections in 2022-2023 following the tech downturn and rate increases, prices have partially recovered as AI-driven hiring brought new buyers into the market in 2024-2025.</p>
+          <p>The defining characteristic of the Bay Area market is its extreme variance by location. Palo Alto and Atherton are a different world from Oakland or Daly City, even though they're 30 minutes apart.</p>
+
+          <div class="warning-box">
+            <p>The Bay Area's price-to-rent ratio is approximately 30-35x in most neighborhoods — one of the highest in the US. At this ratio, the pure financial case for buying is weak unless you have a very long time horizon or strong appreciation assumptions.</p>
+          </div>
+
+          <h3>Prices by area (approximate 2026 medians)</h3>
+          <table class="data-table">
+            <thead>
+              <tr><th>Area</th><th>Median Home Price</th><th>Typical Monthly Rent</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>San Francisco (city)</td><td>$1,200,000</td><td>$3,200</td></tr>
+              <tr><td>Peninsula (Palo Alto, Menlo Park)</td><td>$2,000,000+</td><td>$3,500</td></tr>
+              <tr><td>South Bay (San Jose, Sunnyvale)</td><td>$1,100,000</td><td>$3,000</td></tr>
+              <tr><td>East Bay (Oakland, Berkeley)</td><td>$850,000</td><td>$2,600</td></tr>
+              <tr><td>East Bay (Fremont, Hayward)</td><td>$900,000</td><td>$2,500</td></tr>
+              <tr><td>North Bay (Marin, Sonoma)</td><td>$950,000</td><td>$2,800</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="content-card">
+          <h2>What Makes the Bay Area Completely Unique</h2>
+
+          <h3>Proposition 13 — the long-term buyer's advantage</h3>
+          <p>California's Prop 13 limits property tax increases to 2% per year regardless of how much the home value rises. If you buy at $900,000 today and your home is worth $1.8M in 15 years, you're still paying taxes on something close to your original assessed value. This is one of the strongest financial arguments for buying in California — the longer you stay, the bigger the advantage over future buyers.</p>
+
+          <h3>California mortgage interest deduction</h3>
+          <p>Unlike Washington (no state income tax), California allows you to deduct mortgage interest on your state return. For someone in the 9.3% or 13.3% bracket, this meaningfully reduces the after-tax cost of a large mortgage. A $5,000/month interest payment saves you an extra $465-665/month in California state taxes if you're a high earner who itemizes.</p>
+
+          <h3>RSU and equity considerations</h3>
+          <p>Many Bay Area tech workers receive significant RSU compensation. Timing a home purchase around vesting schedules — using equity for a down payment — is a real factor that most calculators can't model. If you have RSUs vesting in the next 1-2 years, that changes your down payment calculation significantly.</p>
+
+          <h3>Extreme appreciation history</h3>
+          <p>The Bay Area has averaged 5-7% annual appreciation over 30 years — well above the national 3.5% average. Using the national default significantly underestimates the historical case for Bay Area ownership. However, past performance doesn't guarantee future results, and the AI boom adds uncertainty to near-term projections.</p>
+        </div>
+
+        <div class="content-card">
+          <h2>When Buying Makes Sense in the Bay Area</h2>
+
+          <h3>You're staying 10+ years</h3>
+          <p>The Bay Area's break-even is typically 10-15 years at current prices and rates. This is longer than most US cities. If you have strong career or family roots in the area and genuine confidence in a long stay, buying starts to make financial sense — especially with Prop 13 locking in your tax basis.</p>
+
+          <h3>You have 20%+ down and strong income</h3>
+          <p>At $900,000 with 20% down ($180,000), your monthly payment including taxes and insurance is roughly $5,800-$6,200. Lenders typically want this to be under 28-31% of gross income, meaning you'd need $225,000-$265,000 household income to qualify comfortably. This is achievable for dual-income tech households but not most.</p>
+
+          <h3>You're buying in the East Bay</h3>
+          <p>Oakland, Berkeley, and Fremont have much more favorable rent-to-price ratios than San Francisco or the Peninsula. A $850,000 home in Oakland renting for $2,600/month has a price-to-rent ratio of ~27x — still high, but meaningfully better than $1.2M in SF for $3,200/month (31x).</p>
+
+          <div class="highlight-box">
+            <p>The single best argument for buying in the Bay Area is Proposition 13. If you buy now and stay 15+ years, you'll be paying property taxes on today's assessed value while your neighbors who buy later pay taxes on much higher values. This advantage compounds every year you stay.</p>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <h2>Bay Area Rent vs Buy: Frequently Asked Questions</h2>
+          <div id="faqContainer"></div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <div class="footer-brand">Rent or Buy Calculator</div>
+        <p>Free US home calculator</p>
+      </div>
+      <div class="footer-col">
+        <p>For information only. Not financial advice. Results are estimates. US market only.</p>
+      </div>
+      <div class="footer-col">
+        <div>shouldrentorbuy.com</div>
+        <p>Should I Rent or Buy? Find out free.</p>
+        <p style="margin-top:12px;font-size:14px;color:rgba(255,255,255,.85);">© 2026 shouldrentorbuy.com · <a href="about.html" style="color:#fff;text-decoration:underline;">About</a> · <a href="contact.html" style="color:#fff;text-decoration:underline;">Contact</a> · <a href="terms.html" style="color:#fff;text-decoration:underline;">Terms</a> · <a href="privacy.html" style="color:#fff;text-decoration:underline;">Privacy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const faqs = [
+      {
+        q: "Is it better to rent or buy in the Bay Area in 2026?",
+        a: "For most Bay Area residents, renting is the financially safer short-term choice. The price-to-rent ratio of 30-35x is among the highest in the US, meaning the pure monthly cost of owning far exceeds renting in most neighborhoods. However, Prop 13, California's mortgage interest deduction, and the Bay Area's strong long-term appreciation history all improve the buying case for those who can stay 10+ years."
+      },
+      {
+        q: "What is the average home price in the San Francisco Bay Area?",
+        a: "Bay Area prices vary enormously. San Francisco city averages $1.2M, the Peninsula (Palo Alto, Menlo Park) averages $2M+, South Bay (San Jose, Sunnyvale) averages $1.1M, and the East Bay (Oakland, Berkeley) averages $850,000-$900,000. The broader metro median is approximately $950,000-$1.0M in 2026."
+      },
+      {
+        q: "What is Proposition 13 and how does it affect buying in California?",
+        a: "Prop 13 caps California property tax increases at 2% per year regardless of how much home values rise. This is a massive long-term benefit — someone who bought in 2010 pays taxes on their 2010 assessed value, not today's market price. The longer you stay, the more valuable this protection becomes. It's one of the strongest financial arguments for buying in California specifically."
+      },
+      {
+        q: "How does California's income tax affect the rent vs buy decision?",
+        a: "California allows mortgage interest deduction on state returns (up to 13.3% rate), which meaningfully reduces the after-tax cost of ownership for high earners. On a $900,000 mortgage at 6.8%, you're paying roughly $5,000/month in interest in year one. The California deduction saves an additional $465-665/month in state taxes for someone in the 9.3-13.3% bracket who itemizes."
+      }
+    ];
+
+    const container = document.getElementById('faqContainer');
+    faqs.forEach(item => {
+      const el = document.createElement('div');
+      el.className = 'faq-item';
+      el.innerHTML = `<div class="faq-question"><span>${item.q}</span><span class="faq-icon">+</span></div><div class="faq-answer"><p>${item.a}</p></div>`;
+      el.querySelector('.faq-question').addEventListener('click', () => el.classList.toggle('open'));
+      container.appendChild(el);
+    });
+  </script>
+
+</body>
+</html>
