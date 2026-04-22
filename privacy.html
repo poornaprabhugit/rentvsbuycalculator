@@ -3,24 +3,68 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Privacy Policy — ShouldRentOrBuy</title>
-  <meta name="description" content="Privacy policy for ShouldRentOrBuy.com, detailing data collection, cookies, and how user data is used.">
-  <style>
-    body { margin: 0; font-family: 'DM Sans', sans-serif; background: #F7F9FC; color: #1A1A2A; line-height: 1.6; }
-    .container { max-width: 900px; margin: 0 auto; padding: 32px 20px 48px; }
-    h1, h2 { color: #1B3557; margin-top: 0; }
-    p { margin: 18px 0; }
-    a { color: #1B3557; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .section { background: #fff; border: 1px solid #E2E8F0; border-radius: 18px; padding: 28px; margin-bottom: 20px; }
-    .back-link { margin-top: 12px; display: inline-block; }
-    .small-note { color: #64748B; font-size: 0.95rem; }
-  </style>
+  <title>Privacy Policy — Rent or Buy Calculator</title>
+  <meta name="description" content="Privacy policy for shouldrentorbuy.com — what data we collect, how we use it, and how cookies and advertising work.">
+  <meta property="og:title" content="Privacy Policy — Rent or Buy Calculator">
+  <meta property="og:description" content="Privacy policy for shouldrentorbuy.com — what data we collect, how we use it, and how cookies and advertising work.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://shouldrentorbuy.com/og-image.png">
+  <meta property="og:url" content="https://shouldrentorbuy.com/privacy.html">
+  <meta property="og:site_name" content="Rent or Buy Calculator">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Privacy Policy — Rent or Buy Calculator">
+  <meta name="twitter:description" content="Privacy policy for shouldrentorbuy.com — what data we collect, how we use it, and how cookies and advertising work.">
+  <meta name="twitter:image" content="https://shouldrentorbuy.com/og-image.png">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://shouldrentorbuy.com/privacy.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Outfit:wght@700&display=swap" rel="stylesheet">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7880854311820429"
      crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --navy: #1B3557;
+      --light-bg: #F7F9FC;
+      --text-dark: #1a1a2a;
+      --text-mid: #4a5568;
+      --border: #e2e8f0;
+      font-family: 'DM Sans', sans-serif;
+      line-height: 1.5;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--light-bg); color: var(--text-dark); }
+    a { color: var(--navy); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+    .sticky-nav { position: sticky; top: 0; z-index: 1000; background: #fff; border-bottom: 1px solid var(--border); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 0; }
+    .brand { font-family: 'Outfit', sans-serif; font-size: 18px; color: var(--navy); font-weight: 700; }
+    .nav-button { border: 1px solid var(--navy); background: var(--navy); color: #fff; padding: 10px 18px; border-radius: 999px; cursor: pointer; transition: opacity .2s ease; text-decoration: none; }
+    .nav-button:hover { opacity: .85; text-decoration: none; }
+    .page-content { width: min(900px, calc(100% - 32px)); margin: 0 auto; padding: 32px 0 48px; }
+    h1, h2 { color: var(--navy); margin-top: 0; }
+    p { margin: 18px 0; }
+    .section { background: #fff; border: 1px solid var(--border); border-radius: 18px; padding: 28px; margin-bottom: 20px; }
+    .footer { background: var(--navy); color: #fff; margin-top: 48px; }
+    .footer-grid { display: grid; gap: 12px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .footer-column { padding: 18px 0; }
+    .footer-column p { margin: 8px 0 0; color: rgba(255,255,255,.75); font-size: 14px; line-height: 1.7; }
+    @media (max-width: 719px) {
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
+  <nav class="sticky-nav">
+    <div class="container nav-inner">
+      <div class="brand">Rent or Buy Calculator</div>
+      <a href="/" class="nav-button">Back to Calculator</a>
+    </div>
+  </nav>
+
+  <div class="page-content">
     <h1>Privacy Policy</h1>
     <p>Last updated: April 2026</p>
     <div class="section">
@@ -42,7 +86,24 @@
       <h2>Contact</h2>
       <p>If you have questions about this privacy policy, contact us at <a href="mailto:shouldrentorbuy@gmail.com">shouldrentorbuy@gmail.com</a>.</p>
     </div>
-    <a class="back-link" href="index.html">← Back to calculator</a>
   </div>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-column">
+        <div style="font-family:'Outfit',sans-serif;font-size:18px;font-weight:700;">Rent or Buy Calculator</div>
+        <p>Free US home calculator</p>
+      </div>
+      <div class="footer-column">
+        <p>For information only. Not financial advice. Results are estimates. US market only.</p>
+      </div>
+      <div class="footer-column">
+        <div>shouldrentorbuy.com</div>
+        <p>Should I Rent or Buy? Find out free.</p>
+        <p style="margin-top:12px;font-size:14px;color:rgba(255,255,255,.85);">© 2026 shouldrentorbuy.com · <a href="about.html" style="color:#fff;text-decoration:underline;">About</a> · <a href="contact.html" style="color:#fff;text-decoration:underline;">Contact</a> · <a href="terms.html" style="color:#fff;text-decoration:underline;">Terms</a> · <a href="privacy.html" style="color:#fff;text-decoration:underline;">Privacy</a></p>
+      </div>
+    </div>
+  </footer>
+
 </body>
 </html>
