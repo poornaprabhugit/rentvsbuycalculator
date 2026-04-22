@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en-US">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rent vs Buy Calculator — Free. Plain English. 60 Seconds.</title>
-  <meta name="description" content="See whether renting or buying saves you more money — including the opportunity cost most calculators ignore. Get your break-even year free in 60 seconds. No signup.">
-  <meta name="keywords" content="rent or buy calculator, should i rent or buy, rent vs buy calculator, rent vs buy, renting vs buying, rent or buy home calculator US">
+  <meta name="description"
+    content="See whether renting or buying saves you more money — including the opportunity cost most calculators ignore. Get your break-even year free in 60 seconds. No signup.">
+  <meta name="keywords"
+    content="rent or buy calculator, should i rent or buy, rent vs buy calculator, rent vs buy, renting vs buying, rent or buy home calculator US">
   <meta property="og:title" content="Rent vs Buy Calculator — Free. Plain English. 60 Seconds.">
-  <meta property="og:description" content="See whether renting or buying saves you more money — including the opportunity cost most calculators ignore. Get your break-even year free in 60 seconds. No signup.">
+  <meta property="og:description"
+    content="See whether renting or buying saves you more money — including the opportunity cost most calculators ignore. Get your break-even year free in 60 seconds. No signup.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://shouldrentorbuy.com/og-image.png">
   <meta property="og:url" content="https://shouldrentorbuy.com/">
@@ -15,13 +19,15 @@
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Rent vs Buy Calculator 2026 - Should I Rent or Buy a Home?">
-  <meta name="twitter:description" content="Free rent or buy calculator for US homebuyers. Answer 5 questions and instantly see whether renting or buying saves you more money. Updated 2026.">
+  <meta name="twitter:description"
+    content="Free rent or buy calculator for US homebuyers. Answer 5 questions and instantly see whether renting or buying saves you more money. Updated 2026.">
   <meta name="twitter:image" content="https://shouldrentorbuy.com/og-image.png">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://shouldrentorbuy.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Outfit:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Outfit:wght@700&display=swap"
+    rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
   <script>
@@ -30,7 +36,7 @@
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   </script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7880854311820429"
-     crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script>
   <style>
     :root {
       color-scheme: light;
@@ -46,88 +52,628 @@
       font-family: 'DM Sans', sans-serif;
       line-height: 1.5;
     }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { margin: 0; background: var(--light-bg); color: var(--text-dark); }
-    button,input,select { font: inherit; }
-    a { color: inherit; text-decoration: none; }
-    .container { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
-    .sticky-nav { position: sticky; top: 0; z-index: 1000; background: #fff; border-bottom: 1px solid var(--border); }
-    .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 0; }
-    .brand { font-family: 'Outfit', sans-serif; font-size: 18px; color: var(--navy); font-weight: 700; }
-    .nav-button { border: 1px solid var(--navy); background: var(--navy); color: #fff; padding: 10px 18px; border-radius: 999px; cursor: pointer; transition: opacity .2s ease; }
-    .nav-button:hover { opacity: .85; }
-    .section { padding: 48px 0; }
-    .hero { background: var(--light-bg); }
-    .hero-grid { display: grid; gap: 24px; align-items: center; }
-    .hero-copy { max-width: 640px; }
-    .hero h1 { margin: 0; font-family: 'Outfit', sans-serif; font-size: 28px; line-height: 1.1; color: var(--navy); }
-    .hero p { margin: 20px 0 0; font-size: 18px; color: var(--text-mid); max-width: 620px; }
-    .hero-copy > p { word-wrap: break-word; overflow-wrap: break-word; white-space: normal; padding: 0 16px; width: 100%; box-sizing: border-box; }
-    .hero-subtitle { margin: 16px 0 0; font-size: 16px; color: var(--text-mid); font-weight: 400; text-align: center; max-width: 640px; }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
-    .hero .cta { background: var(--navy); color: #fff; border: none; padding: 16px 48px; border-radius: 14px; cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 18px; transition: transform .2s ease, box-shadow .2s ease, background .2s ease; display: inline-flex; align-items: center; gap: 8px; margin-top: 24px; }
-    .hero .cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(27,53,87,.35); }
-    .hero .cta .cta-arrow { display: inline-block; }
-    .hero-note { font-size: 13px; color: #718096; text-align: center; margin-top: 8px; margin-bottom: 8px; }
-    .badge-list { display: flex; justify-content: center; gap: 10px; margin-top: 22px; flex-wrap: nowrap; }
-    .badge { background: #fff; border: 1px solid #CBD5E0; border-radius: 20px; padding: 6px 16px; font-size: 13px; color: #4a5568; white-space: nowrap; }
 
-    .how-grid { display: grid; gap: 20px; }
-    .step-card { background: #fff; border: 1px solid var(--border); border-radius: 18px; padding: 22px; }
-    .step-pill { width: 46px; height: 46px; border-radius: 50%; background: var(--navy); color: #fff; display: grid; place-items: center; font-weight: 700; }
-    .step-card h3 { margin: 16px 0 8px; font-size: 18px; color: var(--navy); }
-    .step-card p { margin: 0; color: var(--text-mid); font-size: 15px; }
-    .calculator-card { position: relative; z-index: 1; background: var(--light-bg); border: 1px solid #dce4ee; border-radius: 16px; box-shadow: 0 20px 60px rgba(27,53,87,.08); padding: 24px; }
-    .section-title { margin: 0 0 12px; font-size: 24px; font-family: 'Outfit', sans-serif; color: var(--navy); }
-    .section-subtitle { margin: 0 0 24px; color: var(--text-mid); font-size: 15px; max-width: 720px; }
-    .label-group { margin-bottom: 28px; border-bottom: 1px solid #E2E8F0; padding-bottom: 24px; }
-    .label-group:last-child { margin-bottom: 0; border-bottom: none; padding-bottom: 0; }
-    .label-group label { display: block; font-size: 17px; font-weight: 600; margin-bottom: 12px; color: var(--text-dark); }
-    .field-label-row { display: flex; align-items: center; gap: 6px; flex-wrap: nowrap; margin-bottom: 6px; }
-    .field-label-row label { font-size: 16px; font-weight: 600; color: #1a1a2a; flex-shrink: 1; min-width: 0; margin-bottom: 0; }
-    .tooltip-wrapper { position: relative; display: inline-flex; align-items: center; }
-    .tooltip-icon { display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px; border-radius: 50%; background: #94A3B8; color: white; font-size: 9px; font-weight: 700; cursor: help; flex-shrink: 0; vertical-align: middle; margin-left: 4px; line-height: 1; border: none; }
-    .tooltip-icon:hover { background: #1B3557; }
-    #liveRateBadge { display: none; background: #27AE60; color: white; font-size: 11px; padding: 2px 8px; border-radius: 12px; margin-left: 8px; vertical-align: middle; font-weight: 500; }
-    .tooltip-box { display: block; opacity: 0; visibility: hidden; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: var(--navy); color: #fff; font-size: 12px; line-height: 1.5; padding: 8px 12px; border-radius: 8px; width: 200px; white-space: normal; word-wrap: break-word; z-index: 9999; pointer-events: none; text-align: left; transition: opacity 0.15s ease; }
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--light-bg);
+      color: var(--text-dark);
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 0;
+    }
+
+    .brand {
+      font-family: 'Outfit', sans-serif;
+      font-size: 18px;
+      color: var(--navy);
+      font-weight: 700;
+    }
+
+    .nav-button {
+      border: 1px solid var(--navy);
+      background: var(--navy);
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: opacity .2s ease;
+    }
+
+    .nav-button:hover {
+      opacity: .85;
+    }
+
+    .section {
+      padding: 48px 0;
+    }
+
+    .hero {
+      background: var(--light-bg);
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .hero-copy {
+      max-width: 640px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-family: 'Outfit', sans-serif;
+      font-size: 28px;
+      line-height: 1.1;
+      color: var(--navy);
+    }
+
+    .hero p {
+      margin: 20px 0 0;
+      font-size: 18px;
+      color: var(--text-mid);
+      max-width: 620px;
+    }
+
+    .hero-copy>p {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      white-space: normal;
+      padding: 0 16px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .hero-subtitle {
+      margin: 16px 0 0;
+      font-size: 16px;
+      color: var(--text-mid);
+      font-weight: 400;
+      text-align: center;
+      max-width: 640px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .hero .cta {
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      padding: 16px 48px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-family: 'Outfit', sans-serif;
+      font-size: 18px;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 24px;
+    }
+
+    .hero .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(27, 53, 87, .35);
+    }
+
+    .hero .cta .cta-arrow {
+      display: inline-block;
+    }
+
+    .hero-note {
+      font-size: 13px;
+      color: #718096;
+      text-align: center;
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+
+    .badge-list {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 22px;
+      flex-wrap: nowrap;
+    }
+
+    .badge {
+      background: #fff;
+      border: 1px solid #CBD5E0;
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 13px;
+      color: #4a5568;
+      white-space: nowrap;
+    }
+
+    .how-grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .step-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+    }
+
+    .step-pill {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+    }
+
+    .step-card h3 {
+      margin: 16px 0 8px;
+      font-size: 18px;
+      color: var(--navy);
+    }
+
+    .step-card p {
+      margin: 0;
+      color: var(--text-mid);
+      font-size: 15px;
+    }
+
+    .calculator-card {
+      position: relative;
+      z-index: 1;
+      background: var(--light-bg);
+      border: 1px solid #dce4ee;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(27, 53, 87, .08);
+      padding: 24px;
+    }
+
+    .section-title {
+      margin: 0 0 12px;
+      font-size: 24px;
+      font-family: 'Outfit', sans-serif;
+      color: var(--navy);
+    }
+
+    .section-subtitle {
+      margin: 0 0 24px;
+      color: var(--text-mid);
+      font-size: 15px;
+      max-width: 720px;
+    }
+
+    .label-group {
+      margin-bottom: 28px;
+      border-bottom: 1px solid #E2E8F0;
+      padding-bottom: 24px;
+    }
+
+    .label-group:last-child {
+      margin-bottom: 0;
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .label-group label {
+      display: block;
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--text-dark);
+    }
+
+    .field-label-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: nowrap;
+      margin-bottom: 6px;
+    }
+
+    .field-label-row label {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1a1a2a;
+      flex-shrink: 1;
+      min-width: 0;
+      margin-bottom: 0;
+    }
+
+    .tooltip-wrapper {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .tooltip-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #94A3B8;
+      color: white;
+      font-size: 9px;
+      font-weight: 700;
+      cursor: help;
+      flex-shrink: 0;
+      vertical-align: middle;
+      margin-left: 4px;
+      line-height: 1;
+      border: none;
+    }
+
+    .tooltip-icon:hover {
+      background: #1B3557;
+    }
+
+    #liveRateBadge {
+      display: none;
+      background: #27AE60;
+      color: white;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 12px;
+      margin-left: 8px;
+      vertical-align: middle;
+      font-weight: 500;
+    }
+
+    .tooltip-box {
+      display: block;
+      opacity: 0;
+      visibility: hidden;
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--navy);
+      color: #fff;
+      font-size: 12px;
+      line-height: 1.5;
+      padding: 8px 12px;
+      border-radius: 8px;
+      width: 200px;
+      white-space: normal;
+      word-wrap: break-word;
+      z-index: 9999;
+      pointer-events: none;
+      text-align: left;
+      transition: opacity 0.15s ease;
+    }
+
     .tooltip-wrapper:hover .tooltip-box,
-    .tooltip-wrapper.tooltip-visible .tooltip-box { opacity: 1; visibility: visible; }
-    .tooltip-box.tooltip-left { left: auto; right: 50%; transform: translateX(50%); }
-    .label-group { position: relative; }
-    .label-group small { color: var(--text-light); display: block; margin-top: 6px; font-size: 14px; }
-    .input-row { display: grid; gap: 12px; }
-    .label-group input[type=number], .label-group input[type=email], .label-group input[type=text], .label-group select { width: 100%; padding: 14px 16px; border: 1.5px solid #CBD5E0; border-radius: 10px; color: var(--text-dark); font-size: 16px; background: #fff; transition: border .15s ease, box-shadow .15s ease; }
-    .label-group input[type=number]:focus, .label-group input[type=email]:focus, .label-group input[type=text]:focus, .label-group select:focus { border: 2px solid var(--navy); box-shadow: 0 0 0 3px rgba(27,53,87,0.1); outline: none; }
-    .currency-input-row { display: flex; align-items: center; gap: 8px; width: 100%; }
-    .currency-input-row .currency-prefix { color: #718096; font-size: 16px; min-width: 16px; white-space: nowrap; }
-    .currency-input-row input { flex: 1; min-width: 0; width: auto; }
-    .formatted-value { color: var(--navy); font-weight: 700; margin-top: 8px; font-size: 15px; }
-    .input-grid { display: grid; gap: 16px; }
-    .pill-group, .radio-pill-group, .city-grid, .detail-grid, .summary-cards, .breakdown-grid, .affiliate-grid, .faq-list, .footer-grid { display: grid; gap: 12px; }
-    .radio-pill-group { display: flex; flex-wrap: wrap; gap: 10px; }
-    .radio-pill-group button { min-height: 44px; border: 1.5px solid var(--navy); border-radius: 999px; padding: 0 18px; background: #fff; color: var(--navy); font-weight: 600; cursor: pointer; transition: border-color .15s ease, transform .15s ease, background .15s ease; }
-    .radio-pill-group button.active { background: var(--navy); color: #fff; }
-    .radio-pill-group button:hover { border-color: #3e5b88; }
-    .pill-button, .mode-pill, .share-button, .result-action, .affiliate-button { border: 1px solid var(--border); background: #fff; color: var(--navy); padding: 10px 14px; border-radius: 999px; cursor: pointer; transition: all .2s ease; }
-    .pill-button.active, .mode-pill.active { background: var(--navy); color: #fff; border-color: var(--navy); }
-    .mode-toggle { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 22px; }
-    .range-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    .range-wrapper { width: 100%; }
-    .range-wrapper input[type=range] { width: 100%; height: 6px; -webkit-appearance: none; background: #d1d5db; border-radius: 999px; cursor: pointer; }
-    .range-wrapper input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: var(--navy); border: 2px solid #fff; cursor: pointer; transition: transform .1s ease; }
-    .range-wrapper input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: var(--navy); border: 2px solid #fff; cursor: pointer; transition: transform .1s ease; }
-    .range-wrapper input[type=range]::-webkit-slider-thumb:hover, .range-wrapper input[type=range]::-moz-range-thumb:hover { transform: scale(1.09); }
-    .slider-value-badge { min-width: 52px; background: var(--navy); color: #fff; border-radius: 6px; padding: 4px 10px; font-size: 13px; text-align: center; }
-    .help-note { color: #64748B; font-size: 14px; }
-    .formatted-value { color: var(--navy); font-weight: 700; font-size: 15px; display: block; margin-top: 8px; }
-    .percentage-note { color: #64748B; font-size: 13px; display: block; margin-top: 4px; }
-    .formatted-value-row { margin-top: 8px; }
-    .mobile-ads-banner { display: none; position: fixed; inset: auto 0 0; width: 100%; height: 60px; background: #fff; z-index: 999; box-shadow: 0 -4px 18px rgba(0,0,0,0.12); align-items: center; justify-content: center; padding: 0 16px; }
-    .mobile-ads-content { display: none !important; flex: 1; color: #64748B; font-size: 13px; text-align: center; }
-    .mobile-ads-close { background: transparent; border: none; color: #718096; font-size: 24px; line-height: 1; cursor: pointer; padding: 0 10px; }
-    .detail-toggle { background: none; border: none; color: var(--navy); font-weight: 700; padding: 0; margin-top: 12px; cursor: pointer; }
-    .adsense-slot { display: none; max-width: 728px; margin: 32px auto; padding: 20px 16px; border: 1px dashed #D1D5DB; border-radius: 10px; color: #718096; font-size: 13px; text-align: center; }
+    .tooltip-wrapper.tooltip-visible .tooltip-box {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .tooltip-box.tooltip-left {
+      left: auto;
+      right: 50%;
+      transform: translateX(50%);
+    }
+
+    .label-group {
+      position: relative;
+    }
+
+    .label-group small {
+      color: var(--text-light);
+      display: block;
+      margin-top: 6px;
+      font-size: 14px;
+    }
+
+    .input-row {
+      display: grid;
+      gap: 12px;
+    }
+
+    .label-group input[type=number],
+    .label-group input[type=email],
+    .label-group input[type=text],
+    .label-group select {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1.5px solid #CBD5E0;
+      border-radius: 10px;
+      color: var(--text-dark);
+      font-size: 16px;
+      background: #fff;
+      transition: border .15s ease, box-shadow .15s ease;
+    }
+
+    .label-group input[type=number]:focus,
+    .label-group input[type=email]:focus,
+    .label-group input[type=text]:focus,
+    .label-group select:focus {
+      border: 2px solid var(--navy);
+      box-shadow: 0 0 0 3px rgba(27, 53, 87, 0.1);
+      outline: none;
+    }
+
+    .currency-input-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .currency-input-row .currency-prefix {
+      color: #718096;
+      font-size: 16px;
+      min-width: 16px;
+      white-space: nowrap;
+    }
+
+    .currency-input-row input {
+      flex: 1;
+      min-width: 0;
+      width: auto;
+    }
+
+    .formatted-value {
+      color: var(--navy);
+      font-weight: 700;
+      margin-top: 8px;
+      font-size: 15px;
+    }
+
+    .input-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .pill-group,
+    .radio-pill-group,
+    .city-grid,
+    .detail-grid,
+    .summary-cards,
+    .breakdown-grid,
+    .affiliate-grid,
+    .faq-list,
+    .footer-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .radio-pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .radio-pill-group button {
+      min-height: 44px;
+      border: 1.5px solid var(--navy);
+      border-radius: 999px;
+      padding: 0 18px;
+      background: #fff;
+      color: var(--navy);
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color .15s ease, transform .15s ease, background .15s ease;
+    }
+
+    .radio-pill-group button.active {
+      background: var(--navy);
+      color: #fff;
+    }
+
+    .radio-pill-group button:hover {
+      border-color: #3e5b88;
+    }
+
+    .pill-button,
+    .mode-pill,
+    .share-button,
+    .result-action,
+    .affiliate-button {
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--navy);
+      padding: 10px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all .2s ease;
+    }
+
+    .pill-button.active,
+    .mode-pill.active {
+      background: var(--navy);
+      color: #fff;
+      border-color: var(--navy);
+    }
+
+    .mode-toggle {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .range-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .range-wrapper {
+      width: 100%;
+    }
+
+    .range-wrapper input[type=range] {
+      width: 100%;
+      height: 6px;
+      -webkit-appearance: none;
+      background: #d1d5db;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+
+    .range-wrapper input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--navy);
+      border: 2px solid #fff;
+      cursor: pointer;
+      transition: transform .1s ease;
+    }
+
+    .range-wrapper input[type=range]::-moz-range-thumb {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--navy);
+      border: 2px solid #fff;
+      cursor: pointer;
+      transition: transform .1s ease;
+    }
+
+    .range-wrapper input[type=range]::-webkit-slider-thumb:hover,
+    .range-wrapper input[type=range]::-moz-range-thumb:hover {
+      transform: scale(1.09);
+    }
+
+    .slider-value-badge {
+      min-width: 52px;
+      background: var(--navy);
+      color: #fff;
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .help-note {
+      color: #64748B;
+      font-size: 14px;
+    }
+
+    .formatted-value {
+      color: var(--navy);
+      font-weight: 700;
+      font-size: 15px;
+      display: block;
+      margin-top: 8px;
+    }
+
+    .percentage-note {
+      color: #64748B;
+      font-size: 13px;
+      display: block;
+      margin-top: 4px;
+    }
+
+    .formatted-value-row {
+      margin-top: 8px;
+    }
+
+    .mobile-ads-banner {
+      display: none;
+      position: fixed;
+      inset: auto 0 0;
+      width: 100%;
+      height: 60px;
+      background: #fff;
+      z-index: 999;
+      box-shadow: 0 -4px 18px rgba(0, 0, 0, 0.12);
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+    }
+
+    .mobile-ads-content {
+      display: none !important;
+      flex: 1;
+      color: #64748B;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .mobile-ads-close {
+      background: transparent;
+      border: none;
+      color: #718096;
+      font-size: 24px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0 10px;
+    }
+
+    .detail-toggle {
+      background: none;
+      border: none;
+      color: var(--navy);
+      font-weight: 700;
+      padding: 0;
+      margin-top: 12px;
+      cursor: pointer;
+    }
+
+    .adsense-slot {
+      display: none;
+      max-width: 728px;
+      margin: 32px auto;
+      padding: 20px 16px;
+      border: 1px dashed #D1D5DB;
+      border-radius: 10px;
+      color: #718096;
+      font-size: 13px;
+      text-align: center;
+    }
+
     .report-email-section .report-card input {
       width: 100%;
       border: 1.5px solid #CBD5E0;
@@ -135,11 +681,13 @@
       padding: 14px 16px;
       font-size: 16px;
     }
+
     .report-email-section .report-card input:focus {
       border: 2px solid var(--navy);
-      box-shadow: 0 0 0 3px rgba(27,53,87,0.1);
+      box-shadow: 0 0 0 3px rgba(27, 53, 87, 0.1);
       outline: none;
     }
+
     .report-email-section .report-card .calculate-button {
       width: 100%;
       border-radius: 10px;
@@ -149,10 +697,12 @@
       background: var(--navy);
       color: #fff;
     }
+
     .report-email-section .report-card .calculate-button:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(27,53,87,0.3);
+      box-shadow: 0 6px 20px rgba(27, 53, 87, 0.3);
     }
+
     .report-actions-row {
       display: flex;
       justify-content: center;
@@ -160,6 +710,7 @@
       flex-wrap: wrap;
       margin-top: 14px;
     }
+
     .text-action-link {
       background: none;
       border: none;
@@ -170,202 +721,1092 @@
       font-family: inherit;
       text-decoration: none;
     }
+
     .text-action-link:hover {
       text-decoration: underline;
     }
+
     .link-separator {
       color: #718096;
       font-size: 13px;
     }
+
     @media (max-width: 639px) {
-      body { padding-bottom: 60px; }
-      .mobile-ads-banner { display: none; }
-      .calculator-card { padding: 16px; }
-      .field-label-row { gap: 6px; }
-      .currency-input-row { gap: 8px; }
-      .currency-input-row input { width: auto; }
-      .calculator-card input, .calculator-card select, .calculator-card button, .currency-input-row input, .radio-pill-group button { max-width: 100%; }
-      #results, .affiliate-section { overflow: hidden; }
-      .floating-result-bar { padding-bottom: env(safe-area-inset-bottom, 12px); }
+      body {
+        padding-bottom: 60px;
+      }
+
+      .mobile-ads-banner {
+        display: none;
+      }
+
+      .calculator-card {
+        padding: 16px;
+      }
+
+      .field-label-row {
+        gap: 6px;
+      }
+
+      .currency-input-row {
+        gap: 8px;
+      }
+
+      .currency-input-row input {
+        width: auto;
+      }
+
+      .calculator-card input,
+      .calculator-card select,
+      .calculator-card button,
+      .currency-input-row input,
+      .radio-pill-group button {
+        max-width: 100%;
+      }
+
+      #results,
+      .affiliate-section {
+        overflow: hidden;
+      }
+
+      .floating-result-bar {
+        padding-bottom: env(safe-area-inset-bottom, 12px);
+      }
     }
-    .detail-toggle:hover { text-decoration: underline; }
-    .live-value { color: var(--navy); font-weight: 700; }
-    .warning-note { color: var(--orange); font-size: 14px; margin-top: 8px; }
-    .error-text { color: #d93025; font-size: 13px; margin-top: 8px; }
-    .calculate-button { width: 100%; height: 56px; border: none; background: var(--navy); color: #fff; border-radius: 16px; font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 700; cursor: pointer; transition: transform .15s ease, box-shadow .15s ease; display: inline-flex; align-items: center; justify-content: center; gap: 10px; }
-    #calculateButton { margin-top: 20px; }
-    #detailedInputs { padding-top: 16px; }
-    #detailedInputs.hidden { height: 0; overflow: hidden; margin: 0; padding: 0; }
-    .report-card .label-group input { margin-bottom: 9px; }
-    .report-card .calculate-button { margin-top: 9px; }
-    .calculate-button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(27,53,87,0.3); }
-    .calculate-button:disabled { opacity: .75; cursor: not-allowed; }
-    .button-spinner { display: inline-block; width: 20px; height: 20px; border: 3px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin .8s linear infinite; }
-    .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin .7s linear infinite; margin-right: 8px; vertical-align: middle; }
-    .important-input-card { background: #EBF5FB; border: 1.5px solid #1B3557; border-radius: 12px; padding: 20px; margin-bottom: 24px; grid-column: 1 / -1; }
-    .important-input-card-label { font-size: 11px; font-weight: 600; color: var(--navy); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
-    .important-input-card-content { display: grid; gap: 16px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    .detail-toggle:hover {
+      text-decoration: underline;
+    }
+
+    .live-value {
+      color: var(--navy);
+      font-weight: 700;
+    }
+
+    .warning-note {
+      color: var(--orange);
+      font-size: 14px;
+      margin-top: 8px;
+    }
+
+    .error-text {
+      color: #d93025;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+
+    .calculate-button {
+      width: 100%;
+      height: 56px;
+      border: none;
+      background: var(--navy);
+      color: #fff;
+      border-radius: 16px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .15s ease, box-shadow .15s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    #calculateButton {
+      margin-top: 20px;
+    }
+
+    #detailedInputs {
+      padding-top: 16px;
+    }
+
+    #detailedInputs.hidden {
+      height: 0;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    .report-card .label-group input {
+      margin-bottom: 9px;
+    }
+
+    .report-card .calculate-button {
+      margin-top: 9px;
+    }
+
+    .calculate-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(27, 53, 87, 0.3);
+    }
+
+    .calculate-button:disabled {
+      opacity: .75;
+      cursor: not-allowed;
+    }
+
+    .button-spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.4);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+    .important-input-card {
+      background: #EBF5FB;
+      border: 1.5px solid #1B3557;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+      grid-column: 1 / -1;
+    }
+
+    .important-input-card-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--navy);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .important-input-card-content {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     @media (max-width: 719px) {
-      .important-input-card-content { grid-template-columns: 1fr; }
+      .important-input-card-content {
+        grid-template-columns: 1fr;
+      }
     }
-    .market-snapshot-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 20px; display: inline-flex; gap: 24px; margin: 16px auto; max-width: 620px; box-shadow: 0 8px 20px rgba(0,0,0,0.04); }
-    .market-snapshot-card .market-data { display: flex; flex-direction: column; gap: 4px; }
-    .market-snapshot-card .market-label { color: #718096; font-size: 12px; text-transform: uppercase; letter-spacing: 0.02em; }
-    .market-snapshot-card .market-value { font-size: 16px; font-weight: 700; color: var(--text-dark); }
-    .market-snapshot-card .market-caption { color: #718096; font-size: 13px; }
-    .market-snapshot-card.hidden { display: none; }
-    .market-shimmer { display: inline-block; width: 44px; height: 16px; border-radius: 8px; background: linear-gradient(90deg, #edf2f7 25%, #e2e8f0 50%, #edf2f7 75%); background-size: 200% 100%; animation: shimmer 1.4s linear infinite; }
-    @keyframes shimmer { to { background-position: -200% 0; } }
-    .floating-result-bar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 999; background: #1B3557; color: #fff; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 -4px 12px rgba(0,0,0,0.15); gap: 12px; }
-    .floating-result-bar.hidden { display: none; }
-    .floating-result-left { font-size: 14px; font-weight: 700; }
-    .floating-result-actions { display: flex; align-items: center; gap: 10px; }
-    .floating-result-button { border: 1px solid #fff; background: transparent; color: #fff; border-radius: 999px; padding: 8px 14px; font-size: 14px; cursor: pointer; }
-    .floating-result-dismiss { border: none; background: transparent; color: #fff; font-size: 18px; cursor: pointer; line-height: 1; }
-    .desktop-detail-grid { display: grid; gap: 20px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .desktop-detail-grid .panel-financials { grid-column: 1 / -1; }
-    .mobile-detail-tabs { display: none; gap: 0; margin-bottom: 16px; border-bottom: 1px solid #e2e8f0; }
-    .mobile-detail-tabs button { flex: 1; border: none; background: transparent; color: #718096; padding: 10px; font-size: 14px; cursor: pointer; }
-    .mobile-detail-tabs button.active { color: var(--navy); border-bottom: 3px solid var(--navy); font-weight: 700; }
-    .detail-tab-panel { display: block; padding-top: 16px; }
+
+    .market-snapshot-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 10px 20px;
+      display: inline-flex;
+      gap: 24px;
+      margin: 16px auto;
+      max-width: 620px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+    }
+
+    .market-snapshot-card .market-data {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .market-snapshot-card .market-label {
+      color: #718096;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    .market-snapshot-card .market-value {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .market-snapshot-card .market-caption {
+      color: #718096;
+      font-size: 13px;
+    }
+
+    .market-snapshot-card.hidden {
+      display: none;
+    }
+
+    .market-shimmer {
+      display: inline-block;
+      width: 44px;
+      height: 16px;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #edf2f7 25%, #e2e8f0 50%, #edf2f7 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s linear infinite;
+    }
+
+    @keyframes shimmer {
+      to {
+        background-position: -200% 0;
+      }
+    }
+
+    .floating-result-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      background: #1B3557;
+      color: #fff;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+      gap: 12px;
+    }
+
+    .floating-result-bar.hidden {
+      display: none;
+    }
+
+    .floating-result-left {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .floating-result-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .floating-result-button {
+      border: 1px solid #fff;
+      background: transparent;
+      color: #fff;
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .floating-result-dismiss {
+      border: none;
+      background: transparent;
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .desktop-detail-grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .desktop-detail-grid .panel-financials {
+      grid-column: 1 / -1;
+    }
+
+    .mobile-detail-tabs {
+      display: none;
+      gap: 0;
+      margin-bottom: 16px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .mobile-detail-tabs button {
+      flex: 1;
+      border: none;
+      background: transparent;
+      color: #718096;
+      padding: 10px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .mobile-detail-tabs button.active {
+      color: var(--navy);
+      border-bottom: 3px solid var(--navy);
+      font-weight: 700;
+    }
+
+    .detail-tab-panel {
+      display: block;
+      padding-top: 16px;
+    }
+
     @media (max-width: 639px) {
-      .market-snapshot-card { width: calc(100% - 32px); }
-      .comparison-bar-section { display: block; }
-      .floating-result-bar { display: none !important; }
-      .detail-tab-panel { display: none; }
-      .detail-tab-panel.active { display: block; }
-      .desktop-detail-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
-      .mobile-detail-tabs { display: flex; }
+      .market-snapshot-card {
+        width: calc(100% - 32px);
+      }
+
+      .comparison-bar-section {
+        display: block;
+      }
+
+      .floating-result-bar {
+        display: none !important;
+      }
+
+      .detail-tab-panel {
+        display: none;
+      }
+
+      .detail-tab-panel.active {
+        display: block;
+      }
+
+      .desktop-detail-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .mobile-detail-tabs {
+        display: flex;
+      }
     }
-    .result-banner { border-radius: 12px; padding: 24px 24px 20px; margin-bottom: 24px; color: #fff; }
-    .result-banner.green { background: var(--green); }
-    .result-banner.orange { background: var(--orange); }
-    .result-banner.grey { background: #4a5568; }
-    .result-banner h2 { margin: 0 0 10px; font-size: 28px; font-family: 'Outfit', sans-serif; }
-    .result-banner p { margin: 6px 0; color: rgba(255,255,255,.9); font-size: 16px; }
-    .summary-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .summary-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
-    .summary-card h3 { margin: 0 0 12px; font-size: 16px; color: var(--text-mid); }
-    .summary-card strong { display: block; font-size: 24px; color: var(--navy); }
-    .break-even-box { background: #eaf3ff; border-radius: 12px; padding: 20px; color: var(--text-dark); margin: 20px 0; }
-    .break-even-box strong { display: block; margin-top: 10px; }
-    .breakdown-grid { grid-template-columns: 1fr 1fr; }
-    .breakdown-column { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
-    .breakdown-column h3 { margin-top: 0; font-size: 18px; color: var(--navy); }
-    .line-item { display: flex; justify-content: space-between; gap: 12px; margin: 12px 0; font-size: 15px; color: var(--text-mid); }
-    .line-item span:last-child { color: var(--text-dark); font-weight: 700; }
-    .line-item.green { color: var(--green); }
-    .line-item.orange { color: var(--orange); }
-    .chart-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
-    .chart-card canvas { width: 100%; max-width: 100%; height: 320px; display: block; }
-    .chart-title { margin: 0 0 16px; font-family: 'Outfit', sans-serif; font-size: 20px; color: var(--navy); }
-    .chart-legend { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px; }
-    .legend-item { display: flex; align-items: center; gap: 10px; color: var(--text-mid); font-size: 14px; }
-    .legend-swatch { width: 16px; height: 16px; border-radius: 4px; }
-    .methodology-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 20px; margin-top: 20px; }
-    .methodology-toggle { background: none; border: none; color: var(--navy); font-size: 15px; font-weight: 700; cursor: pointer; padding: 0; text-align: left; }
-    .methodology-details { margin-top: 14px; color: var(--text-mid); font-size: 14px; line-height: 1.6; }
-    .methodology-details ul { margin: 0 0 12px 18px; padding: 0; }
-    .methodology-details li { margin-bottom: 10px; }
-    .methodology-details p { margin: 0; }
-    .result-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
-    .result-action { flex: 1 1 220px; background: #fff; color: var(--navy); border: 1px solid var(--border); border-radius: 14px; padding: 14px; text-align: center; cursor: pointer; }
-    .affiliate-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 18px; }
-    .affiliate-card { background: #fff; border: 1px solid var(--border); border-radius: 18px; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
-    .affiliate-card h3 { margin: 0; font-size: 18px; color: var(--navy); }
-    .affiliate-card p { margin: 0; color: var(--text-mid); font-size: 14px; }
-    .affiliate-button { width: fit-content; border-color: var(--navy); color: var(--navy); }
-    .city-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .city-card { background: #fff; border: 1px solid var(--border); border-radius: 18px; padding: 18px; cursor: pointer; transition: border-color .2s ease, transform .2s ease; }
-    .city-card:hover { border-color: var(--navy); transform: translateY(-2px); }
-    .city-card h4 { margin: 0 0 10px; font-size: 16px; color: var(--navy); }
-    .city-card p { margin: 6px 0; color: var(--text-mid); font-size: 14px; }
-    .seo-section { background: var(--light-bg); padding: 48px 0; }
-    .seo-block { background: #fff; border: 1px solid var(--border); border-radius: 18px; padding: 24px; margin-bottom: 18px; }
-    .seo-block h3 { margin-top: 0; font-size: 18px; color: var(--navy); }
-    .seo-block p { margin: 14px 0 0; color: var(--text-mid); font-size: 15px; }
-    .faq-list { margin-top: 24px; }
-    .faq-item { background: #fff; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
-    .faq-question { display: flex; justify-content: space-between; align-items: center; padding: 18px 20px; cursor: pointer; font-weight: 700; color: var(--navy); }
-    .faq-answer { max-height: 0; overflow: hidden; transition: max-height .25s ease, padding .25s ease; padding: 0 20px; font-size: 15px; color: var(--text-mid); }
-    .faq-item.open .faq-answer { max-height: 320px; padding: 14px 20px 20px; }
-    .footer { background: var(--navy); color: #fff; }
-    .footer-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); color: #fff; }
-    .footer-column { padding: 18px 0; }
-    .footer-column p { margin: 8px 0 0; color: rgba(255,255,255,.75); font-size: 14px; line-height: 1.7; }
-    .toast-container { position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%); z-index: 3000; display: flex; flex-direction: column; align-items: center; gap: 10px; pointer-events: none; }
-    .toast { min-width: 260px; max-width: 92vw; padding: 14px 18px; border-radius: 999px; color: #fff; font-size: 14px; opacity: 0; transform: translateY(10px); transition: transform .2s ease, opacity .2s ease; pointer-events: auto; }
-    .toast.show { opacity: 1; transform: translateY(0); }
-    .toast.success { background: var(--green); }
-    .toast.info { background: var(--navy); }
-    .toast.error { background: #d93025; }
-    .about-section { background: #fff; width: 100%; padding: 48px 20px; }
-    .about-content { max-width: 640px; margin: 0 auto; }
-    .about-title { font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 700; color: var(--navy); margin: 0 0 18px; }
-    .about-text { font-family: 'DM Sans', sans-serif; font-size: 16px; color: var(--text-mid); line-height: 1.7; margin: 0 0 16px; }
-    .about-note { font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text-light); text-align: center; margin: 0; }
-    .about-note a { color: var(--navy); text-decoration: none; }
-    .about-note a:hover { text-decoration: underline; }
-    .toast.success { background: var(--green); }
-    .toast.info { background: var(--navy); }
-    .toast.error { background: #d93025; }
-    .hidden { display: none !important; }
-    .fade-in { animation: fadeIn .35s ease both; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .result-banner {
+      border-radius: 12px;
+      padding: 24px 24px 20px;
+      margin-bottom: 24px;
+      color: #fff;
+    }
+
+    .result-banner.green {
+      background: var(--green);
+    }
+
+    .result-banner.orange {
+      background: var(--orange);
+    }
+
+    .result-banner.grey {
+      background: #4a5568;
+    }
+
+    .result-banner h2 {
+      margin: 0 0 10px;
+      font-size: 28px;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .result-banner p {
+      margin: 6px 0;
+      color: rgba(255, 255, 255, .9);
+      font-size: 16px;
+    }
+
+    .summary-cards {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .summary-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .summary-card h3 {
+      margin: 0 0 12px;
+      font-size: 16px;
+      color: var(--text-mid);
+    }
+
+    .summary-card strong {
+      display: block;
+      font-size: 24px;
+      color: var(--navy);
+    }
+
+    .break-even-box {
+      background: #eaf3ff;
+      border-radius: 12px;
+      padding: 20px;
+      color: var(--text-dark);
+      margin: 20px 0;
+    }
+
+    .break-even-box strong {
+      display: block;
+      margin-top: 10px;
+    }
+
+    .breakdown-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .breakdown-column {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .breakdown-column h3 {
+      margin-top: 0;
+      font-size: 18px;
+      color: var(--navy);
+    }
+
+    .line-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 12px 0;
+      font-size: 15px;
+      color: var(--text-mid);
+    }
+
+    .line-item span:last-child {
+      color: var(--text-dark);
+      font-weight: 700;
+    }
+
+    .line-item.green {
+      color: var(--green);
+    }
+
+    .line-item.orange {
+      color: var(--orange);
+    }
+
+    .chart-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .chart-card canvas {
+      width: 100%;
+      max-width: 100%;
+      height: 320px;
+      display: block;
+    }
+
+    .chart-title {
+      margin: 0 0 16px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 20px;
+      color: var(--navy);
+    }
+
+    .chart-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-mid);
+      font-size: 14px;
+    }
+
+    .legend-swatch {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+    }
+
+    .methodology-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .methodology-toggle {
+      background: none;
+      border: none;
+      color: var(--navy);
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 0;
+      text-align: left;
+    }
+
+    .methodology-details {
+      margin-top: 14px;
+      color: var(--text-mid);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .methodology-details ul {
+      margin: 0 0 12px 18px;
+      padding: 0;
+    }
+
+    .methodology-details li {
+      margin-bottom: 10px;
+    }
+
+    .methodology-details p {
+      margin: 0;
+    }
+
+    .result-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .result-action {
+      flex: 1 1 220px;
+      background: #fff;
+      color: var(--navy);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .affiliate-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 18px;
+    }
+
+    .affiliate-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .affiliate-card h3 {
+      margin: 0;
+      font-size: 18px;
+      color: var(--navy);
+    }
+
+    .affiliate-card p {
+      margin: 0;
+      color: var(--text-mid);
+      font-size: 14px;
+    }
+
+    .affiliate-button {
+      width: fit-content;
+      border-color: var(--navy);
+      color: var(--navy);
+    }
+
+    .city-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .city-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      cursor: pointer;
+      transition: border-color .2s ease, transform .2s ease;
+    }
+
+    .city-card:hover {
+      border-color: var(--navy);
+      transform: translateY(-2px);
+    }
+
+    .city-card h4 {
+      margin: 0 0 10px;
+      font-size: 16px;
+      color: var(--navy);
+    }
+
+    .city-card p {
+      margin: 6px 0;
+      color: var(--text-mid);
+      font-size: 14px;
+    }
+
+    .seo-section {
+      background: var(--light-bg);
+      padding: 48px 0;
+    }
+
+    .seo-block {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 18px;
+    }
+
+    .seo-block h3 {
+      margin-top: 0;
+      font-size: 18px;
+      color: var(--navy);
+    }
+
+    .seo-block p {
+      margin: 14px 0 0;
+      color: var(--text-mid);
+      font-size: 15px;
+    }
+
+    .faq-list {
+      margin-top: 24px;
+    }
+
+    .faq-item {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 20px;
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .25s ease, padding .25s ease;
+      padding: 0 20px;
+      font-size: 15px;
+      color: var(--text-mid);
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 320px;
+      padding: 14px 20px 20px;
+    }
+
+    .footer {
+      background: var(--navy);
+      color: #fff;
+    }
+
+    .footer-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      color: #fff;
+    }
+
+    .footer-column {
+      padding: 18px 0;
+    }
+
+    .footer-column p {
+      margin: 8px 0 0;
+      color: rgba(255, 255, 255, .75);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .toast-container {
+      position: fixed;
+      left: 50%;
+      bottom: 28px;
+      transform: translateX(-50%);
+      z-index: 3000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      pointer-events: none;
+    }
+
+    .toast {
+      min-width: 260px;
+      max-width: 92vw;
+      padding: 14px 18px;
+      border-radius: 999px;
+      color: #fff;
+      font-size: 14px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: transform .2s ease, opacity .2s ease;
+      pointer-events: auto;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .toast.success {
+      background: var(--green);
+    }
+
+    .toast.info {
+      background: var(--navy);
+    }
+
+    .toast.error {
+      background: #d93025;
+    }
+
+    .about-section {
+      background: #fff;
+      width: 100%;
+      padding: 48px 20px;
+    }
+
+    .about-content {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .about-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 0 0 18px;
+    }
+
+    .about-text {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      color: var(--text-mid);
+      line-height: 1.7;
+      margin: 0 0 16px;
+    }
+
+    .about-note {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--text-light);
+      text-align: center;
+      margin: 0;
+    }
+
+    .about-note a {
+      color: var(--navy);
+      text-decoration: none;
+    }
+
+    .about-note a:hover {
+      text-decoration: underline;
+    }
+
+    .toast.success {
+      background: var(--green);
+    }
+
+    .toast.info {
+      background: var(--navy);
+    }
+
+    .toast.error {
+      background: #d93025;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .fade-in {
+      animation: fadeIn .35s ease both;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     @media (min-width: 720px) {
-      .hero-grid { grid-template-columns: 1.2fr 1fr; }
-      .how-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-      .input-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .detail-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .breakdown-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .affiliate-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-      .city-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-      .footer-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .hero-grid {
+        grid-template-columns: 1.2fr 1fr;
+      }
+
+      .how-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .input-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .detail-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .breakdown-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .affiliate-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .city-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
     }
+
     @media (max-width: 719px) {
-      .section { padding: 32px 0; }
-      .input-grid, .detail-grid, .summary-cards, .breakdown-grid, .city-grid, .affiliate-grid { grid-template-columns: 1fr; }
-      .hero h1 { font-size: 32px; }
-      .section-title { font-size: 22px; }
-      .faq-question { font-size: 15px; }
-      .footer-grid { grid-template-columns: 1fr; }
+      .section {
+        padding: 32px 0;
+      }
+
+      .input-grid,
+      .detail-grid,
+      .summary-cards,
+      .breakdown-grid,
+      .city-grid,
+      .affiliate-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .section-title {
+        font-size: 22px;
+      }
+
+      .faq-question {
+        font-size: 15px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
     }
+
     @media (max-width: 640px) {
-      * { max-width: 100%; box-sizing: border-box; }
-      body { overflow-x: hidden; }
-      .hero-copy > p { word-wrap: break-word; overflow-wrap: break-word; white-space: normal; padding: 0 16px; width: 100%; box-sizing: border-box; }
-      .badge-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 16px; margin-top: 16px; margin-bottom: 8px; }
-      .badge { white-space: normal; line-height: 1.3; text-align: center; font-size: 12px; padding: 8px 10px; }
-      .hero-note { font-size: 12px; padding: 0 16px; text-align: center; word-wrap: break-word; white-space: normal; }
-      .market-snapshot-card { display: flex; justify-content: center; margin: 16px auto; width: fit-content; max-width: calc(100% - 32px); }
-      .hero .cta { width: calc(100% - 32px); margin: 16px auto; display: flex; justify-content: center; text-align: center; }
-      .input-grid { grid-template-columns: 1fr; }
-      .detail-grid { grid-template-columns: 1fr; }
-      .radio-pill-group { justify-content: flex-start; }
+      * {
+        max-width: 100%;
+        box-sizing: border-box;
+      }
+
+      body {
+        overflow-x: hidden;
+      }
+
+      .hero-copy>p {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        white-space: normal;
+        padding: 0 16px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .badge-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        padding: 0 16px;
+        margin-top: 16px;
+        margin-bottom: 8px;
+      }
+
+      .badge {
+        white-space: normal;
+        line-height: 1.3;
+        text-align: center;
+        font-size: 12px;
+        padding: 8px 10px;
+      }
+
+      .hero-note {
+        font-size: 12px;
+        padding: 0 16px;
+        text-align: center;
+        word-wrap: break-word;
+        white-space: normal;
+      }
+
+      .market-snapshot-card {
+        display: flex;
+        justify-content: center;
+        margin: 16px auto;
+        width: fit-content;
+        max-width: calc(100% - 32px);
+      }
+
+      .hero .cta {
+        width: calc(100% - 32px);
+        margin: 16px auto;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .input-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .radio-pill-group {
+        justify-content: flex-start;
+      }
     }
+
     @media (max-width: 375px) {
-      .field-label-row { gap: 6px; }
-      .field-label-row label { font-size: 15px; }
-      .currency-input-row { gap: 8px; }
-      .currency-input-row input { width: 100%; }
-      .currency-input-row .currency-prefix { flex-shrink: 0; }
-      .range-row { flex-wrap: wrap; gap: 8px; }
-      .range-row .slider-value-badge { width: 100%; max-width: 100%; }
-      .calculator-card { padding: 16px; }
-      .calculator-card input, .calculator-card select, .calculator-card button, .currency-input-row input, .radio-pill-group button { max-width: 100%; }
+      .field-label-row {
+        gap: 6px;
+      }
+
+      .field-label-row label {
+        font-size: 15px;
+      }
+
+      .currency-input-row {
+        gap: 8px;
+      }
+
+      .currency-input-row input {
+        width: 100%;
+      }
+
+      .currency-input-row .currency-prefix {
+        flex-shrink: 0;
+      }
+
+      .range-row {
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .range-row .slider-value-badge {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .calculator-card {
+        padding: 16px;
+      }
+
+      .calculator-card input,
+      .calculator-card select,
+      .calculator-card button,
+      .currency-input-row input,
+      .radio-pill-group button {
+        max-width: 100%;
+      }
     }
+
     @media print {
-      body { background: #fff; color: #000; font-size: 12pt; line-height: 1.6; }
-      *, *::before, *::after { box-shadow: none !important; text-shadow: none !important; }
-      .sticky-nav, .hero, .how-it-works, .calculator-card, .city-section, .report-email-section, .affiliate-section, .adsense-placeholder, .adsense-slot, .seo-section, .faq-section, .about-section, .footer, .toast-container { display: none !important; }
-      .result-banner, .summary-card, .break-even-box, .breakdown-column, .chart-card { border-color: #000; }
-      .result-banner { background: #eee; color: #000; -webkit-print-color-adjust: exact; color-adjust: exact; }
-      .summary-card, .break-even-box { page-break-inside: avoid; }
-      .result-action { display: none; }
-      .chart-card canvas { background: #fff !important; width: 100% !important; max-width: 100% !important; }
-      #results::before { content: 'Rent or Buy Calculator — shouldrentorbuy.com\A' attr(data-print-date); display: block; white-space: pre-wrap; font-size: 16pt; font-weight: 700; color: var(--navy); margin-bottom: 14px; }
-      #results::after { content: 'Generated by shouldrentorbuy.com — For information only. Not financial advice.'; display: block; font-size: 10pt; color: #64748B; margin-top: 24px; }
-      @page { margin: 20mm; }
+      body {
+        background: #fff;
+        color: #000;
+        font-size: 12pt;
+        line-height: 1.6;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-shadow: none !important;
+        text-shadow: none !important;
+      }
+
+      .sticky-nav,
+      .hero,
+      .how-it-works,
+      .calculator-card,
+      .city-section,
+      .report-email-section,
+      .affiliate-section,
+      .adsense-placeholder,
+      .adsense-slot,
+      .seo-section,
+      .faq-section,
+      .about-section,
+      .footer,
+      .toast-container {
+        display: none !important;
+      }
+
+      .result-banner,
+      .summary-card,
+      .break-even-box,
+      .breakdown-column,
+      .chart-card {
+        border-color: #000;
+      }
+
+      .result-banner {
+        background: #eee;
+        color: #000;
+        -webkit-print-color-adjust: exact;
+        color-adjust: exact;
+      }
+
+      .summary-card,
+      .break-even-box {
+        page-break-inside: avoid;
+      }
+
+      .result-action {
+        display: none;
+      }
+
+      .chart-card canvas {
+        background: #fff !important;
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+
+      #results::before {
+        content: 'Rent or Buy Calculator — shouldrentorbuy.com\A' attr(data-print-date);
+        display: block;
+        white-space: pre-wrap;
+        font-size: 16pt;
+        font-weight: 700;
+        color: var(--navy);
+        margin-bottom: 14px;
+      }
+
+      #results::after {
+        content: 'Generated by shouldrentorbuy.com — For information only. Not financial advice.';
+        display: block;
+        font-size: 10pt;
+        color: #64748B;
+        margin-top: 24px;
+      }
+
+      @page {
+        margin: 20mm;
+      }
     }
   </style>
   <script type="application/ld+json">
@@ -433,6 +1874,7 @@
   }
   </script>
 </head>
+
 <body>
   <nav class="sticky-nav">
     <div class="container nav-inner">
@@ -446,7 +1888,8 @@
       <div class="hero-grid">
         <div class="hero-copy">
           <h1>Should You Rent or Buy a Home in 2026?</h1>
-          <p>Answer 5 simple questions and see which option costs less over your planned stay — with a plain-English explanation, no signup, and no finance jargon.</p>
+          <p>Answer 5 simple questions and see which option costs less over your planned stay — with a plain-English
+            explanation, no signup, and no finance jargon.</p>
           <div class="badge-list">
             <span class="badge">Fast 60-second flow</span>
             <span class="badge">Built for US homebuyers</span>
@@ -467,7 +1910,8 @@
             </div>
           </div>
           <div class="hero-actions">
-            <button class="cta" type="button" data-scroll="#calculator">See My Result <span class="cta-arrow">→</span></button>
+            <button class="cta" type="button" data-scroll="#calculator">See My Result <span
+                class="cta-arrow">→</span></button>
           </div>
         </div>
       </div>
@@ -475,7 +1919,8 @@
 
     <section class="section how-it-works">
       <div class="section-title">The Rent vs Buy Calculator Built for Real Decisions</div>
-      <div class="section-subtitle">We compare the true cost of renting and buying using your numbers, then explain the result in plain English so you can make a faster, more confident decision.</div>
+      <div class="section-subtitle">We compare the true cost of renting and buying using your numbers, then explain the
+        result in plain English so you can make a faster, more confident decision.</div>
       <div class="how-grid">
         <div class="step-card">
           <div class="step-pill">1</div>
@@ -512,22 +1957,26 @@
                   <label for="homePrice">How much does the home cost?</label>
                   <span class="tooltip-wrapper">
                     <span class="tooltip-icon">?</span>
-                    <span class="tooltip-box">Use the listing price from Zillow or Realtor.com. If you are still browsing, use the median price for your target neighbourhood.</span>
+                    <span class="tooltip-box">Use the listing price from Zillow or Realtor.com. If you are still
+                      browsing, use the median price for your target neighbourhood.</span>
                   </span>
                 </div>
                 <div class="currency-input-row">
                   <span class="currency-prefix">$</span>
-                  <input id="homePrice" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="e.g. 310000" value="450000" aria-describedby="homePriceFormat">
+                  <input id="homePrice" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="e.g. 310000"
+                    value="450000" aria-describedby="homePriceFormat">
                 </div>
                 <div class="help-note" id="homePriceFormat">Check Zillow or Realtor.com for the listing price</div>
-                <div class="formatted-value-row"><span class="formatted-value" id="homePriceDisplay">$450,000</span></div>
+                <div class="formatted-value-row"><span class="formatted-value" id="homePriceDisplay">$450,000</span>
+                </div>
               </div>
               <div class="label-group">
                 <div class="field-label-row">
                   <label for="monthlyRent">What is your monthly rent right now?</label>
                   <span class="tooltip-wrapper">
                     <span class="tooltip-icon">?</span>
-                    <span class="tooltip-box">Enter what you currently pay in rent. If you do not rent yet, search Zillow or Apartments.com for similar homes in your target area.</span>
+                    <span class="tooltip-box">Enter what you currently pay in rent. If you do not rent yet, search
+                      Zillow or Apartments.com for similar homes in your target area.</span>
                   </span>
                 </div>
                 <input id="monthlyRent" type="number" min="0" step="50" value="2000">
@@ -540,7 +1989,9 @@
               <label>How long do you plan to stay in this home?</label>
               <span class="tooltip-wrapper">
                 <span class="tooltip-icon">?</span>
-                <span class="tooltip-box">This is the most important input. Buying only makes financial sense if you stay long enough to recover the upfront costs. Be honest — most people overestimate how long they will stay.</span>
+                <span class="tooltip-box">This is the most important input. Buying only makes financial sense if you
+                  stay long enough to recover the upfront costs. Be honest — most people overestimate how long they will
+                  stay.</span>
               </span>
             </div>
             <div class="radio-pill-group" id="timeHorizonPills"></div>
@@ -551,23 +2002,28 @@
               <label for="downPayment">How much have you saved for a down payment?</label>
               <span class="tooltip-wrapper">
                 <span class="tooltip-icon">?</span>
-                <span class="tooltip-box">This is the cash you pay upfront. Most US loans require 3% to 20% of the home price. A higher down payment means lower monthly payments and no PMI fee.</span>
+                <span class="tooltip-box">This is the cash you pay upfront. Most US loans require 3% to 20% of the home
+                  price. A higher down payment means lower monthly payments and no PMI fee.</span>
               </span>
             </div>
             <div class="currency-input-row">
               <span class="currency-prefix">$</span>
-              <input id="downPayment" type="text" inputmode="numeric" pattern="[0-9]*" min="0" placeholder="e.g. 310000" value="90000">
+              <input id="downPayment" type="text" inputmode="numeric" pattern="[0-9]*" min="0" placeholder="e.g. 310000"
+                value="90000">
             </div>
             <div class="help-note">Most US loans need at least 3% to 20% of the home price</div>
-            <div class="formatted-value-row"><span class="formatted-value" id="downPaymentFormatted">$90,000</span><span class="percentage-note" id="downPaymentPct">That is 20% of the home price</span></div>
-            <div class="warning-note hidden" id="pmiWarning">You will likely pay PMI (an extra monthly fee) until you reach 20% equity.</div>
+            <div class="formatted-value-row"><span class="formatted-value" id="downPaymentFormatted">$90,000</span><span
+                class="percentage-note" id="downPaymentPct">That is 20% of the home price</span></div>
+            <div class="warning-note hidden" id="pmiWarning">You will likely pay PMI (an extra monthly fee) until you
+              reach 20% equity.</div>
           </div>
           <div class="label-group">
             <div class="field-label-row">
               <label for="interestRate">What is the current mortgage interest rate?</label>
               <span class="tooltip-wrapper">
                 <span class="tooltip-icon">?</span>
-                <span class="tooltip-box">Google 'current 30-year fixed mortgage rate' for today's rate. As of 2026 rates are around 6.5 to 7%. Your actual rate depends on your credit score.</span>
+                <span class="tooltip-box">Google 'current 30-year fixed mortgage rate' for today's rate. As of 2026
+                  rates are around 6.5 to 7%. Your actual rate depends on your credit score.</span>
               </span>
               <span class="live-rate-badge hidden" id="liveRateBadge"></span>
             </div>
@@ -577,8 +2033,10 @@
               </div>
               <div class="slider-value-badge" id="interestRateBadge">6.8%</div>
             </div>
-            <div class="help-note">Google 'current 30-year mortgage rate' for your personalised rate — we update this weekly.</div>
-            <button type="button" class="detail-toggle" id="detailToggle">Want a more accurate result? Add more details ▼</button>
+            <div class="help-note">Google 'current 30-year mortgage rate' for your personalised rate — we update this
+              weekly.</div>
+            <button type="button" class="detail-toggle" id="detailToggle">Want a more accurate result? Add more details
+              ▼</button>
           </div>
         </div>
         <div id="detailedInputs" class="hidden">
@@ -597,7 +2055,9 @@
                     <label for="rentIncrease">Rent growth (%)</label>
                     <span class="tooltip-wrapper">
                       <span class="tooltip-icon">?</span>
-                      <span class="tooltip-box">US rents have increased an average of 3% per year historically. In high-demand cities like New York or San Francisco it can be 5% or more. Check your lease for any caps.</span>
+                      <span class="tooltip-box">US rents have increased an average of 3% per year historically. In
+                        high-demand cities like New York or San Francisco it can be 5% or more. Check your lease for any
+                        caps.</span>
                     </span>
                   </div>
                   <div class="range-row">
@@ -613,7 +2073,8 @@
                     <label for="securityDeposit">Security deposit ($)</label>
                     <span class="tooltip-wrapper">
                       <span class="tooltip-icon">?</span>
-                      <span class="tooltip-box">Most landlords require 1 to 2 months of rent upfront as a deposit. You get it back when you leave if you leave the property in good condition.</span>
+                      <span class="tooltip-box">Most landlords require 1 to 2 months of rent upfront as a deposit. You
+                        get it back when you leave if you leave the property in good condition.</span>
                     </span>
                   </div>
                   <input id="securityDeposit" type="number" min="0" step="50" value="2000">
@@ -624,7 +2085,8 @@
                     <label for="rentersInsurance">Renter's insurance ($/month)</label>
                     <span class="tooltip-wrapper">
                       <span class="tooltip-icon">?</span>
-                      <span class="tooltip-box">Renter's insurance protects your belongings if there is a theft, fire, or flood. It typically costs $15 to $30 per month and some landlords require it.</span>
+                      <span class="tooltip-box">Renter's insurance protects your belongings if there is a theft, fire,
+                        or flood. It typically costs $15 to $30 per month and some landlords require it.</span>
                     </span>
                   </div>
                   <input id="rentersInsurance" type="number" min="0" step="1" value="20">
@@ -635,7 +2097,9 @@
                     <label for="brokerFee">Tenant moving cost ($)</label>
                     <span class="tooltip-wrapper">
                       <span class="tooltip-icon">?</span>
-                      <span class="tooltip-box">In some cities like New York, landlords charge a one-time broker fee to help you find the rental. This is typically one month of rent. In most other US cities this is zero.</span>
+                      <span class="tooltip-box">In some cities like New York, landlords charge a one-time broker fee to
+                        help you find the rental. This is typically one month of rent. In most other US cities this is
+                        zero.</span>
                     </span>
                   </div>
                   <input id="brokerFee" type="number" min="0" step="50" value="0">
@@ -651,7 +2115,9 @@
                     <label>Loan term</label>
                     <span class="tooltip-wrapper">
                       <span class="tooltip-icon">?</span>
-                      <span class="tooltip-box">A 30-year loan has lower monthly payments but you pay more interest overall. A 15-year loan costs more per month but you pay it off faster and pay far less interest. Most US buyers choose 30 years.</span>
+                      <span class="tooltip-box">A 30-year loan has lower monthly payments but you pay more interest
+                        overall. A 15-year loan costs more per month but you pay it off faster and pay far less
+                        interest. Most US buyers choose 30 years.</span>
                     </span>
                   </div>
                   <div class="radio-pill-group" id="loanTermPills"></div>
@@ -661,7 +2127,8 @@
                     <label for="propertyTax">Property tax rate (%)</label>
                     <span class="tooltip-wrapper">
                       <span class="tooltip-icon">?</span>
-                      <span class="tooltip-box tooltip-left">Find this at your county assessor website — search your county name followed by property tax rate</span>
+                      <span class="tooltip-box tooltip-left">Find this at your county assessor website — search your
+                        county name followed by property tax rate</span>
                     </span>
                   </div>
                   <input id="propertyTax" type="number" min="0" step="0.01" value="1.2">
@@ -672,7 +2139,9 @@
                     <label for="homeInsurance">Annual home insurance ($/year)</label>
                     <span class="tooltip-wrapper">
                       <span class="tooltip-icon">?</span>
-                      <span class="tooltip-box tooltip-left">Homeowner's insurance is required by your lender. The US average is about $1,800 per year but it varies by location, home value, and coverage level. Get a quote from your insurer for accuracy.</span>
+                      <span class="tooltip-box tooltip-left">Homeowner's insurance is required by your lender. The US
+                        average is about $1,800 per year but it varies by location, home value, and coverage level. Get
+                        a quote from your insurer for accuracy.</span>
                     </span>
                   </div>
                   <input id="homeInsurance" type="number" min="0" step="50" value="1800">
@@ -683,7 +2152,9 @@
                     <label for="hoaFee">HOA fee ($/month)</label>
                     <span class="tooltip-wrapper">
                       <span class="tooltip-icon">?</span>
-                      <span class="tooltip-box tooltip-left">Homeowners Association fees are charged in some neighbourhoods and condo buildings to cover shared maintenance costs like landscaping, pools, and building upkeep. Check the listing — many homes have no HOA.</span>
+                      <span class="tooltip-box tooltip-left">Homeowners Association fees are charged in some
+                        neighbourhoods and condo buildings to cover shared maintenance costs like landscaping, pools,
+                        and building upkeep. Check the listing — many homes have no HOA.</span>
                     </span>
                   </div>
                   <input id="hoaFee" type="number" min="0" step="10" value="0">
@@ -694,7 +2165,9 @@
                     <label for="maintenancePct">Annual maintenance (% of home value)</label>
                     <span class="tooltip-wrapper">
                       <span class="tooltip-icon">?</span>
-                      <span class="tooltip-box tooltip-left">Budget 1 to 2% of the home value each year for repairs and upkeep — things like a new roof, heating system, appliances, and general wear. New homes tend to be lower, older homes higher.</span>
+                      <span class="tooltip-box tooltip-left">Budget 1 to 2% of the home value each year for repairs and
+                        upkeep — things like a new roof, heating system, appliances, and general wear. New homes tend to
+                        be lower, older homes higher.</span>
                     </span>
                   </div>
                   <input id="maintenancePct" type="number" min="0" max="10" step="0.1" value="1">
@@ -705,7 +2178,8 @@
                     <label for="appreciationRate">Home price growth (%)</label>
                     <span class="tooltip-wrapper">
                       <span class="tooltip-icon">?</span>
-                      <span class="tooltip-box tooltip-left">US homes have averaged 3-4% per year since 1990. Use 2-3% for a conservative estimate.</span>
+                      <span class="tooltip-box tooltip-left">US homes have averaged 3-4% per year since 1990. Use 2-3%
+                        for a conservative estimate.</span>
                     </span>
                   </div>
                   <div class="range-row">
@@ -721,7 +2195,9 @@
                     <label for="movingCosts">Moving costs ($)</label>
                     <span class="tooltip-wrapper">
                       <span class="tooltip-icon">?</span>
-                      <span class="tooltip-box tooltip-left">The actual cost of physically moving your belongings into the new home. A local move typically costs $1,000 to $3,000. A long-distance move can cost $5,000 or more.</span>
+                      <span class="tooltip-box tooltip-left">The actual cost of physically moving your belongings into
+                        the new home. A local move typically costs $1,000 to $3,000. A long-distance move can cost
+                        $5,000 or more.</span>
                     </span>
                   </div>
                   <input id="movingCosts" type="number" min="0" step="50" value="3000">
@@ -732,7 +2208,8 @@
                     <label for="sellingCosts">Selling costs (%)</label>
                     <span class="tooltip-wrapper">
                       <span class="tooltip-icon">?</span>
-                      <span class="tooltip-box tooltip-left">When you sell, agent commissions and fees typically cost 5-6% of the sale price — this is often forgotten.</span>
+                      <span class="tooltip-box tooltip-left">When you sell, agent commissions and fees typically cost
+                        5-6% of the sale price — this is often forgotten.</span>
                     </span>
                   </div>
                   <input id="sellingCosts" type="number" min="0" max="20" step="0.1" value="6">
@@ -743,7 +2220,9 @@
                     <label for="closingCosts">Upfront buying costs (%)</label>
                     <span class="tooltip-wrapper">
                       <span class="tooltip-icon">?</span>
-                      <span class="tooltip-box tooltip-left">One-time fees when you buy the home — lender fees, title insurance, appraisal, and other charges. These typically add up to 2 to 3% of the home price and are paid on the day of purchase.</span>
+                      <span class="tooltip-box tooltip-left">One-time fees when you buy the home — lender fees, title
+                        insurance, appraisal, and other charges. These typically add up to 2 to 3% of the home price and
+                        are paid on the day of purchase.</span>
                     </span>
                   </div>
                   <input id="closingCosts" type="number" min="0" max="10" step="0.1" value="3">
@@ -760,11 +2239,15 @@
                       <label for="investmentReturn">Investment return (%)</label>
                       <span class="tooltip-wrapper">
                         <span class="tooltip-icon">?</span>
-                        <span class="tooltip-box">If you rent instead of buy, your down payment stays invested. This is the annual return you could earn on that money in the stock market. The US S&P 500 has averaged about 7% per year after inflation historically. This is called opportunity cost.</span>
+                        <span class="tooltip-box">If you rent instead of buy, your down payment stays invested. This is
+                          the annual return you could earn on that money in the stock market. The US S&P 500 has
+                          averaged about 7% per year after inflation historically. This is called opportunity
+                          cost.</span>
                       </span>
                     </div>
                     <input id="investmentReturn" type="number" min="0" max="20" step="0.1" value="7">
-                    <div class="help-note">What your down payment could earn invested in the stock market instead. US market has averaged about 7% per year.</div>
+                    <div class="help-note">What your down payment could earn invested in the stock market instead. US
+                      market has averaged about 7% per year.</div>
                   </div>
                 </div>
                 <div class="breakdown-column">
@@ -773,7 +2256,10 @@
                       <label>Tax filing status</label>
                       <span class="tooltip-wrapper">
                         <span class="tooltip-icon">?</span>
-                        <span class="tooltip-box">Married couples filing jointly have a higher standard deduction ($32,200 in 2026) which means the mortgage interest deduction is less likely to benefit you. Single filers have a $16,100 standard deduction and are more likely to benefit from itemising.</span>
+                        <span class="tooltip-box">Married couples filing jointly have a higher standard deduction
+                          ($32,200 in 2026) which means the mortgage interest deduction is less likely to benefit you.
+                          Single filers have a $16,100 standard deduction and are more likely to benefit from
+                          itemising.</span>
                       </span>
                     </div>
                     <div class="radio-pill-group" id="taxStatusPills"></div>
@@ -791,16 +2277,25 @@
     <section class="section" id="results" aria-live="polite"></section>
 
     <section class="section hidden report-email-section" id="reportSection">
-      <div class="report-card" style="max-width:640px;margin:32px auto;padding:32px;background:#EBF5FB;border-radius:12px;">
-        <div class="section-title" style="font-size:20px;font-family:'Outfit',sans-serif;font-weight:700;color:var(--navy);">Get a free PDF summary of your results</div>
-        <div class="section-subtitle" style="font-family:'DM Sans',sans-serif;font-size:15px;color:var(--text-mid);margin-top:8px;">Enter your email to unlock your free PDF report. Your report will download instantly.</div>
+      <div class="report-card"
+        style="max-width:640px;margin:32px auto;padding:32px;background:#EBF5FB;border-radius:12px;">
+        <div class="section-title"
+          style="font-size:20px;font-family:'Outfit',sans-serif;font-weight:700;color:var(--navy);">Get a free PDF
+          summary of your results</div>
+        <div class="section-subtitle"
+          style="font-family:'DM Sans',sans-serif;font-size:15px;color:var(--text-mid);margin-top:8px;">Enter your email
+          to unlock your free PDF report. Your report will download instantly.</div>
         <div class="label-group" style="border:none;padding:0;margin-top:24px;">
           <label for="reportEmail">Email address</label>
-          <input id="reportEmail" type="email" placeholder="your@email.com" autocomplete="email" style="border:1.5px solid #CBD5E0;border-radius:10px;padding:14px 16px;font-size:16px;" />
+          <input id="reportEmail" type="email" placeholder="your@email.com" autocomplete="email"
+            style="border:1.5px solid #CBD5E0;border-radius:10px;padding:14px 16px;font-size:16px;" />
           <div class="error-text hidden" id="reportEmailError"></div>
-          <button class="calculate-button" type="button" id="downloadReportButton" style="margin-top:9px;">Download My Report</button>
-          <div class="report-note-row" style="margin-top:12px; color:#718096; font-size:12px;">No spam. We never share your email.</div>
-          <div class="report-actions-row" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:14px;">
+          <button class="calculate-button" type="button" id="downloadReportButton" style="margin-top:9px;">Download My
+            Report</button>
+          <div class="report-note-row" style="margin-top:12px; color:#718096; font-size:12px;">No spam. We never share
+            your email.</div>
+          <div class="report-actions-row"
+            style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:14px;">
             <button type="button" class="text-action-link" id="copyResultsLink">Copy shareable link</button>
             <span class="link-separator" style="color:#718096;">·</span>
             <button type="button" class="text-action-link" id="printWithoutEmail">Print without email</button>
@@ -815,7 +2310,8 @@
       <div class="floating-result-left" id="floatingResultText">Your result is ready.</div>
       <div class="floating-result-actions">
         <button type="button" class="floating-result-button" id="floatingResultView">View result</button>
-        <button type="button" class="floating-result-dismiss" id="floatingResultDismiss" aria-label="Dismiss result summary">×</button>
+        <button type="button" class="floating-result-dismiss" id="floatingResultDismiss"
+          aria-label="Dismiss result summary">×</button>
       </div>
     </div>
     <div id="adsense-slot-1" class="adsense-slot" style="display: none;">
@@ -826,71 +2322,99 @@
       <div class="section-title" id="affiliateHeading">Affiliate recommendations</div>
       <div class="section-subtitle" id="affiliateSubtitle">Helpful partner options based on your result.</div>
       <div class="affiliate-grid" id="affiliateCards"></div>
-      <p style="margin-top:12px;font-size:13px;color:var(--text-light);">Advertising disclosure: Rent or Buy Calculator may receive compensation when you click partner links above. This does not influence our calculator results in any way.</p>
+      <p style="margin-top:12px;font-size:13px;color:var(--text-light);">Advertising disclosure: Rent or Buy Calculator
+        may receive compensation when you click partner links above. This does not influence our calculator results in
+        any way.</p>
     </section>
 
     <div class="mobile-ads-banner hidden" id="mobileAdsBanner" style="display: none;">
       <!-- Paste your AdSense code here when ready. -->
-      <div class="mobile-ads-content" style="display: none !important;">Advertisement — replace this block with your AdSense code</div>
+      <div class="mobile-ads-content" style="display: none !important;">Advertisement — replace this block with your
+        AdSense code</div>
       <button type="button" class="mobile-ads-close" id="mobileAdsClose" aria-label="Close advertisement">×</button>
     </div>
 
     <section class="section city-section">
       <div class="section-title">Rent or Buy Calculator for Your US City</div>
-      <div class="section-subtitle">Choose a city preset to load local home prices and property tax assumptions, then fine-tune from there. Every US market is different — your result should reflect that.</div>
+      <div class="section-subtitle">Choose a city preset to load local home prices and property tax assumptions, then
+        fine-tune from there. Every US market is different — your result should reflect that.</div>
       <div class="city-grid" id="cityGrid"></div>
     </section>
 
     <section class="section seo-section">
       <div class="section-title">How the Rent vs Buy Calculator Works</div>
-      <p>We compare the true cost of renting versus buying over your planned stay using transparent financial formulas. Here is exactly what goes into the result:</p>
+      <p>We compare the true cost of renting versus buying over your planned stay using transparent financial formulas.
+        Here is exactly what goes into the result:</p>
       <ul>
-        <li>We add up total costs over your planned stay — mortgage payments, taxes, maintenance, and selling costs for buying; rent growth and opportunity cost of your down payment for renting.</li>
-        <li>We include all the costs most calculators miss — PMI, insurance, HOA, moving costs, closing costs, and the investment return your down payment could earn in the stock market instead.</li>
-        <li>We show why one option wins, not just which one does — with a plain-English explanation of the main driver behind your specific result.</li>
+        <li>We add up total costs over your planned stay — mortgage payments, taxes, maintenance, and selling costs for
+          buying; rent growth and opportunity cost of your down payment for renting.</li>
+        <li>We include all the costs most calculators miss — PMI, insurance, HOA, moving costs, closing costs, and the
+          investment return your down payment could earn in the stock market instead.</li>
+        <li>We show why one option wins, not just which one does — with a plain-English explanation of the main driver
+          behind your specific result.</li>
       </ul>
       <div class="seo-block">
         <h3>The old rule — buying is always better — is no longer true</h3>
-        <p>In 2026, high interest rates mean homeownership is not always cheaper than renting. Many US cities still have lower monthly costs for renters, so the best choice depends on your exact numbers instead of an old rule of thumb.</p>
+        <p>In 2026, high interest rates mean homeownership is not always cheaper than renting. Many US cities still have
+          lower monthly costs for renters, so the best choice depends on your exact numbers instead of an old rule of
+          thumb.</p>
       </div>
       <div class="seo-block">
         <h3>How long you plan to stay matters more than anything else</h3>
-        <p>Buying has upfront costs that take time to recover. If you move after 3 or 5 years, you may leave before those fees and closing costs are paid back. That is why the break-even year is the most important part of the comparison.</p>
+        <p>Buying has upfront costs that take time to recover. If you move after 3 or 5 years, you may leave before
+          those fees and closing costs are paid back. That is why the break-even year is the most important part of the
+          comparison.</p>
       </div>
       <div class="seo-block">
         <h3>Your down payment has a hidden cost most people forget</h3>
-        <p>Money in a down payment is not free — it could grow in the stock market instead. This calculator counts that opportunity cost so your rent versus buy comparison is fair and easier to understand.</p>
+        <p>Money in a down payment is not free — it could grow in the stock market instead. This calculator counts that
+          opportunity cost so your rent versus buy comparison is fair and easier to understand.</p>
       </div>
     </section>
 
     <section class="section seo-section">
-  <div class="section-title">Key Assumptions in Our 2026 Rent vs Buy Calculator</div>
-  <p style="color:var(--text-mid);font-size:15px;max-width:720px;margin-bottom:24px;">Every rent vs buy calculator makes assumptions. Ours are transparent — here is exactly what we use and why, so you can trust the result or adjust the inputs to match your situation.</p>
-  <div class="seo-block">
-    <h3>Mortgage rate: live from Freddie Mac via FRED</h3>
-    <p>We pull the current 30-year fixed mortgage rate automatically each week from the Federal Reserve Economic Data (FRED) API. As of 2026 this sits around 6.5–7%. Your actual rate depends on your credit score and lender — use the slider to adjust it to your personal rate quote.</p>
-  </div>
-  <div class="seo-block">
-    <h3>Home price appreciation: 3.5% per year default</h3>
-    <p>US homes have appreciated an average of 3–4% per year since 1990. We default to 3.5% as a conservative middle estimate. High-demand cities like Austin or Miami have seen higher; slower markets like Cleveland or Detroit have seen lower. Adjust this in the detailed settings to match your target city.</p>
-  </div>
-  <div class="seo-block">
-    <h3>Opportunity cost of the down payment: 7% investment return</h3>
-    <p>This is the assumption most calculators skip entirely. Money used as a down payment cannot be invested elsewhere. We assume a 7% annual return — the historical S&P 500 average after inflation — on the down payment if you rented instead of bought. This makes the rent vs buy comparison genuinely fair rather than artificially favouring buying.</p>
-  </div>
-  <div class="seo-block">
-    <h3>Rent growth: 3% per year default</h3>
-    <p>US rents have increased an average of 3% per year historically. In high-demand cities this can reach 5–6%. We apply this growth rate year over year to your starting rent figure, so the comparison accounts for the fact that renting gets more expensive over time too.</p>
-  </div>
-  <div class="seo-block">
-    <h3>Selling costs: 6% of home value</h3>
-    <p>When you sell a home, real estate agent commissions and closing fees typically total 5–6% of the sale price. This is one of the most commonly forgotten costs in rent vs buy comparisons. We include it by default because ignoring it makes buying look artificially cheaper than it is.</p>
-  </div>
-  <div class="seo-block">
-    <h3>Property tax: 1.2% national average default</h3>
-    <p>The US national average effective property tax rate is approximately 1.1–1.2% of home value per year. This varies significantly by state — New Jersey averages over 2%, Hawaii under 0.3%. Use your county assessor website to find your exact rate and enter it in the detailed settings for a more accurate result.</p>
-  </div>
-</section>
+      <div class="section-title">Key Assumptions in Our 2026 Rent vs Buy Calculator</div>
+      <p style="color:var(--text-mid);font-size:15px;max-width:720px;margin-bottom:24px;">Every rent vs buy calculator
+        makes assumptions. Ours are transparent — here is exactly what we use and why, so you can trust the result or
+        adjust the inputs to match your situation.</p>
+      <div class="seo-block">
+        <h3>Mortgage rate: live from Freddie Mac via FRED</h3>
+        <p>We pull the current 30-year fixed mortgage rate automatically each week from the Federal Reserve Economic
+          Data (FRED) API. As of 2026 this sits around 6.5–7%. Your actual rate depends on your credit score and lender
+          — use the slider to adjust it to your personal rate quote.</p>
+      </div>
+      <div class="seo-block">
+        <h3>Home price appreciation: 3.5% per year default</h3>
+        <p>US homes have appreciated an average of 3–4% per year since 1990. We default to 3.5% as a conservative middle
+          estimate. High-demand cities like Austin or Miami have seen higher; slower markets like Cleveland or Detroit
+          have seen lower. Adjust this in the detailed settings to match your target city.</p>
+      </div>
+      <div class="seo-block">
+        <h3>Opportunity cost of the down payment: 7% investment return</h3>
+        <p>This is the assumption most calculators skip entirely. Money used as a down payment cannot be invested
+          elsewhere. We assume a 7% annual return — the historical S&P 500 average after inflation — on the down payment
+          if you rented instead of bought. This makes the rent vs buy comparison genuinely fair rather than artificially
+          favouring buying.</p>
+      </div>
+      <div class="seo-block">
+        <h3>Rent growth: 3% per year default</h3>
+        <p>US rents have increased an average of 3% per year historically. In high-demand cities this can reach 5–6%. We
+          apply this growth rate year over year to your starting rent figure, so the comparison accounts for the fact
+          that renting gets more expensive over time too.</p>
+      </div>
+      <div class="seo-block">
+        <h3>Selling costs: 6% of home value</h3>
+        <p>When you sell a home, real estate agent commissions and closing fees typically total 5–6% of the sale price.
+          This is one of the most commonly forgotten costs in rent vs buy comparisons. We include it by default because
+          ignoring it makes buying look artificially cheaper than it is.</p>
+      </div>
+      <div class="seo-block">
+        <h3>Property tax: 1.2% national average default</h3>
+        <p>The US national average effective property tax rate is approximately 1.1–1.2% of home value per year. This
+          varies significantly by state — New Jersey averages over 2%, Hawaii under 0.3%. Use your county assessor
+          website to find your exact rate and enter it in the detailed settings for a more accurate result.</p>
+      </div>
+    </section>
 
     <section class="section faq-section">
       <div class="section-title">Simple Answers to Common Questions</div>
@@ -902,10 +2426,17 @@
   <section class="about-section">
     <div class="about-content">
       <h2 class="about-title">Why we built this</h2>
-      <p class="about-text">Deciding whether to rent or buy is one of the biggest financial choices most people ever make. Yet most calculators out there are either too complicated — burying you in spreadsheet-style inputs — or too simple, giving you a number with no explanation of what it actually means.</p>
-      <p class="about-text">We built this tool to give you a clear, plain-English answer in under 60 seconds. No jargon, no hidden assumptions, no sales pitch. Just honest math based on your actual numbers, with a straight answer about whether renting or buying makes more financial sense for your situation.</p>
+      <p class="about-text">Deciding whether to rent or buy is one of the biggest financial choices most people ever
+        make. Yet most calculators out there are either too complicated — burying you in spreadsheet-style inputs — or
+        too simple, giving you a number with no explanation of what it actually means.</p>
+      <p class="about-text">We built this tool to give you a clear, plain-English answer in under 60 seconds. No jargon,
+        no hidden assumptions, no sales pitch. Just honest math based on your actual numbers, with a straight answer
+        about whether renting or buying makes more financial sense for your situation.</p>
       <div class="about-divider" style="border-top:1px solid #e2e8f0;margin:24px 0;"></div>
-      <p class="about-note">Questions or feedback? Email <a href="mailto:shouldrentorbuy@gmail.com">shouldrentorbuy@gmail.com</a> · <a href="about.html">About us</a> · <a href="contact.html">Contact</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Service</a></p>
+      <p class="about-note">Questions or feedback? Email <a
+          href="mailto:shouldrentorbuy@gmail.com">shouldrentorbuy@gmail.com</a> · <a href="about.html">About us</a> · <a
+          href="contact.html">Contact</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of
+          Service</a></p>
     </div>
   </section>
 
@@ -921,8 +2452,14 @@
       <div class="footer-column">
         <div>shouldrentorbuy.com</div>
         <p>Should I Rent or Buy? Find out free.</p>
-        <p style="margin-top:12px;font-size:12px;color:rgba(255,255,255,.75);">Mortgage rate data sourced from Freddie Mac via FRED. Property tax and home price data based on publicly available US market averages. For informational purposes only — not financial advice.</p>
-        <p style="margin-top:12px;font-size:14px;color:rgba(255,255,255,.85);">© 2026 shouldrentorbuy.com · <a href="about.html" style="color:#fff;text-decoration:underline;">About</a> · <a href="contact.html" style="color:#fff;text-decoration:underline;">Contact</a> · <a href="terms.html" style="color:#fff;text-decoration:underline;">Terms</a> · <a href="privacy.html" style="color:#fff;text-decoration:underline;">Privacy</a></p>
+        <p style="margin-top:12px;font-size:12px;color:rgba(255,255,255,.75);">Mortgage rate data sourced from Freddie
+          Mac via FRED. Property tax and home price data based on publicly available US market averages. For
+          informational purposes only — not financial advice.</p>
+        <p style="margin-top:12px;font-size:14px;color:rgba(255,255,255,.85);">© 2026 shouldrentorbuy.com · <a
+            href="about.html" style="color:#fff;text-decoration:underline;">About</a> · <a href="contact.html"
+            style="color:#fff;text-decoration:underline;">Contact</a> · <a href="terms.html"
+            style="color:#fff;text-decoration:underline;">Terms</a> · <a href="privacy.html"
+            style="color:#fff;text-decoration:underline;">Privacy</a></p>
       </div>
     </div>
   </footer>
@@ -1124,12 +2661,33 @@
         if (select.value) fillCity(select.value);
       });
     }
-    function createCityGrid() {
+    /*function createCityGrid() {
       Object.entries(CITY_DATA).forEach(([city, data]) => {
         const card = document.createElement('div');
         card.className = 'city-card';
         card.innerHTML = `<h4>${city}</h4><p>Median home price: ${formatCurrency(data.homePrice)}</p><p>Typical rent: ${formatCurrency(data.monthlyRent)}/mo</p><p>Property tax: ${data.propertyTax}%</p>`;
         card.addEventListener('click', () => fillCity(city));
+        ELEMENTS.cityGrid.appendChild(card);
+      });
+    }*/
+    const CITY_PAGES = {
+      "New York": "rent-vs-buy-nyc.html",
+      "Seattle": "rent-vs-buy-seattle.html",
+      "San Diego": "rent-vs-buy-bay-area.html"
+    };
+
+    function createCityGrid() {
+      Object.entries(CITY_DATA).forEach(([city, data]) => {
+        const card = document.createElement('div');
+        card.className = 'city-card';
+        const pageLink = CITY_PAGES[city]
+          ? `<a href="${CITY_PAGES[city]}" style="display:inline-block;margin-top:10px;font-size:13px;font-weight:600;color:var(--navy);">Full ${city} analysis →</a>`
+          : '';
+        card.innerHTML = `<h4>${city}</h4><p>Median home price: ${formatCurrency(data.homePrice)}</p><p>Typical rent: ${formatCurrency(data.monthlyRent)}/mo</p><p>Property tax: ${data.propertyTax}%</p>${pageLink}`;
+        card.addEventListener('click', (e) => {
+          if (e.target.tagName === 'A') return;
+          fillCity(city);
+        });
         ELEMENTS.cityGrid.appendChild(card);
       });
     }
@@ -1485,7 +3043,7 @@
         amountText = `You could save around ${formatCurrency(diff)} over ${data.timeHorizon} years by renting`;
       } else {
         reason = 'The difference is small, so either option is close and your personal preference matters most.';
-        amountText = `The difference is about ${formatCurrency(diff)} over ${data.timeHorizon} years`; 
+        amountText = `The difference is about ${formatCurrency(diff)} over ${data.timeHorizon} years`;
       }
       const monthsSaved = Math.round(diff / (data.monthlyRent || 1));
       return {
@@ -1518,7 +3076,7 @@
       const emoji = result.verdict === 'buy' ? '🏠' : result.verdict === 'rent' ? '🗝️' : '⚖️';
       const verdictHead = result.verdict === 'buy' ? 'Buying looks like the smarter choice for you'
         : result.verdict === 'rent' ? 'Renting looks like the smarter choice for you'
-        : 'It is too close to call — the difference is small';
+          : 'It is too close to call — the difference is small';
       const savingsDirection = result.verdict === 'buy' ? 'buying' : 'renting';
       const breakEvenText = result.breakeven ? `At these numbers, buying breaks even after ${result.breakeven} years.` : 'Buying does not break even within 25 years — renting is almost certainly the better choice.';
       const breakEvenDetail = result.breakeven ? (result.data.timeHorizon >= result.breakeven
@@ -1754,10 +3312,10 @@
               titleFont: { size: 13, family: 'DM Sans', weight: '600' },
               bodyFont: { size: 13, family: 'DM Sans' },
               callbacks: {
-                title: function(items) {
+                title: function (items) {
                   return items[0].label;
                 },
-                label: function(item) {
+                label: function (item) {
                   const value = item.raw.toLocaleString('en-US', {
                     style: 'currency',
                     currency: 'USD',
@@ -1765,7 +3323,7 @@
                   });
                   return ' ' + item.dataset.label + ': ' + value;
                 },
-                afterBody: function(items) {
+                afterBody: function (items) {
                   if (!items || items.length < 2) return '';
                   const rentVal = items[0].raw;
                   const buyVal = items[1].raw;
@@ -1791,7 +3349,7 @@
                 font: { size: 12, family: 'DM Sans' },
                 color: '#718096',
                 maxTicksLimit: 6,
-                callback: function(val, index) {
+                callback: function (val, index) {
                   const year = index + 1;
                   if ([1, 5, 10, 15, 20].includes(year)) return 'Year ' + year;
                   return '';
@@ -1810,7 +3368,7 @@
                 font: { size: 12, family: 'DM Sans' },
                 color: '#718096',
                 maxTicksLimit: 6,
-                callback: function(value) {
+                callback: function (value) {
                   if (value >= 1000000) return '$' + (value / 1000000).toFixed(1) + 'M';
                   if (value >= 1000) return '$' + (value / 1000).toFixed(0) + 'K';
                   return '$' + value;
@@ -1826,7 +3384,7 @@
         },
         plugins: [{
           id: 'customAnnotations',
-          afterDraw: function(chart) {
+          afterDraw: function (chart) {
             drawAnnotations(chart);
           }
         }]
@@ -1853,7 +3411,7 @@
       const text = 'I used the Rent or Buy Calculator and found my result. Check your numbers too!';
       const url = window.location.href;
       if (navigator.share) {
-        navigator.share({ title: 'Rent or Buy Calculator', text, url }).catch(() => {});
+        navigator.share({ title: 'Rent or Buy Calculator', text, url }).catch(() => { });
       } else if (navigator.clipboard) {
         navigator.clipboard.writeText(`${text} ${url}`).then(() => showToast('Link copied to clipboard', 'success')).catch(() => showToast('Unable to copy link', 'error'));
       } else {
@@ -1902,7 +3460,7 @@
     async function loadAffiliateCards(resultType, userInputs) {
       try {
         let allCards = [];
-        
+
         // Query main result type cards
         const { data: mainCards, error: mainError } = await supabaseClient
           .from('affiliate_links')
@@ -1910,13 +3468,13 @@
           .eq('result_type', resultType)
           .eq('is_active', true)
           .order('display_order', { ascending: true });
-        
+
         if (mainError) {
           console.warn(`Failed to load main affiliate cards: ${mainError.message}`);
         } else if (mainCards) {
           allCards = allCards.concat(mainCards);
         }
-        
+
         // Query conditional cards based on user inputs
         let conditionalTypes = [];
         if (userInputs.yearsStaying < 4) {
@@ -1925,7 +3483,7 @@
         if (userInputs.downPaymentPct < 10) {
           conditionalTypes.push('low_down_payment');
         }
-        
+
         // Fetch each conditional type
         for (const condType of conditionalTypes) {
           const { data: condCards, error: condError } = await supabaseClient
@@ -1934,14 +3492,14 @@
             .eq('result_type', condType)
             .eq('is_active', true)
             .order('display_order', { ascending: true });
-          
+
           if (condError) {
             console.warn(`Failed to load ${condType} affiliate cards: ${condError.message}`);
           } else if (condCards) {
             allCards = allCards.concat(condCards);
           }
         }
-        
+
         return allCards;
       } catch (error) {
         console.error(`loadAffiliateCards failed: ${error.message || error}`);
@@ -1951,7 +3509,7 @@
     function renderAffiliateCards(cards, resultType) {
       const section = ELEMENTS.affiliateSection;
       ELEMENTS.affiliateCards.innerHTML = '';
-      
+
       // Set heading and subtitle based on result type
       if (resultType === 'buy') {
         ELEMENTS.affiliateHeading.textContent = 'Ready to make this happen?';
@@ -1964,18 +3522,18 @@
         section.classList.add('hidden');
         return;
       }
-      
+
       // If no cards returned, hide the section
       if (!cards || cards.length === 0) {
         section.classList.add('hidden');
         return;
       }
-      
+
       // Render cards
       cards.forEach(card => {
         const cardDiv = document.createElement('div');
         cardDiv.className = 'affiliate-card';
-        
+
         const link = document.createElement('a');
         link.href = card.affiliate_url;
         link.target = '_blank';
@@ -1983,19 +3541,19 @@
         link.className = 'affiliate-button';
         link.setAttribute('data-partner', card.partner_name);
         link.textContent = card.cta_text;
-        
+
         // Don't allow clicking if link is pending
         if (card.affiliate_url.startsWith('#PENDING_')) {
           link.addEventListener('click', (e) => e.preventDefault());
           link.style.opacity = '0.6';
           link.style.cursor = 'not-allowed';
         }
-        
+
         cardDiv.innerHTML = `<h3>${card.headline}</h3><p>${card.description}</p>`;
         cardDiv.appendChild(link);
         ELEMENTS.affiliateCards.appendChild(cardDiv);
       });
-      
+
       // Show the section
       section.classList.remove('hidden');
     }
@@ -2035,9 +3593,9 @@
     document.addEventListener('DOMContentLoaded', () => {
       createCitySelect();
       createCityGrid();
-      createRadioPills(ELEMENTS.timeHorizonPills, ['3 years','5 years','7 years','10 years','20 years'], '7 years');
-      createRadioPills(ELEMENTS.loanTermPills, ['15 years','30 years'], '30 years');
-      createRadioPills(ELEMENTS.taxStatusPills, ['Single','Married Filing Jointly'], 'Married Filing Jointly');
+      createRadioPills(ELEMENTS.timeHorizonPills, ['3 years', '5 years', '7 years', '10 years', '20 years'], '7 years');
+      createRadioPills(ELEMENTS.loanTermPills, ['15 years', '30 years'], '30 years');
+      createRadioPills(ELEMENTS.taxStatusPills, ['Single', 'Married Filing Jointly'], 'Married Filing Jointly');
       setupFaq();
       updateLiveFields();
       initMobileAdsBanner();
@@ -2131,4 +3689,5 @@
     });
   </script>
 </body>
+
 </html>

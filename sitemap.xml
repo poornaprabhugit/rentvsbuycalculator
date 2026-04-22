@@ -33,19 +33,19 @@
   <url>
     <loc>https://shouldrentorbuy.com/rent-vs-buy-nyc.html</loc>
     <lastmod>2026-04-22</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://shouldrentorbuy.com/rent-vs-buy-seattle.html</loc>
     <lastmod>2026-04-22</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://shouldrentorbuy.com/rent-vs-buy-bay-area.html</loc>
     <lastmod>2026-04-22</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>
